@@ -36,7 +36,7 @@ class DhcpUtils:
     def gen(self, cidr) -> str:
 
         #subnet 10.11.1.0 netmask 255.255.255.0 {
-        # range 10.11.1.1 10.11.1.100;
+        # range 10.11.1.1 10.11.1.100;   # Enable full range, not limited to 100
         # option routers 10.11.1.254;
         # option domain-name-servers 8.8.8.8 ;
         # }

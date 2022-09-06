@@ -23,7 +23,7 @@ from vlan.workflow      import Utils           as wu_mod
 
 import vlan.network.VlanUtils                  as vu
 
-# from vlan.workspace     import loader => A, B, C
+## FIX THIS: On-demand loading (import loader => A, B, C)
 from vlan.workflow     import A               as workspace_A
 
 ## -----------------------------------------------------------------------
@@ -37,98 +37,6 @@ def init(debug=None):
 #    with main_utils.pushd(new_dir=storage):
 #        for name in ['foo', 'bar', 'tans']:
 #            Path(name).touch()
-
-## -----------------------------------------------------------------------
-## -----------------------------------------------------------------------
-def workflow_A(argv):
-    """Perform actions based on command line args.
-
-    :param argv: Command line args processed by python getopts
-    :type  argv: dict
-
-    :return: Success/failure set by action performed
-    :rtype : bool
-    """
-
-    argv = main_getopt.get_argv()
-
-    if not argv['device']:
-        raise Exception('--device= is required')
-    device = argv['device'][0]
-
-    obj = vu.VlanUtils()
-    ans = True
-    for cidr in argv['cidr']:
-        for line in [
-                #
-                '#',
-
-                # ip link add link ${device} name ${device}.11 type vlan id 11
-                obj.fmt_add_vlan_by_id(device, cidr),
-
-                # ip link set ${device} up
-                obj.fmt_vlan_device_up(device, cidr),
-
-                # ip link add link ${device}.11 name ${device}.11.111 type vlan id 111
-                obj.fmt_add_vlan2_by_id(device, cidr),
-
-                # ip link set ${device}.11.111 up 
-                obj.fmt_vlan2_device_up(device, cidr),
-
-                # ip addr add 10.11.111.254/24 dev ${device}.11.111
-                obj.fmt_add_netmask_by_vlan2(device, cidr),
-        ]:
-            print(line)
-
-    return ans
-
-## -----------------------------------------------------------------------
-##
-## -----------------------------------------------------------------------
-def workflow_C(argv):
-
-    argv = main_getopt.get_argv()
-
-    if not argv['device']:
-        raise Exception('--device= is required')
-
-    obj = vu.VlanUtils()
-
-    ans = True
-    for cidr in argv['cidr']:
-        fields   = obj.cidr_split(cidr)
-        octets   = fields['octets']
-        device   = argv['device'][0]
-        vlan_id  = octets[1]
-        device_X = "%s.%s" % (device, vlan_id)
-
-        workflow.Utils
-
-        
-        for line in [
-                #
-                '#',
-# ip link add link ${device} name ${device}.54 type vlan id 54
-                obj.fmt_B(device, device_X, vlan_id),
-
-# ip link set ${device}.54 up
-                obj.link_up_B(device_X),
-        ]:
-            print(line)
-
-    return ans
-
-## -----------------------------------------------------------------------
-## DT-PON17.conf
-## -----------------------------------------------------------------------
-def workflow_B(argv):
-
-    cidr   = argv['cidr'][0]
-    device = argv['device'][0]
-
-    args = argv['comment'][0]
-    conf = workspace_A.A(device, cidr, args)
-    print(''.join(conf))
 
 ## -----------------------------------------------------------------------
 ## -----------------------------------------------------------------------
@@ -178,7 +86,7 @@ def digest_args():
                 'comment' : argv['comment'][idx]
             }
 
-        # conf = workflow_B(device, cidr, argv)
+        ## TODO: Dynamic objects based on --workflow XYZ
         obj = workspace_A.A(device, cidr, foo)
         conf = obj.gen_conf()
         print(''.join(conf))
@@ -198,15 +106,12 @@ def main(argv_raw):
     init()
     main_getopt.getopts(argv_raw)
     digest_args()
-
-    # cleanup
     sys.exit(0)
 
 ##----------------##
 ##---]  MAIN  [---##
 ##----------------##
 if __name__ == "__main__":
-
     main(sys.argv[1:]) # NOSONAR
 
 # [EOF]

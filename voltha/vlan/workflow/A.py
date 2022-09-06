@@ -19,7 +19,6 @@ from vlan.main   import utils as main_utils
 import vlan.network.VlanUtils                  as vu_mod
 from vlan.workflow      import Utils           as wu_mod
 
-
 class A:
     """This module is used to generate workspace A vlan configs."""
 
@@ -54,6 +53,9 @@ class A:
 
         :return: Workflow A config values.
         :rtype : list
+
+        Format args into a dictionary.
+        Invoke Template() to produce a string from template + values.
         """
 
         device = self.device

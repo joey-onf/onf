@@ -15,7 +15,6 @@ import pprint
 from pathlib     import Path
 from string      import Template
 
-
 class Utils:
     """A module for populating vlan templates."""
 

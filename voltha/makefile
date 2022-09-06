@@ -33,7 +33,7 @@ vlan-args += --cidr '10.44.444.254/24'
 #vlan-args += --subnet '33.333'
 #vlan-args += --subnet '44.444'
 
-vlan-args += --workflow DT
+# vlan-args += --workflow DT
 # vlan-args += --help
 try:
 	./vlan.py $(vlan-args)
