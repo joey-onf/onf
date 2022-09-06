@@ -7,7 +7,7 @@ vlan.py - A helper script used to generate vlan and dhcp configs for XGSPON test
   --device 'enp3s01d'           \
   --workflow  'A'               \
   --comment 'onu SCOM000d01c7a' \
-6  --cidr '10.11.111.254/24'
+  --cidr '10.11.111.254/24'
 
 # [ACT]: onu SCOM000d041c7a
 ip link add link enp3s01d name enp3s01d.11 type vlan id 11
