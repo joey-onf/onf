@@ -74,7 +74,7 @@ def digest_args():
         argv['device'] += [ argv['device'][-1] ]
 
     for idx in range(sizes['workflow'], max_size):
-        argv['workflow'] += [ argv['workflow'][-1] ]
+        argv['workflow'] += [ argv['workflowxs'][-1] ]
 
     for idx in range(0, len(argv['cidr'])):
 

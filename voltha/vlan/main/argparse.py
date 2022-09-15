@@ -22,7 +22,10 @@ from IPy import IP  # IPv4 & IPv6
 from iptools     import ipv4, ipv6
 import ipaddress
 
+from vlan.main   import argparse_todo
+
 from vlan.main   import utils as main_utils
+from vlan.main   import argparse_actions
 
 import vlan.network.VlanUtils as vu
 
@@ -218,6 +221,13 @@ def getopts(argv, debug=None) -> None:
                         default = False,
                         help    = 'Read-only mode, display switch actions',
                     )
+
+    argparse_todo.add_arg_todo(parser)
+#    parser.add_argument('--todo',
+#                        # action  = 'argparse_actions.opt_todo_action',
+ #                       action  = 'opt_todo_action',
+ #                       help    = 'Display future enhancement list.',
+ #                   )
 
     parser.add_argument('--verbose',
                         action  = 'store_true',

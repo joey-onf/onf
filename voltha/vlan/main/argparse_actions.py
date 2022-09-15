@@ -13,8 +13,10 @@ import pprint
 
 # import iptools      # IP Addresse
 from IPy import IP  # IPv4 & IPv6
+import datetime
 
-from vlan.main   import utils as main_utils
+from vlan.main   import utils      as main_utils
+from vlan.main   import todo       as main_todo
 
 # -----------------------------------------------------------------------
 # datetime: validation
@@ -40,7 +42,7 @@ def valid_netmask_2(netmask: str) -> str:
     # https://github.com/autocracy/python-ipy
     # IP().len() -vs- len(IP) for comparison
     # --------------------------------------- 
-   try:
+    try:
         IP(netmask)
 
     except ValueError:
@@ -169,6 +171,6 @@ class opt_todo_action(argparse.Action):
     """Display program enhancement list."""
 
     def __call__(self, parser, args, values, option_string=None):
-        todo.show_todo()
+        main_todo.show_todo()
 
 # [EOF]
