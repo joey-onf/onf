@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<listView _class="hudson.model.ListView">
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>build_berlin-community-pod-1-gpon-adtran_1T8GEM_DT_voltha_2.8</name>
+    <url>https://jenkins.opencord.org/job/build_berlin-community-pod-1-gpon-adtran_1T8GEM_DT_voltha_2.8/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>build_berlin-community-pod-1-gpon-adtran_1T8GEM_voltha_DT_2.8_test</name>
+    <url>https://jenkins.opencord.org/job/build_berlin-community-pod-1-gpon-adtran_1T8GEM_voltha_DT_2.8_test/</url>
+    <color>yellow</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>build_berlin-community-pod-1-gpon-fttb_1T4GEM-FTTB_DT_voltha_master</name>
+    <url>https://jenkins.opencord.org/job/build_berlin-community-pod-1-gpon-fttb_1T4GEM-FTTB_DT_voltha_master/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>build_berlin-community-pod-1-gpon-fttb_1T4GEM-FTTB_voltha_DT_master_test</name>
+    <url>https://jenkins.opencord.org/job/build_berlin-community-pod-1-gpon-fttb_1T4GEM-FTTB_voltha_DT_master_test/</url>
+    <color>yellow</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>build_berlin-community-pod-1-gpon_1T8GEM_DT_voltha_2.8</name>
+    <url>https://jenkins.opencord.org/job/build_berlin-community-pod-1-gpon_1T8GEM_DT_voltha_2.8/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>build_berlin-community-pod-1-gpon_1T8GEM_DT_voltha_master</name>
+    <url>https://jenkins.opencord.org/job/build_berlin-community-pod-1-gpon_1T8GEM_DT_voltha_master/</url>
+    <color>disabled</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>build_berlin-community-pod-1-gpon_1T8GEM_voltha_DT_2.8_test</name>
+    <url>https://jenkins.opencord.org/job/build_berlin-community-pod-1-gpon_1T8GEM_voltha_DT_2.8_test/</url>
+    <color>yellow_anime</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>build_berlin-community-pod-1-gpon_1T8GEM_voltha_DT_master_test</name>
+    <url>https://jenkins.opencord.org/job/build_berlin-community-pod-1-gpon_1T8GEM_voltha_DT_master_test/</url>
+    <color>disabled</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>build_berlin-community-pod-1-multi-olt_1T8GEM_DT_voltha_2.8</name>
+    <url>https://jenkins.opencord.org/job/build_berlin-community-pod-1-multi-olt_1T8GEM_DT_voltha_2.8/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>build_berlin-community-pod-1-multi-olt_1T8GEM_DT_voltha_master</name>
+    <url>https://jenkins.opencord.org/job/build_berlin-community-pod-1-multi-olt_1T8GEM_DT_voltha_master/</url>
+    <color>disabled</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>build_berlin-community-pod-1-multi-olt_1T8GEM_voltha_DT_2.8_test</name>
+    <url>https://jenkins.opencord.org/job/build_berlin-community-pod-1-multi-olt_1T8GEM_voltha_DT_2.8_test/</url>
+    <color>yellow</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>build_berlin-community-pod-1-multi-olt_1T8GEM_voltha_DT_master_test</name>
+    <url>https://jenkins.opencord.org/job/build_berlin-community-pod-1-multi-olt_1T8GEM_voltha_DT_master_test/</url>
+    <color>disabled</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>build_berlin-community-pod-2-gpon-zyxel_1T8GEM_DT_voltha_master</name>
+    <url>https://jenkins.opencord.org/job/build_berlin-community-pod-2-gpon-zyxel_1T8GEM_DT_voltha_master/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>build_berlin-community-pod-2-gpon-zyxel_1T8GEM_voltha_DT_master_test</name>
+    <url>https://jenkins.opencord.org/job/build_berlin-community-pod-2-gpon-zyxel_1T8GEM_voltha_DT_master_test/</url>
+    <color>yellow_anime</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>build_berlin-community-pod-2-xgspon-zyxel_1T8GEM_DT_voltha_master</name>
+    <url>https://jenkins.opencord.org/job/build_berlin-community-pod-2-xgspon-zyxel_1T8GEM_DT_voltha_master/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>build_berlin-community-pod-2-xgspon-zyxel_1T8GEM_voltha_DT_master_test</name>
+    <url>https://jenkins.opencord.org/job/build_berlin-community-pod-2-xgspon-zyxel_1T8GEM_voltha_DT_master_test/</url>
+    <color>yellow</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>verify_berlin-community-pod-1-gpon-adtran_Default_DT_voltha_master_dmi</name>
+    <url>https://jenkins.opencord.org/job/verify_berlin-community-pod-1-gpon-adtran_Default_DT_voltha_master_dmi/</url>
+    <color>blue</color>
+  </job>
+  <name>Community-PODs</name>
+  <url>https://jenkins.opencord.org/view/Community-PODs/</url>
+</listView>

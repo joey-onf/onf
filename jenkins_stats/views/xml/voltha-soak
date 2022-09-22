@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<listView _class="hudson.model.ListView">
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>build_onf-soak-pod_1T8GEM_DT_soak_Func_voltha_2.8_manual_test</name>
+    <url>https://jenkins.opencord.org/job/build_onf-soak-pod_1T8GEM_DT_soak_Func_voltha_2.8_manual_test/</url>
+    <color>disabled</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>build_onf-soak-pod_1T8GEM_DT_soak_Func_voltha_master_manual_test</name>
+    <url>https://jenkins.opencord.org/job/build_onf-soak-pod_1T8GEM_DT_soak_Func_voltha_master_manual_test/</url>
+    <color>yellow</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>build_onf-soak-pod_1T8GEM_DT_voltha_2.8_manual</name>
+    <url>https://jenkins.opencord.org/job/build_onf-soak-pod_1T8GEM_DT_voltha_2.8_manual/</url>
+    <color>disabled</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>build_onf-soak-pod_1T8GEM_DT_voltha_master_manual</name>
+    <url>https://jenkins.opencord.org/job/build_onf-soak-pod_1T8GEM_DT_voltha_master_manual/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>build_onf-soak-pod_1T8GEM_voltha_DT_soak_DP_2.8_test</name>
+    <url>https://jenkins.opencord.org/job/build_onf-soak-pod_1T8GEM_voltha_DT_soak_DP_2.8_test/</url>
+    <color>disabled</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>build_onf-soak-pod_1T8GEM_voltha_DT_soak_DP_master_test</name>
+    <url>https://jenkins.opencord.org/job/build_onf-soak-pod_1T8GEM_voltha_DT_soak_DP_master_test/</url>
+    <color>yellow</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>build_onf-soak-pod_1T8GEM_voltha_DT_soak_Fail_2.8_test</name>
+    <url>https://jenkins.opencord.org/job/build_onf-soak-pod_1T8GEM_voltha_DT_soak_Fail_2.8_test/</url>
+    <color>disabled</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>build_onf-soak-pod_1T8GEM_voltha_DT_soak_Fail_master_test</name>
+    <url>https://jenkins.opencord.org/job/build_onf-soak-pod_1T8GEM_voltha_DT_soak_Fail_master_test/</url>
+    <color>yellow</color>
+  </job>
+  <name>voltha-soak</name>
+  <url>https://jenkins.opencord.org/view/voltha-soak/</url>
+</listView>

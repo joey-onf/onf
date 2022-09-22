@@ -1,0 +1,160 @@
+<?xml version="1.0"?>
+<listView _class="hudson.model.ListView">
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_bbsim_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_bbsim_licensed/</url>
+    <color>red</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>verify_bbsim_sanity-test</name>
+    <url>https://jenkins.opencord.org/job/verify_bbsim_sanity-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_bbsim_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_bbsim_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_ofagent-go_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_ofagent-go_licensed/</url>
+    <color>red</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>verify_ofagent-go_sanity-test</name>
+    <url>https://jenkins.opencord.org/job/verify_ofagent-go_sanity-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_ofagent-go_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_ofagent-go_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_voltctl_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_voltctl_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>verify_voltctl_sanity-test</name>
+    <url>https://jenkins.opencord.org/job/verify_voltctl_sanity-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_voltctl_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_voltctl_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_voltha-docs_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-docs_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_voltha-docs_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-docs_unit-test/</url>
+    <color>red</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_voltha-go_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-go_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>verify_voltha-go_sanity-test</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-go_sanity-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_voltha-go_unit-test-lint</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-go_unit-test-lint/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_voltha-go_unit-test-tests</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-go_unit-test-tests/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_voltha-helm-charts_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-helm-charts_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>verify_voltha-helm-charts_sanity-test</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-helm-charts_sanity-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_voltha-lib-go_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-lib-go_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_voltha-lib-go_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-lib-go_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_voltha-onos_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-onos_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>verify_voltha-onos_sanity-test</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-onos_sanity-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_voltha-openolt-adapter_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-openolt-adapter_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>verify_voltha-openolt-adapter_sanity-test</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-openolt-adapter_sanity-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_voltha-openolt-adapter_unit-test-lint</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-openolt-adapter_unit-test-lint/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_voltha-openolt-adapter_unit-test-tests</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-openolt-adapter_unit-test-tests/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_voltha-openonu-adapter-go_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-openonu-adapter-go_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_voltha-protos_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-protos_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_voltha-protos_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-protos_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_voltha-system-tests_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-system-tests_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>verify_voltha-system-tests_sanity-test</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-system-tests_sanity-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_voltha-system-tests_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-system-tests_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <name>VOLTHA 2.x verify</name>
+  <url>https://jenkins.opencord.org/view/VOLTHA%202.x%20verify/</url>
+</listView>

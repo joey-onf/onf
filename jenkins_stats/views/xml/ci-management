@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<listView _class="hudson.model.ListView">
+  <description>Jobs for managing CI infrastructure with Jenkins Job Builder. &lt;br /&gt;
+
+See &lt;a href="https://guide.opencord.org/developer/getting_the_code.html#testing-and-qa-repositories"&gt;Testing and QA Repositories&lt;/a&gt; from the OpenCORD docs to get started.</description>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>ci-management-ami-packer-merge-ubuntu-18.04-basebuild_1804</name>
+    <url>https://jenkins.opencord.org/job/ci-management-ami-packer-merge-ubuntu-18.04-basebuild_1804/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>ci-management-ami-packer-verify</name>
+    <url>https://jenkins.opencord.org/job/ci-management-ami-packer-verify/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>ci-management-ami-packer-verify-build-ubuntu-18.04-basebuild_1804</name>
+    <url>https://jenkins.opencord.org/job/ci-management-ami-packer-verify-build-ubuntu-18.04-basebuild_1804/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>ci-management-gerrit-branch-lock</name>
+    <url>https://jenkins.opencord.org/job/ci-management-gerrit-branch-lock/</url>
+    <color>notbuilt</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>ci-management-jenkins-cfg-merge</name>
+    <url>https://jenkins.opencord.org/job/ci-management-jenkins-cfg-merge/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>ci-management-jenkins-cfg-verify</name>
+    <url>https://jenkins.opencord.org/job/ci-management-jenkins-cfg-verify/</url>
+    <color>notbuilt</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>ci-management-jenkins-sandbox-cleanup</name>
+    <url>https://jenkins.opencord.org/job/ci-management-jenkins-sandbox-cleanup/</url>
+    <color>red</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>ci-management-jjb-deploy-job</name>
+    <url>https://jenkins.opencord.org/job/ci-management-jjb-deploy-job/</url>
+    <color>notbuilt</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>ci-management-jjb-merge</name>
+    <url>https://jenkins.opencord.org/job/ci-management-jjb-merge/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>ci-management-jjb-verify</name>
+    <url>https://jenkins.opencord.org/job/ci-management-jjb-verify/</url>
+    <color>blue</color>
+  </job>
+  <name>ci-management</name>
+  <url>https://jenkins.opencord.org/view/ci-management/</url>
+</listView>
