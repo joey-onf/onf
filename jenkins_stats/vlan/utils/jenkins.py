@@ -100,7 +100,10 @@ class JobDirUtils:
         wanted = ['disabled']
         rec = self.parseXML(config_xml, wanted)
 
-        ans = 'DISABLED' if self.to_bool(rec['disabled']) else 'ENABLED'
+        ans = 'DISABLED' \
+            if 'disabled' in rec \
+               and self.to_bool(rec['disabled']) \
+               else 'ENABLED'
         return ans
 
     ## -----------------------------------------------------------------------

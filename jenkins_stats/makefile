@@ -21,8 +21,8 @@ jargs += $(addprefix --jenkins-dir$(space),$(job-dir))
 jargs += --no-show
 
 # 4 jobs when enabled
-# jargs += --view voltha-soak
-# jargs += --view voltha-scale-measurements
+jargs += --view voltha-soak
+jargs += --view voltha-scale-measurements
 
 # 1 job when enabled
 # jargs += --job-name bbsim_scale_test
@@ -59,6 +59,15 @@ spreadsheet:
 test-args += -m unittest
 check test:
 	$(PYTHON) $(test-args) discover -v
+
+## -----------------------------------------------------------------------
+## -----------------------------------------------------------------------
+venv := $(HOME)/.venv/3.6.8
+install:
+	python3 -m $(venv)	
+	source $(venv)/bin/activate && pip install IPy
+	source $(venv)/bin/activate && pip install iptools
+	source $(venv)/bin/activate && pip install openpyx
 
 ## -----------------------------------------------------------------------
 ## -----------------------------------------------------------------------
