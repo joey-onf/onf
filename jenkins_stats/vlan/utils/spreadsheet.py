@@ -13,16 +13,20 @@ from pathlib import PurePath, Path
 
 from openpyxl import Workbook
 
-from openpyxl.cell import Cell
+from openpyxl.cell      import Cell
+from openpyxl.utils     import FORMULAE
 from openpyxl.worksheet.hyperlink import Hyperlink, HyperlinkList
 
 # from openpyxl.worksheet.cell_range import CellRange
 
-from openpyxl.styles import Alignment
-from openpyxl.styles import Color, PatternFill, Font, Border
-from openpyxl.styles import colors
+from openpyxl.styles    import Alignment
+from openpyxl.styles    import Color, PatternFill, Font, Border
+from openpyxl.styles    import colors
 
-from openpyxl.styles import Font
+from openpyxl.styles    import Font
+
+from vlan.main          import argparse        as main_getopt
+
 
 ## -----------------------------------------------------------------------
 ## -----------------------------------------------------------------------
@@ -216,16 +220,49 @@ def do_formulas(sheet, row):
 
 ## -----------------------------------------------------------------------
 ## -----------------------------------------------------------------------
+def grey_grid(data):
+    """ . """
+
+    color = '#ecececec'
+    grey_background = PatternFill(fgColor="ecececec")
+    diff_style = DifferentialStyle(fill=grey_background)
+    rule = Rule(type="expression", dxf=diff_style)
+    rule.formula = ["$H1<3"]
+    sheet.conditional_formatting.add("A1:O100", rule)
+    
+## -----------------------------------------------------------------------
+## -----------------------------------------------------------------------
+def summary_page(wb):
+
+    argv = main_getopt.get_argv()
+    align = get_aligns()
+
+    ws = wb.create_sheet('index')
+    ws.column_dimensions['A'].width = 4
+    ws.column_dimensions['B'].width = 70
+
+    # ws = wb.get_sheet_by_name('V0')
+    for idx, view in enumerate(argv['view_name']):
+
+        vx = 'V%s' % (idx)
+
+        cell = ws.cell(row=4+idx, column=1)
+        cell.value = vx
+        cell.alignment = align['center']
+
+        cell = ws.cell(row=4+idx, column=2)
+        cell.value = view
+        cell.hyperlink = '#%s!A1' % vx
+
+## -----------------------------------------------------------------------
+## -----------------------------------------------------------------------
 def gen_spreadsheet(data):
     """ . """
 
     workbook = Workbook()
     # sheet = workbook.active
 
-    
-
-# =COUNTIF(range,value)
-
+    summary_page(workbook)
 
     row = 2
 
@@ -240,13 +277,25 @@ def gen_spreadsheet(data):
         do_header(ws)
         # do_body_format(ws)
 
+        totals = 0
+
         AFUS = ['SUCCESS', 'FAILURE', 'UNSTABLE', 'ABORTED']
-        for col,state in enumerate(AFUS, start=64):
+#        for col,state in enumerate(AFUS, start=64):
+        for col,state in enumerate(AFUS, start=4):
+            totals += len(view[state])
+
             cell = ws.cell(row=row, column=col)
             cell.value = len(view[state])
-            
             ws.cell(row=row, column=10).value = name
 
+        ws.cell(row=row, column=12).value = totals
+
+        for col,state in enumerate(AFUS, start=4):
+            cell = ws.cell(row=1+row, column=col)
+            cell.value = len(view[state]) / totals
+            cell.style = 'Percent'
+
+            
         row = 5
         for state in AFUS:
                 
@@ -261,14 +310,16 @@ def gen_spreadsheet(data):
                 
                 col = col + 1
                 cell = ws.cell(row=row, column=col)
+                cell.style = "Hyperlink"
                 
                 # https://programtalk.com/vs4/python/birforce/vnpy_crypto/venv/lib/python3.6/site-packages/openpyxl/writer/worksheet.py/
                 
-                cell.style = "Hyperlink"
 
                 if True:
                     for key,url in val['urls'].items():
-                        cell.value = 'view'
+                        job_id = Path(url).parent.name
+                        # cell.value = data['job_id']
+                        cell.value     = job_id
                         cell.hyperlink = url
                 else:
                     idx = 0
