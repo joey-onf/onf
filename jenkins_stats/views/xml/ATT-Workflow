@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<listView _class="hudson.model.ListView">
+  <description>All ATT-Workflow related jobs/builds</description>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>build_att-workflow_onlab-pod1-qa_master_test</name>
+    <url>https://jenkins.opencord.org/job/build_att-workflow_onlab-pod1-qa_master_test/</url>
+    <color>yellow</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>build_att-workflow_onlab-pod1_master_manual</name>
+    <url>https://jenkins.opencord.org/job/build_att-workflow_onlab-pod1_master_manual/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>build_att-workflow_onlab-pod2_master_manual</name>
+    <url>https://jenkins.opencord.org/job/build_att-workflow_onlab-pod2_master_manual/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>build_att-workflow_flex-ocp-cord-voltha-master_master_test</name>
+    <url>https://jenkins.opencord.org/job/build_att-workflow_flex-ocp-cord-voltha-master_master_test/</url>
+    <color>yellow</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>build_att-workflow_flex-ocp-cord-voltha16_cord-6.1_test</name>
+    <url>https://jenkins.opencord.org/job/build_att-workflow_flex-ocp-cord-voltha16_cord-6.1_test/</url>
+    <color>yellow</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>build_att-workflow_onlab-pod1-voltha16_cord-6.1_manual</name>
+    <url>https://jenkins.opencord.org/job/build_att-workflow_onlab-pod1-voltha16_cord-6.1_manual/</url>
+    <color>notbuilt</color>
+  </job>
+  <name>ATT-Workflow</name>
+  <url>https://jenkins.opencord.org/view/ATT-Workflow/</url>
+</listView>

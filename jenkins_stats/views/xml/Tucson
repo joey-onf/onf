@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<listView _class="hudson.model.ListView">
+  <description>&amp;#127797; &amp;#127797; &amp;#127797; &amp;#127797; &amp;#127797;
+Jobs running on the Tucson ONF pod
+&amp;#127797; &amp;#127797; &amp;#127797; &amp;#127797; &amp;#127797;
+</description>
+  <name>Tucson</name>
+  <url>https://jenkins.opencord.org/view/Tucson/</url>
+</listView>

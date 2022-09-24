@@ -1,0 +1,1431 @@
+<?xml version="1.0"?>
+<listView _class="hudson.model.ListView">
+  <description>Jobs for verifying patchsets on gerrit.opencord.org.</description>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_aaa_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_aaa_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_aaa_maven-test</name>
+    <url>https://jenkins.opencord.org/job/verify_aaa_maven-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_aaa_maven-test-jdk8</name>
+    <url>https://jenkins.opencord.org/job/verify_aaa_maven-test-jdk8/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_acordion_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_acordion_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_addressmanager_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_addressmanager_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_addressmanager_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_addressmanager_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_alpine-grpc-base_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_alpine-grpc-base_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_att-workflow-driver_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_att-workflow-driver_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>verify_att-workflow-driver_service-upgrade-test</name>
+    <url>https://jenkins.opencord.org/job/verify_att-workflow-driver_service-upgrade-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_att-workflow-driver_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_att-workflow-driver_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_automation-tools_ansible-lint</name>
+    <url>https://jenkins.opencord.org/job/verify_automation-tools_ansible-lint/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_automation-tools_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_automation-tools_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_automation-tools_shellcheck</name>
+    <url>https://jenkins.opencord.org/job/verify_automation-tools_shellcheck/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_bbsim-sadis-server_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_bbsim-sadis-server_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>verify_bbsim-sadis-server_sanity-test</name>
+    <url>https://jenkins.opencord.org/job/verify_bbsim-sadis-server_sanity-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>verify_bbsim-sadis-server_sanity-test-voltha-2.8</name>
+    <url>https://jenkins.opencord.org/job/verify_bbsim-sadis-server_sanity-test-voltha-2.8/</url>
+    <color>notbuilt</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>verify_bbsim-sadis-server_sanity-test-voltha-2.9</name>
+    <url>https://jenkins.opencord.org/job/verify_bbsim-sadis-server_sanity-test-voltha-2.9/</url>
+    <color>notbuilt</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_bbsim-sadis-server_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_bbsim-sadis-server_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_bbsim_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_bbsim_licensed/</url>
+    <color>red</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>verify_bbsim_sanity-test</name>
+    <url>https://jenkins.opencord.org/job/verify_bbsim_sanity-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>verify_bbsim_sanity-test-voltha-2.8</name>
+    <url>https://jenkins.opencord.org/job/verify_bbsim_sanity-test-voltha-2.8/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>verify_bbsim_sanity-test-voltha-2.9</name>
+    <url>https://jenkins.opencord.org/job/verify_bbsim_sanity-test-voltha-2.9/</url>
+    <color>notbuilt</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_bbsim_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_bbsim_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>verify_berlin-community-pod-1-gpon-adtran_Default_DT_voltha_master_dmi</name>
+    <url>https://jenkins.opencord.org/job/verify_berlin-community-pod-1-gpon-adtran_Default_DT_voltha_master_dmi/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_bng_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_bng_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_bng_maven-test</name>
+    <url>https://jenkins.opencord.org/job/verify_bng_maven-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_certification_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_certification_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_chameleon_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_chameleon_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_chameleon_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_chameleon_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_comac-helm-charts_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_comac-helm-charts_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_config_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_config_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_config_maven-test</name>
+    <url>https://jenkins.opencord.org/job/verify_config_maven-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_config_maven-test-jdk8</name>
+    <url>https://jenkins.opencord.org/job/verify_config_maven-test-jdk8/</url>
+    <color>notbuilt</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_cord-onos-publisher_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_cord-onos-publisher_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_cord-platform_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_cord-platform_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_cord-tester_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_cord-tester_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_cord-tester_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_cord-tester_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_cord-workflow-airflow_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_cord-workflow-airflow_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_cord-workflow-airflow_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_cord-workflow-airflow_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_cord-workflow-controller-client_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_cord-workflow-controller-client_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_cord-workflow-controller-client_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_cord-workflow-controller-client_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_cord-workflow-controller_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_cord-workflow-controller_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_cord-workflow-controller_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_cord-workflow-controller_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_cord-workflow-probe_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_cord-workflow-probe_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_cord-workflow-probe_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_cord-workflow-probe_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_cord-workflow_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_cord-workflow_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_cord-workflow_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_cord-workflow_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_cord_ansible-lint</name>
+    <url>https://jenkins.opencord.org/job/verify_cord_ansible-lint/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_cord_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_cord_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_cordctl_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_cordctl_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_cordctl_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_cordctl_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_device-management-interface_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_device-management-interface_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_device-management-interface_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_device-management-interface_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_device-management_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_device-management_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>verify_device-management_sanity-test</name>
+    <url>https://jenkins.opencord.org/job/verify_device-management_sanity-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_device-management_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_device-management_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_dhcpl2relay_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_dhcpl2relay_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_dhcpl2relay_maven-test</name>
+    <url>https://jenkins.opencord.org/job/verify_dhcpl2relay_maven-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_dhcpl2relay_maven-test-jdk8</name>
+    <url>https://jenkins.opencord.org/job/verify_dhcpl2relay_maven-test-jdk8/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_dt-workflow-driver_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_dt-workflow-driver_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>verify_dt-workflow-driver_service-upgrade-test</name>
+    <url>https://jenkins.opencord.org/job/verify_dt-workflow-driver_service-upgrade-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_dt-workflow-driver_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_dt-workflow-driver_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_ecord_ansible-lint</name>
+    <url>https://jenkins.opencord.org/job/verify_ecord_ansible-lint/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_ecord_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_ecord_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_epc-service_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_epc-service_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_exampleservice_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_exampleservice_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_fabric-crossconnect_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_fabric-crossconnect_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>verify_fabric-crossconnect_service-upgrade-test</name>
+    <url>https://jenkins.opencord.org/job/verify_fabric-crossconnect_service-upgrade-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_fabric-crossconnect_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_fabric-crossconnect_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_fabric-tofino_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_fabric-tofino_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_fabric-tofino_maven-test</name>
+    <url>https://jenkins.opencord.org/job/verify_fabric-tofino_maven-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_fabric_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_fabric_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>verify_fabric_service-upgrade-test</name>
+    <url>https://jenkins.opencord.org/job/verify_fabric_service-upgrade-test/</url>
+    <color>yellow</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_fabric_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_fabric_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>verify_fossa_cord</name>
+    <url>https://jenkins.opencord.org/job/verify_fossa_cord/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_go-manifest_repo-manifest</name>
+    <url>https://jenkins.opencord.org/job/verify_go-manifest_repo-manifest/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_goloxi_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_goloxi_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_goloxi_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_goloxi_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_grpc-robot_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_grpc-robot_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_grpc-robot_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_grpc-robot_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_helm-charts_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_helm-charts_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_helm-repo-tools_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_helm-repo-tools_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_helm-repo-tools_shellcheck</name>
+    <url>https://jenkins.opencord.org/job/verify_helm-repo-tools_shellcheck/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_hippie-oss_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_hippie-oss_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_hippie-oss_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_hippie-oss_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_hss_db_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_hss_db_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_igmp_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_igmp_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_igmp_maven-test</name>
+    <url>https://jenkins.opencord.org/job/verify_igmp_maven-test/</url>
+    <color>notbuilt</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_igmp_maven-test-jdk8</name>
+    <url>https://jenkins.opencord.org/job/verify_igmp_maven-test-jdk8/</url>
+    <color>notbuilt</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_igmpproxy_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_igmpproxy_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_igmpproxy_maven-test</name>
+    <url>https://jenkins.opencord.org/job/verify_igmpproxy_maven-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_igmpproxy_maven-test-jdk8</name>
+    <url>https://jenkins.opencord.org/job/verify_igmpproxy_maven-test-jdk8/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_internetemulator_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_internetemulator_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_k8sepcservice_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_k8sepcservice_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_k8sepcservice_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_k8sepcservice_unit-test/</url>
+    <color>notbuilt</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_kafka-onos_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_kafka-onos_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_kafka-onos_maven-test</name>
+    <url>https://jenkins.opencord.org/job/verify_kafka-onos_maven-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_kafka-onos_maven-test-jdk8</name>
+    <url>https://jenkins.opencord.org/job/verify_kafka-onos_maven-test-jdk8/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_kafka-robot_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_kafka-robot_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_kafka-robot_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_kafka-robot_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_kafka-topic-exporter_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_kafka-topic-exporter_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_kafka-topic-exporter_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_kafka-topic-exporter_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_kafkaloghandler_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_kafkaloghandler_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_kafkaloghandler_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_kafkaloghandler_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_kubernetes-service_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_kubernetes-service_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>verify_kubernetes-service_service-upgrade-test</name>
+    <url>https://jenkins.opencord.org/job/verify_kubernetes-service_service-upgrade-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_kubernetes-service_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_kubernetes-service_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_maas_ansible-lint</name>
+    <url>https://jenkins.opencord.org/job/verify_maas_ansible-lint/</url>
+    <color>notbuilt</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_maas_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_maas_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_mac-learning_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_mac-learning_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_mac-learning_maven-test</name>
+    <url>https://jenkins.opencord.org/job/verify_mac-learning_maven-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_manifest_repo-manifest</name>
+    <url>https://jenkins.opencord.org/job/verify_manifest_repo-manifest/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_mcast_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_mcast_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_mcast_maven-test</name>
+    <url>https://jenkins.opencord.org/job/verify_mcast_maven-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_mcast_maven-test-jdk8</name>
+    <url>https://jenkins.opencord.org/job/verify_mcast_maven-test-jdk8/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_mcord_ansible-lint</name>
+    <url>https://jenkins.opencord.org/job/verify_mcord_ansible-lint/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_mcord_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_mcord_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_mgmt-gateway-vm_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_mgmt-gateway-vm_licensed/</url>
+    <color>notbuilt</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_mn-stratum-siab_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_mn-stratum-siab_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_mn-stratum-siab_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_mn-stratum-siab_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_multifabric_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_multifabric_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>verify_multifabric_service-upgrade-test</name>
+    <url>https://jenkins.opencord.org/job/verify_multifabric_service-upgrade-test/</url>
+    <color>notbuilt</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_multifabric_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_multifabric_unit-test/</url>
+    <color>notbuilt</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_multistructlog_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_multistructlog_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_multistructlog_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_multistructlog_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_nem-ondemand-proxy_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_nem-ondemand-proxy_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_nem-ondemand-proxy_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_nem-ondemand-proxy_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_ntt-workflow-driver_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_ntt-workflow-driver_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>verify_ntt-workflow-driver_service-upgrade-test</name>
+    <url>https://jenkins.opencord.org/job/verify_ntt-workflow-driver_service-upgrade-test/</url>
+    <color>notbuilt</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_ntt-workflow-driver_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_ntt-workflow-driver_unit-test/</url>
+    <color>notbuilt</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_ofagent-go_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_ofagent-go_licensed/</url>
+    <color>red</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>verify_ofagent-go_sanity-test</name>
+    <url>https://jenkins.opencord.org/job/verify_ofagent-go_sanity-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>verify_ofagent-go_sanity-test-voltha-2.8</name>
+    <url>https://jenkins.opencord.org/job/verify_ofagent-go_sanity-test-voltha-2.8/</url>
+    <color>notbuilt</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>verify_ofagent-go_sanity-test-voltha-2.9</name>
+    <url>https://jenkins.opencord.org/job/verify_ofagent-go_sanity-test-voltha-2.9/</url>
+    <color>notbuilt</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_ofagent-go_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_ofagent-go_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_olt-service_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_olt-service_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>verify_olt-service_service-upgrade-test</name>
+    <url>https://jenkins.opencord.org/job/verify_olt-service_service-upgrade-test/</url>
+    <color>yellow</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_olt-service_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_olt-service_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_olt_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_olt_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_olt_maven-test</name>
+    <url>https://jenkins.opencord.org/job/verify_olt_maven-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_olt_maven-test-jdk8</name>
+    <url>https://jenkins.opencord.org/job/verify_olt_maven-test-jdk8/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_olttopology_maven-test</name>
+    <url>https://jenkins.opencord.org/job/verify_olttopology_maven-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_omci-lib-go_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_omci-lib-go_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_omci-lib-go_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_omci-lib-go_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_omec-cni_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_omec-cni_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_omec-cni_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_omec-cni_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_omec-pod-init_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_omec-pod-init_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_omec-pod-init_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_omec-pod-init_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_onf-terraform_test</name>
+    <url>https://jenkins.opencord.org/job/verify_onf-terraform_test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_onos-classic-helm-utils_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_onos-classic-helm-utils_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_onos-classic-helm-utils_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_onos-classic-helm-utils_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_onos-service_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_onos-service_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>verify_onos-service_service-upgrade-test</name>
+    <url>https://jenkins.opencord.org/job/verify_onos-service_service-upgrade-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_onos-service_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_onos-service_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_openairinterface_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_openairinterface_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_openairinterface_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_openairinterface_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_opendevice-manager_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_opendevice-manager_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_opendevice-manager_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_opendevice-manager_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_opendm-agent_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_opendm-agent_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_opendm-agent_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_opendm-agent_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_openolt-scale-tester_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_openolt-scale-tester_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_openolt-scale-tester_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_openolt-scale-tester_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_openolt-test_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_openolt-test_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_openolt-test_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_openolt-test_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_openolt_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_openolt_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_openolt_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_openolt_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_openstack_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_openstack_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_openstack_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_openstack_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_osam_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_osam_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_osam_test</name>
+    <url>https://jenkins.opencord.org/job/verify_osam_test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_platform-install_ansible-lint</name>
+    <url>https://jenkins.opencord.org/job/verify_platform-install_ansible-lint/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_platform-install_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_platform-install_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_plyxproto_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_plyxproto_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_plyxproto_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_plyxproto_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_pppoeagent_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_pppoeagent_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_pppoeagent_maven-test</name>
+    <url>https://jenkins.opencord.org/job/verify_pppoeagent_maven-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_pppoel2relay_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_pppoel2relay_licensed/</url>
+    <color>notbuilt</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_pppoel2relay_maven-test</name>
+    <url>https://jenkins.opencord.org/job/verify_pppoel2relay_maven-test/</url>
+    <color>notbuilt</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_progran_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_progran_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_qa-manifest_repo-manifest</name>
+    <url>https://jenkins.opencord.org/job/verify_qa-manifest_repo-manifest/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_rcord_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_rcord_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>verify_rcord_service-upgrade-test</name>
+    <url>https://jenkins.opencord.org/job/verify_rcord_service-upgrade-test/</url>
+    <color>yellow</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_rcord_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_rcord_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_sadis-server_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_sadis-server_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_sadis-server_tests</name>
+    <url>https://jenkins.opencord.org/job/verify_sadis-server_tests/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_sadis_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_sadis_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_sadis_maven-test</name>
+    <url>https://jenkins.opencord.org/job/verify_sadis_maven-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_sadis_maven-test-jdk8</name>
+    <url>https://jenkins.opencord.org/job/verify_sadis_maven-test-jdk8/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_sdn-controller_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_sdn-controller_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_seba-manifest_repo-manifest</name>
+    <url>https://jenkins.opencord.org/job/verify_seba-manifest_repo-manifest/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_seba_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_seba_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_simpleexampleservice_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_simpleexampleservice_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>verify_simpleexampleservice_service-upgrade-test</name>
+    <url>https://jenkins.opencord.org/job/verify_simpleexampleservice_service-upgrade-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_simpleexampleservice_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_simpleexampleservice_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_tt-workflow-driver_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_tt-workflow-driver_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_tt-workflow-driver_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_tt-workflow-driver_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_vEE_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_vEE_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_vEG_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_vEG_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_vEG_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_vEG_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_venb_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_venb_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_vEPC_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_vEPC_licensed/</url>
+    <color>notbuilt</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_ves-agent_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_ves-agent_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_vHSS_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_vHSS_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_vMME_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_vMME_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_vnaas_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_vnaas_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_vnaas_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_vnaas_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_voltctl_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_voltctl_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>verify_voltctl_sanity-test</name>
+    <url>https://jenkins.opencord.org/job/verify_voltctl_sanity-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_voltctl_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_voltctl_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_voltha-adtran-adapter_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-adtran-adapter_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_voltha-api-server_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-api-server_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>verify_voltha-api-server_sanity-test</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-api-server_sanity-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_voltha-api-server_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-api-server_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_voltha-docker-tools_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-docker-tools_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_voltha-docker-tools_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-docker-tools_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_voltha-docs_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-docs_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_voltha-docs_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-docs_unit-test/</url>
+    <color>red</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_voltha-eponolt-adapter_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-eponolt-adapter_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_voltha-eponolt-adapter_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-eponolt-adapter_unit-test/</url>
+    <color>notbuilt</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_voltha-epononu-adapter_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-epononu-adapter_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_voltha-epononu-adapter_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-epononu-adapter_unit-test/</url>
+    <color>notbuilt</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_voltha-go-controller_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-go-controller_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_voltha-go-controller_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-go-controller_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_voltha-go_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-go_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>verify_voltha-go_sanity-test</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-go_sanity-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>verify_voltha-go_sanity-test-voltha-2.8</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-go_sanity-test-voltha-2.8/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>verify_voltha-go_sanity-test-voltha-2.9</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-go_sanity-test-voltha-2.9/</url>
+    <color>notbuilt</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_voltha-go_unit-test-lint</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-go_unit-test-lint/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_voltha-go_unit-test-tests</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-go_unit-test-tests/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_voltha-helm-charts_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-helm-charts_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>verify_voltha-helm-charts_sanity-test</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-helm-charts_sanity-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>verify_voltha-helm-charts_sanity-test-voltha-2.10</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-helm-charts_sanity-test-voltha-2.10/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>verify_voltha-helm-charts_sanity-test-voltha-2.8</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-helm-charts_sanity-test-voltha-2.8/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>verify_voltha-helm-charts_sanity-test-voltha-2.9</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-helm-charts_sanity-test-voltha-2.9/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_voltha-lib-go_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-lib-go_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_voltha-lib-go_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-lib-go_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_voltha-northbound-bbf-adapter_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-northbound-bbf-adapter_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_voltha-northbound-bbf-adapter_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-northbound-bbf-adapter_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_voltha-onos_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-onos_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>verify_voltha-onos_sanity-test</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-onos_sanity-test/</url>
+    <color>red</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>verify_voltha-onos_sanity-test-voltha-2.8</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-onos_sanity-test-voltha-2.8/</url>
+    <color>notbuilt</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>verify_voltha-onos_sanity-test-voltha-2.9</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-onos_sanity-test-voltha-2.9/</url>
+    <color>notbuilt</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_voltha-onos_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-onos_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_voltha-openolt-adapter_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-openolt-adapter_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>verify_voltha-openolt-adapter_sanity-test</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-openolt-adapter_sanity-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>verify_voltha-openolt-adapter_sanity-test-voltha-2.8</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-openolt-adapter_sanity-test-voltha-2.8/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>verify_voltha-openolt-adapter_sanity-test-voltha-2.9</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-openolt-adapter_sanity-test-voltha-2.9/</url>
+    <color>notbuilt</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_voltha-openolt-adapter_unit-test-lint</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-openolt-adapter_unit-test-lint/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_voltha-openolt-adapter_unit-test-tests</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-openolt-adapter_unit-test-tests/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_voltha-openonu-adapter-go_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-openonu-adapter-go_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>verify_voltha-openonu-adapter-go_sanity-test</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-openonu-adapter-go_sanity-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>verify_voltha-openonu-adapter-go_sanity-test-voltha-2.8</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-openonu-adapter-go_sanity-test-voltha-2.8/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>verify_voltha-openonu-adapter-go_sanity-test-voltha-2.9</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-openonu-adapter-go_sanity-test-voltha-2.9/</url>
+    <color>notbuilt</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_voltha-openonu-adapter-go_unit-test-lint</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-openonu-adapter-go_unit-test-lint/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_voltha-openonu-adapter-go_unit-test-tests</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-openonu-adapter-go_unit-test-tests/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_voltha-protos_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-protos_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_voltha-protos_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-protos_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_voltha-system-tests_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-system-tests_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>verify_voltha-system-tests_sanity-test</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-system-tests_sanity-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>verify_voltha-system-tests_sanity-test-voltha-2.10</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-system-tests_sanity-test-voltha-2.10/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>verify_voltha-system-tests_sanity-test-voltha-2.8</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-system-tests_sanity-test-voltha-2.8/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>verify_voltha-system-tests_sanity-test-voltha-2.9</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-system-tests_sanity-test-voltha-2.9/</url>
+    <color>notbuilt</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_voltha-system-tests_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-system-tests_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_voltha-test-manifest_repo-manifest</name>
+    <url>https://jenkins.opencord.org/job/verify_voltha-test-manifest_repo-manifest/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_vrouter_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_vrouter_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_vrouter_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_vrouter_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_vsg-hw_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_vsg-hw_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_vsg-hw_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_vsg-hw_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_vsg_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_vsg_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_vsg_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_vsg_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_vspgwc_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_vspgwc_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_vspgwu_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_vspgwu_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_vtn-service_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_vtn-service_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_vtn_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_vtn_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_vtn_maven-test</name>
+    <url>https://jenkins.opencord.org/job/verify_vtn_maven-test/</url>
+    <color>notbuilt</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_vtn_maven-test-jdk8</name>
+    <url>https://jenkins.opencord.org/job/verify_vtn_maven-test-jdk8/</url>
+    <color>notbuilt</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_vtr_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_vtr_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_xos-gui_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_xos-gui_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_xos-gui_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_xos-gui_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_xos-rest-gw_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_xos-rest-gw_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_xos-tosca_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_xos-tosca_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_xos-tosca_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_xos-tosca_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>verify_xos_api-test</name>
+    <url>https://jenkins.opencord.org/job/verify_xos_api-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_xos_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_xos_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_xos_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_xos_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <name>Verify</name>
+  <url>https://jenkins.opencord.org/view/Verify/</url>
+</listView>

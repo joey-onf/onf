@@ -12,17 +12,19 @@ space	:=$(null) $(null)
 # -----------------------------------------------------------------------
 PYTHON  ?= /home/joey/.venv/3.10.6/bin/python 
 
-job-dir := $(null)
-job-dir += /home/joey/projects/sandbox/onf/logs
-# job-dir += /home/joey/projects/sandbox/onf/logs/var/lib/jenkins/jobs/bbsim_scale_test
-# jargs += --jenkins-dir /home/joey/projects/sandbox/onf/logs
-jargs += $(addprefix --jenkins-dir$(space),$(job-dir))
+jargs        := $(null)
 
-jargs += --no-show
+job-dir-opts += /var/lib/jenkins/jobs
+job-dir-opts += /home/joey/projects/sandbox/onf/logs
+job-dir      := $(firstword $(wildcard $(job-dir-opts)))
+jargs        += $(addprefix --jenkins-dir$(space),$(job-dir))
+
+jargs        += --no-show # squelch stdout
 
 # 4 jobs when enabled
-jargs += --view voltha-soak
-jargs += --view voltha-scale-measurements
+# jargs += --view voltha-soak
+# jargs += --view voltha-scale-measurements
+# jargs += --view XOS-Integration-Tests
 
 # 1 job when enabled
 # jargs += --job-name bbsim_scale_test
@@ -34,6 +36,12 @@ jargs += --view voltha-scale-measurements
 jargs-spread += --spreadsheet 'jobs.xlsx'
 # jargs += --view-name 'bbsim_scale_test'
 
+# ---------------------------
+# Conditional interactive use
+# ---------------------------
+soffice-cmd := $(shell which soffice 2>/dev/null)
+SOFFICE = $(if $(soffice-cmd),$(soffice-cmd),@#)
+# SOFFICE := $(null)
 ##-------------------##
 ##---]  TARGETS  [---##
 ##-------------------##
@@ -52,7 +60,7 @@ views:
 spreadsheet:
 	$(RM) *.xlsx
 	./jenkins_stats.py $(jargs) $(jargs-spread) 2>&1 | tee log
-	 soffice *.xlsx &
+	 $(SOFFICE) *.xlsx &
 
 ## -----------------------------------------------------------------------
 ## -----------------------------------------------------------------------
@@ -88,4 +96,3 @@ help:
 	@echo "  clean    
 
 # [EOF]
-

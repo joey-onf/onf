@@ -3,6 +3,7 @@
 # Intent: Retrieve view information for VOLTHA (contributing jobs).
 # ---------------------------------------------------------------------------
 
+
 voltha-views += ci-management
 voltha-views += Community-PODs
 voltha-views += VOLTHA-2.8
@@ -10,6 +11,28 @@ voltha-views += VOLTHA-2.X-Tests
 voltha-views += voltha-scale-measurements
 voltha-views += voltha-soak
 # voltha-views += VOLTHA 2.x verify
+
+voltha-views += API-Tests
+voltha-views += ATT-Workflow
+# voltha-views += All Jobs
+voltha-views += Coverage
+voltha-views += DMI-tests
+voltha-views += Guide
+voltha-views += M-CORD
+voltha-views += OMEC
+# voltha-views += OMEC CI
+# voltha-views += ONOS Apps
+voltha-views += Publish
+voltha-views += SEBA-Releases
+voltha-views += SIAB
+voltha-views += Tucson
+voltha-views += UP4
+voltha-views += Verify
+# voltha-views += XOS-Integration-Tests
+voltha-views += ci-management
+
+
+# voltha-views += XOS-Integration-Tests
 
 deps  := $(foreach view,$(voltha-views),xml/$(view))
 
@@ -25,12 +48,15 @@ voltha-views-release: voltha-views-get
 
 voltha-with-space:
 	./get_view.sh --view hardcoded-1 # VOLTHA 2.x verify
-
+	./get_view.sh --view hardcoded-2 # All Jobs
+	./get_view.sh --view hardcoded-3 # OMEC CI
+	./get_view.sh --view hardcoded-4 # ONOS Apps
 
 ## -----------------------------------------------------------------------
 ## Retrieve config data
 ## -----------------------------------------------------------------------
 $(deps):
+	@echo "RETRIEVE: $@"
 	./get_view.sh --view $(notdir $@).xml
 
 sterile:

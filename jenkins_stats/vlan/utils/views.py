@@ -248,6 +248,10 @@ class ViewUtils:
             if job_name in rec['name']:
                 ans += [view]
 
+        if len(ans) == 0:
+            raise ValueError('Jenkins job does not belong to a view [%s]' % job_name)
+            # ans += ['unknown']
+
         return ans
 
     

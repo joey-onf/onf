@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<listView _class="hudson.model.ListView">
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>build_onlab-pod1-voltha16_seba_release_1.0</name>
+    <url>https://jenkins.opencord.org/job/build_onlab-pod1-voltha16_seba_release_1.0/</url>
+    <color>notbuilt</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>build_onlab-pod1_seba_release_2.0</name>
+    <url>https://jenkins.opencord.org/job/build_onlab-pod1_seba_release_2.0/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>build_onlab-pod1_seba_release_2.0_test</name>
+    <url>https://jenkins.opencord.org/job/build_onlab-pod1_seba_release_2.0_test/</url>
+    <color>yellow</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>build_onlab-pod2_seba_release_1.0</name>
+    <url>https://jenkins.opencord.org/job/build_onlab-pod2_seba_release_1.0/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>build_onlab-pod2_seba_release_2.0</name>
+    <url>https://jenkins.opencord.org/job/build_onlab-pod2_seba_release_2.0/</url>
+    <color>notbuilt</color>
+  </job>
+  <name>SEBA-Releases</name>
+  <url>https://jenkins.opencord.org/view/SEBA-Releases/</url>
+</listView>

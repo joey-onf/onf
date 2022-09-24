@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<listView _class="hudson.model.ListView">
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>up4-latest-nightly-p4rt</name>
+    <url>https://jenkins.opencord.org/job/up4-latest-nightly-p4rt/</url>
+    <color>red</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>up4-latest-nightly-pfcp</name>
+    <url>https://jenkins.opencord.org/job/up4-latest-nightly-pfcp/</url>
+    <color>red</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>up4-postmerge-p4rt</name>
+    <url>https://jenkins.opencord.org/job/up4-postmerge-p4rt/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>up4-postmerge-pfcp</name>
+    <url>https://jenkins.opencord.org/job/up4-postmerge-pfcp/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>up4-pr-verify-p4rt</name>
+    <url>https://jenkins.opencord.org/job/up4-pr-verify-p4rt/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>up4-pr-verify-pfcp</name>
+    <url>https://jenkins.opencord.org/job/up4-pr-verify-pfcp/</url>
+    <color>blue</color>
+  </job>
+  <name>UP4</name>
+  <url>https://jenkins.opencord.org/view/UP4/</url>
+</listView>

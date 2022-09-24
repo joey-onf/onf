@@ -1,0 +1,220 @@
+<?xml version="1.0"?>
+<listView _class="hudson.model.ListView">
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>onos-app-release</name>
+    <url>https://jenkins.opencord.org/job/onos-app-release/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>maven-publish-jdk8_aaa</name>
+    <url>https://jenkins.opencord.org/job/maven-publish-jdk8_aaa/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>maven-publish-jdk8_config</name>
+    <url>https://jenkins.opencord.org/job/maven-publish-jdk8_config/</url>
+    <color>notbuilt</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>maven-publish-jdk8_dhcpl2relay</name>
+    <url>https://jenkins.opencord.org/job/maven-publish-jdk8_dhcpl2relay/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>maven-publish-jdk8_igmp</name>
+    <url>https://jenkins.opencord.org/job/maven-publish-jdk8_igmp/</url>
+    <color>notbuilt</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>maven-publish-jdk8_igmpproxy</name>
+    <url>https://jenkins.opencord.org/job/maven-publish-jdk8_igmpproxy/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>maven-publish-jdk8_kafka-onos</name>
+    <url>https://jenkins.opencord.org/job/maven-publish-jdk8_kafka-onos/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>maven-publish-jdk8_mcast</name>
+    <url>https://jenkins.opencord.org/job/maven-publish-jdk8_mcast/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>maven-publish-jdk8_olt</name>
+    <url>https://jenkins.opencord.org/job/maven-publish-jdk8_olt/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>maven-publish-jdk8_sadis</name>
+    <url>https://jenkins.opencord.org/job/maven-publish-jdk8_sadis/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>maven-publish-jdk8_vtn</name>
+    <url>https://jenkins.opencord.org/job/maven-publish-jdk8_vtn/</url>
+    <color>notbuilt</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>maven-publish_aaa</name>
+    <url>https://jenkins.opencord.org/job/maven-publish_aaa/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>maven-publish_bng</name>
+    <url>https://jenkins.opencord.org/job/maven-publish_bng/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>maven-publish_config</name>
+    <url>https://jenkins.opencord.org/job/maven-publish_config/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>maven-publish_dhcpl2relay</name>
+    <url>https://jenkins.opencord.org/job/maven-publish_dhcpl2relay/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>maven-publish_fabric-tofino</name>
+    <url>https://jenkins.opencord.org/job/maven-publish_fabric-tofino/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>maven-publish_igmp</name>
+    <url>https://jenkins.opencord.org/job/maven-publish_igmp/</url>
+    <color>notbuilt</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>maven-publish_igmpproxy</name>
+    <url>https://jenkins.opencord.org/job/maven-publish_igmpproxy/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>maven-publish_kafka-onos</name>
+    <url>https://jenkins.opencord.org/job/maven-publish_kafka-onos/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>maven-publish_mac-learning</name>
+    <url>https://jenkins.opencord.org/job/maven-publish_mac-learning/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>maven-publish_mcast</name>
+    <url>https://jenkins.opencord.org/job/maven-publish_mcast/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>maven-publish_olt</name>
+    <url>https://jenkins.opencord.org/job/maven-publish_olt/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>maven-publish_olttopology</name>
+    <url>https://jenkins.opencord.org/job/maven-publish_olttopology/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>maven-publish_pppoeagent</name>
+    <url>https://jenkins.opencord.org/job/maven-publish_pppoeagent/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>maven-publish_pppoel2relay</name>
+    <url>https://jenkins.opencord.org/job/maven-publish_pppoel2relay/</url>
+    <color>notbuilt</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>maven-publish_sadis</name>
+    <url>https://jenkins.opencord.org/job/maven-publish_sadis/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>maven-publish_vtn</name>
+    <url>https://jenkins.opencord.org/job/maven-publish_vtn/</url>
+    <color>notbuilt</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_aaa_maven-test</name>
+    <url>https://jenkins.opencord.org/job/verify_aaa_maven-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_bng_maven-test</name>
+    <url>https://jenkins.opencord.org/job/verify_bng_maven-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_config_maven-test</name>
+    <url>https://jenkins.opencord.org/job/verify_config_maven-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_dhcpl2relay_maven-test</name>
+    <url>https://jenkins.opencord.org/job/verify_dhcpl2relay_maven-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_fabric-tofino_maven-test</name>
+    <url>https://jenkins.opencord.org/job/verify_fabric-tofino_maven-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_igmp_maven-test</name>
+    <url>https://jenkins.opencord.org/job/verify_igmp_maven-test/</url>
+    <color>notbuilt</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_igmpproxy_maven-test</name>
+    <url>https://jenkins.opencord.org/job/verify_igmpproxy_maven-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_kafka-onos_maven-test</name>
+    <url>https://jenkins.opencord.org/job/verify_kafka-onos_maven-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_mac-learning_maven-test</name>
+    <url>https://jenkins.opencord.org/job/verify_mac-learning_maven-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_mcast_maven-test</name>
+    <url>https://jenkins.opencord.org/job/verify_mcast_maven-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_olt_maven-test</name>
+    <url>https://jenkins.opencord.org/job/verify_olt_maven-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_olttopology_maven-test</name>
+    <url>https://jenkins.opencord.org/job/verify_olttopology_maven-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_pppoeagent_maven-test</name>
+    <url>https://jenkins.opencord.org/job/verify_pppoeagent_maven-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_pppoel2relay_maven-test</name>
+    <url>https://jenkins.opencord.org/job/verify_pppoel2relay_maven-test/</url>
+    <color>notbuilt</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_sadis_maven-test</name>
+    <url>https://jenkins.opencord.org/job/verify_sadis_maven-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_vtn_maven-test</name>
+    <url>https://jenkins.opencord.org/job/verify_vtn_maven-test/</url>
+    <color>notbuilt</color>
+  </job>
+  <name>ONOS Apps</name>
+  <url>https://jenkins.opencord.org/view/ONOS%20Apps/</url>
+</listView>

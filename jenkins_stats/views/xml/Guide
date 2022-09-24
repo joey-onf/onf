@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<listView _class="hudson.model.ListView">
+  <description>Verification and publishing jobs for guide.opencord.org</description>
+  <name>Guide</name>
+  <url>https://jenkins.opencord.org/view/Guide/</url>
+</listView>

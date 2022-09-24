@@ -3,17 +3,17 @@
   <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
     <name>build_flex-ocp-cord-multi-uni_TP_TT_voltha_master</name>
     <url>https://jenkins.opencord.org/job/build_flex-ocp-cord-multi-uni_TP_TT_voltha_master/</url>
-    <color>red</color>
+    <color>blue</color>
   </job>
   <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
     <name>build_flex-ocp-cord-multi-uni_TP_voltha_TT_master_test</name>
     <url>https://jenkins.opencord.org/job/build_flex-ocp-cord-multi-uni_TP_voltha_TT_master_test/</url>
-    <color>red</color>
+    <color>yellow</color>
   </job>
   <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
     <name>build_flex-ocp-cord_Default_voltha_master</name>
     <url>https://jenkins.opencord.org/job/build_flex-ocp-cord_Default_voltha_master/</url>
-    <color>red</color>
+    <color>blue</color>
   </job>
   <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
     <name>build_flex-ocp-cord_Default_voltha_master_test</name>
@@ -23,7 +23,7 @@
   <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
     <name>build_flex-ocp-cord_TP_TT_voltha_master</name>
     <url>https://jenkins.opencord.org/job/build_flex-ocp-cord_TP_TT_voltha_master/</url>
-    <color>red</color>
+    <color>blue</color>
   </job>
   <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
     <name>build_flex-ocp-cord_TP_voltha_TT_master_test</name>
@@ -38,7 +38,7 @@
   <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
     <name>build_menlo-certification-pod-radisys-1600g_1T8GEM_voltha_DT_master_test</name>
     <url>https://jenkins.opencord.org/job/build_menlo-certification-pod-radisys-1600g_1T8GEM_voltha_DT_master_test/</url>
-    <color>yellow</color>
+    <color>blue</color>
   </job>
   <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
     <name>build_menlo-certification-pod-radisys-1600x_1T8GEM_DT_voltha_master</name>
@@ -58,12 +58,12 @@
   <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
     <name>build_menlo-certification-pod-radisys-3200g_1T8GEM_voltha_DT_master_test</name>
     <url>https://jenkins.opencord.org/job/build_menlo-certification-pod-radisys-3200g_1T8GEM_voltha_DT_master_test/</url>
-    <color>blue_anime</color>
+    <color>yellow</color>
   </job>
   <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
     <name>periodic-software-upgrade-test-bbsim</name>
     <url>https://jenkins.opencord.org/job/periodic-software-upgrade-test-bbsim/</url>
-    <color>yellow</color>
+    <color>yellow_anime</color>
   </job>
   <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
     <name>periodic-voltha-dt-fttb-test-bbsim</name>
@@ -88,7 +88,7 @@
   <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
     <name>periodic-voltha-multi-uni-multiple-olts-test-bbsim</name>
     <url>https://jenkins.opencord.org/job/periodic-voltha-multi-uni-multiple-olts-test-bbsim/</url>
-    <color>yellow_anime</color>
+    <color>yellow</color>
   </job>
   <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
     <name>periodic-voltha-multi-uni-test-bbsim</name>
@@ -98,7 +98,7 @@
   <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
     <name>periodic-voltha-multiple-olts-openonu-go-test-bbsim</name>
     <url>https://jenkins.opencord.org/job/periodic-voltha-multiple-olts-openonu-go-test-bbsim/</url>
-    <color>yellow</color>
+    <color>blue</color>
   </job>
   <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
     <name>periodic-voltha-multiple-olts-openonu-go-test-bbsim-2.10</name>
@@ -118,7 +118,7 @@
   <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
     <name>periodic-voltha-multiple-olts-test-bbsim</name>
     <url>https://jenkins.opencord.org/job/periodic-voltha-multiple-olts-test-bbsim/</url>
-    <color>blue</color>
+    <color>yellow</color>
   </job>
   <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
     <name>periodic-voltha-openonu-go-test-bbsim</name>
@@ -138,7 +138,7 @@
   <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
     <name>periodic-voltha-test-bbsim</name>
     <url>https://jenkins.opencord.org/job/periodic-voltha-test-bbsim/</url>
-    <color>yellow</color>
+    <color>blue</color>
   </job>
   <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
     <name>periodic-voltha-test-DMI</name>
@@ -158,7 +158,7 @@
   <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
     <name>periodic-voltha-unitag-subscriber-tt-test-bbsim</name>
     <url>https://jenkins.opencord.org/job/periodic-voltha-unitag-subscriber-tt-test-bbsim/</url>
-    <color>yellow</color>
+    <color>blue</color>
   </job>
   <name>VOLTHA-2.X-Tests</name>
   <url>https://jenkins.opencord.org/view/VOLTHA-2.X-Tests/</url>

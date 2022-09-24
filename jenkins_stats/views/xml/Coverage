@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<listView _class="hudson.model.ListView">
+  <description>Code coverage tests run on branch heads after merge</description>
+  <name>Coverage</name>
+  <url>https://jenkins.opencord.org/view/Coverage/</url>
+</listView>

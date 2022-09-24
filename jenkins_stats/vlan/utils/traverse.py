@@ -1,14 +1,12 @@
 # -*- python -*-
 ## -----------------------------------------------------------------------
 ## -----------------------------------------------------------------------
-"""Common utility function"""
+"""A module of filesystem traversal methods."""
 
 ##-------------------##
 ##---]  IMPORTS  [---##
 ##-------------------##
-import pdb
 import os
-import pprint
 
 from pathlib import PurePath, Path
 
@@ -68,13 +66,20 @@ def history_stats(path):
 ## -----------------------------------------------------------------------
 ## -----------------------------------------------------------------------
 def find_by_name(path, sentinels):
-    """."""
+    """Gather a list of filesystem paths that contain a named value from sentinels.
+
+    :param path: Base directory to search.
+    :type path: str
+
+    :param sentinels: Names to search for
+    :type  sentinels: list[str]
+
+    :return: Filesystem paths sentinel values were detected in.
+    :rypte:  list[str]
+    """
 
     path_str = path.replace('\\', '/')
     path = PurePath(path_str)
-
-#  -rw-r--r--   1 joey joey     0 Oct 21  2019 legacyIds
-#  -rw-r--r--   1 joey joey   139 Sep 17 06:10 permalinks
 
     ans       = []
     excl      = []

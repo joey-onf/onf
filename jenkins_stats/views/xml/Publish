@@ -1,0 +1,435 @@
+<?xml version="1.0"?>
+<listView _class="hudson.model.ListView">
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>docker-publish-github_c3po</name>
+    <url>https://jenkins.opencord.org/job/docker-publish-github_c3po/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>docker-publish-github_ngic-rtc</name>
+    <url>https://jenkins.opencord.org/job/docker-publish-github_ngic-rtc/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>docker-publish-github_Nucleus</name>
+    <url>https://jenkins.opencord.org/job/docker-publish-github_Nucleus/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>docker-publish-github_openmme</name>
+    <url>https://jenkins.opencord.org/job/docker-publish-github_openmme/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>docker-publish_alpine-grpc-base</name>
+    <url>https://jenkins.opencord.org/job/docker-publish_alpine-grpc-base/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>docker-publish_att-workflow-driver</name>
+    <url>https://jenkins.opencord.org/job/docker-publish_att-workflow-driver/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>docker-publish_automation-tools</name>
+    <url>https://jenkins.opencord.org/job/docker-publish_automation-tools/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>docker-publish_bbsim</name>
+    <url>https://jenkins.opencord.org/job/docker-publish_bbsim/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>docker-publish_bbsim-sadis-server</name>
+    <url>https://jenkins.opencord.org/job/docker-publish_bbsim-sadis-server/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>docker-publish_chameleon</name>
+    <url>https://jenkins.opencord.org/job/docker-publish_chameleon/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>docker-publish_cord-workflow-airflow</name>
+    <url>https://jenkins.opencord.org/job/docker-publish_cord-workflow-airflow/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>docker-publish_cord-workflow-controller</name>
+    <url>https://jenkins.opencord.org/job/docker-publish_cord-workflow-controller/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>docker-publish_device-management</name>
+    <url>https://jenkins.opencord.org/job/docker-publish_device-management/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>docker-publish_dt-workflow-driver</name>
+    <url>https://jenkins.opencord.org/job/docker-publish_dt-workflow-driver/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>docker-publish_fabric</name>
+    <url>https://jenkins.opencord.org/job/docker-publish_fabric/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>docker-publish_fabric-crossconnect</name>
+    <url>https://jenkins.opencord.org/job/docker-publish_fabric-crossconnect/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>docker-publish_kafka-topic-exporter</name>
+    <url>https://jenkins.opencord.org/job/docker-publish_kafka-topic-exporter/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>docker-publish_kubernetes-service</name>
+    <url>https://jenkins.opencord.org/job/docker-publish_kubernetes-service/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>docker-publish_mn-stratum-siab</name>
+    <url>https://jenkins.opencord.org/job/docker-publish_mn-stratum-siab/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>docker-publish_multifabric</name>
+    <url>https://jenkins.opencord.org/job/docker-publish_multifabric/</url>
+    <color>notbuilt</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>docker-publish_nem-ondemand-proxy</name>
+    <url>https://jenkins.opencord.org/job/docker-publish_nem-ondemand-proxy/</url>
+    <color>notbuilt</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>docker-publish_ntt-workflow-driver</name>
+    <url>https://jenkins.opencord.org/job/docker-publish_ntt-workflow-driver/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>docker-publish_ofagent-go</name>
+    <url>https://jenkins.opencord.org/job/docker-publish_ofagent-go/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>docker-publish_olt-service</name>
+    <url>https://jenkins.opencord.org/job/docker-publish_olt-service/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>docker-publish_omec-cni</name>
+    <url>https://jenkins.opencord.org/job/docker-publish_omec-cni/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>docker-publish_omec-pod-init</name>
+    <url>https://jenkins.opencord.org/job/docker-publish_omec-pod-init/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>docker-publish_onos-classic-helm-utils</name>
+    <url>https://jenkins.opencord.org/job/docker-publish_onos-classic-helm-utils/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>docker-publish_onos-service</name>
+    <url>https://jenkins.opencord.org/job/docker-publish_onos-service/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>docker-publish_openairinterface</name>
+    <url>https://jenkins.opencord.org/job/docker-publish_openairinterface/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>docker-publish_opendevice-manager</name>
+    <url>https://jenkins.opencord.org/job/docker-publish_opendevice-manager/</url>
+    <color>notbuilt</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>docker-publish_openolt-scale-tester</name>
+    <url>https://jenkins.opencord.org/job/docker-publish_openolt-scale-tester/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>docker-publish_openolt-test</name>
+    <url>https://jenkins.opencord.org/job/docker-publish_openolt-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>docker-publish_rcord</name>
+    <url>https://jenkins.opencord.org/job/docker-publish_rcord/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>docker-publish_simpleexampleservice</name>
+    <url>https://jenkins.opencord.org/job/docker-publish_simpleexampleservice/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>docker-publish_tt-workflow-driver</name>
+    <url>https://jenkins.opencord.org/job/docker-publish_tt-workflow-driver/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>docker-publish_voltha-api-server</name>
+    <url>https://jenkins.opencord.org/job/docker-publish_voltha-api-server/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>docker-publish_voltha-docker-tools</name>
+    <url>https://jenkins.opencord.org/job/docker-publish_voltha-docker-tools/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>docker-publish_voltha-eponolt-adapter</name>
+    <url>https://jenkins.opencord.org/job/docker-publish_voltha-eponolt-adapter/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>docker-publish_voltha-epononu-adapter</name>
+    <url>https://jenkins.opencord.org/job/docker-publish_voltha-epononu-adapter/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>docker-publish_voltha-go</name>
+    <url>https://jenkins.opencord.org/job/docker-publish_voltha-go/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>docker-publish_voltha-northbound-bbf-adapter</name>
+    <url>https://jenkins.opencord.org/job/docker-publish_voltha-northbound-bbf-adapter/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>docker-publish_voltha-onos</name>
+    <url>https://jenkins.opencord.org/job/docker-publish_voltha-onos/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>docker-publish_voltha-openolt-adapter</name>
+    <url>https://jenkins.opencord.org/job/docker-publish_voltha-openolt-adapter/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>docker-publish_voltha-openonu-adapter-go</name>
+    <url>https://jenkins.opencord.org/job/docker-publish_voltha-openonu-adapter-go/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>docker-publish_vrouter</name>
+    <url>https://jenkins.opencord.org/job/docker-publish_vrouter/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>docker-publish_xos</name>
+    <url>https://jenkins.opencord.org/job/docker-publish_xos/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>docker-publish_xos-gui</name>
+    <url>https://jenkins.opencord.org/job/docker-publish_xos-gui/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>docker-publish_xos-rest-gw</name>
+    <url>https://jenkins.opencord.org/job/docker-publish_xos-rest-gw/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>docker-publish_xos-tosca</name>
+    <url>https://jenkins.opencord.org/job/docker-publish_xos-tosca/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>github-release_bbsim</name>
+    <url>https://jenkins.opencord.org/job/github-release_bbsim/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>github-release_cordctl</name>
+    <url>https://jenkins.opencord.org/job/github-release_cordctl/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>github-release_voltctl</name>
+    <url>https://jenkins.opencord.org/job/github-release_voltctl/</url>
+    <color>red</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>maven-publish-jdk8_aaa</name>
+    <url>https://jenkins.opencord.org/job/maven-publish-jdk8_aaa/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>maven-publish-jdk8_config</name>
+    <url>https://jenkins.opencord.org/job/maven-publish-jdk8_config/</url>
+    <color>notbuilt</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>maven-publish-jdk8_dhcpl2relay</name>
+    <url>https://jenkins.opencord.org/job/maven-publish-jdk8_dhcpl2relay/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>maven-publish-jdk8_igmp</name>
+    <url>https://jenkins.opencord.org/job/maven-publish-jdk8_igmp/</url>
+    <color>notbuilt</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>maven-publish-jdk8_igmpproxy</name>
+    <url>https://jenkins.opencord.org/job/maven-publish-jdk8_igmpproxy/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>maven-publish-jdk8_kafka-onos</name>
+    <url>https://jenkins.opencord.org/job/maven-publish-jdk8_kafka-onos/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>maven-publish-jdk8_mcast</name>
+    <url>https://jenkins.opencord.org/job/maven-publish-jdk8_mcast/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>maven-publish-jdk8_olt</name>
+    <url>https://jenkins.opencord.org/job/maven-publish-jdk8_olt/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>maven-publish-jdk8_sadis</name>
+    <url>https://jenkins.opencord.org/job/maven-publish-jdk8_sadis/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>maven-publish-jdk8_vtn</name>
+    <url>https://jenkins.opencord.org/job/maven-publish-jdk8_vtn/</url>
+    <color>notbuilt</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>maven-publish_aaa</name>
+    <url>https://jenkins.opencord.org/job/maven-publish_aaa/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>maven-publish_bng</name>
+    <url>https://jenkins.opencord.org/job/maven-publish_bng/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>maven-publish_config</name>
+    <url>https://jenkins.opencord.org/job/maven-publish_config/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>maven-publish_dhcpl2relay</name>
+    <url>https://jenkins.opencord.org/job/maven-publish_dhcpl2relay/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>maven-publish_fabric-tofino</name>
+    <url>https://jenkins.opencord.org/job/maven-publish_fabric-tofino/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>maven-publish_igmp</name>
+    <url>https://jenkins.opencord.org/job/maven-publish_igmp/</url>
+    <color>notbuilt</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>maven-publish_igmpproxy</name>
+    <url>https://jenkins.opencord.org/job/maven-publish_igmpproxy/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>maven-publish_kafka-onos</name>
+    <url>https://jenkins.opencord.org/job/maven-publish_kafka-onos/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>maven-publish_mac-learning</name>
+    <url>https://jenkins.opencord.org/job/maven-publish_mac-learning/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>maven-publish_mcast</name>
+    <url>https://jenkins.opencord.org/job/maven-publish_mcast/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>maven-publish_olt</name>
+    <url>https://jenkins.opencord.org/job/maven-publish_olt/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>maven-publish_olttopology</name>
+    <url>https://jenkins.opencord.org/job/maven-publish_olttopology/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>maven-publish_pppoeagent</name>
+    <url>https://jenkins.opencord.org/job/maven-publish_pppoeagent/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>maven-publish_pppoel2relay</name>
+    <url>https://jenkins.opencord.org/job/maven-publish_pppoel2relay/</url>
+    <color>notbuilt</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>maven-publish_sadis</name>
+    <url>https://jenkins.opencord.org/job/maven-publish_sadis/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>maven-publish_vtn</name>
+    <url>https://jenkins.opencord.org/job/maven-publish_vtn/</url>
+    <color>notbuilt</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>pypi-publish_cord-tester</name>
+    <url>https://jenkins.opencord.org/job/pypi-publish_cord-tester/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>pypi-publish_cord-workflow-controller-client</name>
+    <url>https://jenkins.opencord.org/job/pypi-publish_cord-workflow-controller-client/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>pypi-publish_device-management-interface</name>
+    <url>https://jenkins.opencord.org/job/pypi-publish_device-management-interface/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>pypi-publish_grpc-robot</name>
+    <url>https://jenkins.opencord.org/job/pypi-publish_grpc-robot/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>pypi-publish_kafka-robot</name>
+    <url>https://jenkins.opencord.org/job/pypi-publish_kafka-robot/</url>
+    <color>notbuilt</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>pypi-publish_plyxproto</name>
+    <url>https://jenkins.opencord.org/job/pypi-publish_plyxproto/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>pypi-publish_voltha-protos</name>
+    <url>https://jenkins.opencord.org/job/pypi-publish_voltha-protos/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>pypi-publish_xos</name>
+    <url>https://jenkins.opencord.org/job/pypi-publish_xos/</url>
+    <color>blue</color>
+  </job>
+  <name>Publish</name>
+  <url>https://jenkins.opencord.org/view/Publish/</url>
+</listView>

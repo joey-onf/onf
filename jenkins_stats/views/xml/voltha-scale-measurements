@@ -3,7 +3,7 @@
   <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
     <name>bbsim_scale_test</name>
     <url>https://jenkins.opencord.org/job/bbsim_scale_test/</url>
-    <color>red</color>
+    <color>aborted</color>
   </job>
   <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
     <name>voltha-scale-measurements-2.8-10-stacks-2-16-32-att-subscribers</name>
@@ -13,7 +13,7 @@
   <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
     <name>voltha-scale-measurements-2.8-10-stacks-2-16-32-dt-subscribers</name>
     <url>https://jenkins.opencord.org/job/voltha-scale-measurements-2.8-10-stacks-2-16-32-dt-subscribers/</url>
-    <color>blue_anime</color>
+    <color>disabled_anime</color>
   </job>
   <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
     <name>voltha-scale-measurements-2.8-10-stacks-2-16-32-tt-subscribers</name>

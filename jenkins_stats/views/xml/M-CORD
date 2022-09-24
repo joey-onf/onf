@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<listView _class="hudson.model.ListView">
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>build_mcord-barcellona-remote-dt</name>
+    <url>https://jenkins.opencord.org/job/build_mcord-barcellona-remote-dt/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>build_onf-mcord-pod1</name>
+    <url>https://jenkins.opencord.org/job/build_onf-mcord-pod1/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>build_onf-mcord-pod2</name>
+    <url>https://jenkins.opencord.org/job/build_onf-mcord-pod2/</url>
+    <color>blue</color>
+  </job>
+  <name>M-CORD</name>
+  <url>https://jenkins.opencord.org/view/M-CORD/</url>
+</listView>

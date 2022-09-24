@@ -103,7 +103,7 @@
   <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
     <name>verify_voltha-onos_sanity-test</name>
     <url>https://jenkins.opencord.org/job/verify_voltha-onos_sanity-test/</url>
-    <color>blue</color>
+    <color>red</color>
   </job>
   <job _class="hudson.model.FreeStyleProject">
     <name>verify_voltha-openolt-adapter_licensed</name>

@@ -6,12 +6,12 @@
 ##-------------------##
 ##---]  IMPORTS  [---##
 ##-------------------##
-import pdb
 import pprint
 
-from pathlib import PurePath, Path
+from pathlib            import PurePath, Path
+import time
 
-from openpyxl import Workbook
+from openpyxl           import Workbook
 
 from openpyxl.cell      import Cell
 from openpyxl.utils     import FORMULAE
@@ -23,9 +23,14 @@ from openpyxl.styles    import Alignment
 from openpyxl.styles    import Color, PatternFill, Font, Border
 from openpyxl.styles    import colors
 
-from openpyxl.styles    import Font
-
 from vlan.main          import argparse        as main_getopt
+
+from vlan.jenkins       import jobs_by
+
+from vlan.utils.consts  import \
+    get_types_result,          \
+    get_types_state,           \
+    get_types_stat
 
 
 ## -----------------------------------------------------------------------
@@ -35,7 +40,6 @@ def init():
 
     # Register named styles: separate format from cells
     # https://openpyxl.readthedocs.io/en/stable/styles.html#creating-a-named-style
-
     # See also: merge styles
 
     # Conditional formatting
@@ -69,22 +73,56 @@ def init():
     # TOTALS:  =SUM(range)
 
 ## -----------------------------------------------------------------------
-## Todo: Refactor and move into a constants module
 ## -----------------------------------------------------------------------
-def get_states():
-    return['SUCCESS', 'FAILURE', 'UNSTABLE', 'ABORTED']
+def get_letter(col, row=None):
+    """."""
+
+    if not isinstance(col, int):
+        col = get_column_idx(col)
+        if not isinstance(col, int):
+            raise ValueError("col=[%s] is invalid" % col)
+        
+    letter = chr(ord('A') + col - 1)
+    if row:
+        letter = "%s%d" % (letter, row)
+    return letter
 
 ## -----------------------------------------------------------------------
 ## -----------------------------------------------------------------------
-def get_aligns():
-    orients = ['left', 'center', 'right']
+def get_view_tabs():
+    """Return a list of shortented view names."""
 
+    ans  = []
+    argv = main_getopt.get_argv()
+
+    if len(argv['view_name']) == 0:
+        # Expensive...
+        fields = jobs_by.IndexUtils().view_to_jobs()
+        argv['view_name'] += list(fields.keys())
+        
+    views = sorted(argv['view_name'])
+    for idx, view in enumerate(views):
+        vx = 'v%s' % (idx)
+        ans += [ (idx, vx, view) ]
+
+    return ans
+
+## -----------------------------------------------------------------------
+## -----------------------------------------------------------------------
+def get_aligns(val=None):
+    orients = ['left', 'center', 'right'] # 'justify'
+    if val is not None and val not in orients:
+        raise ValueError("get_aligns: detected invalid alignment %s" % val)
+
+    # cell.alignment = Alignment(horizontal='center', 
     align = { orient : Alignment(horizontal=orient,vertical='center') for orient in orients }
-    return align
+    ans = align[val] if val is not None else align
+#    center = Alignment(horizontal='center',vertical='center')
+    return ans
 
 ## -----------------------------------------------------------------------
 ## -----------------------------------------------------------------------
-def get_fills():
+def get_fills(val=None):
     redFill = PatternFill(fill_type='solid', start_color='00FF0000')
     darkOrchidFill = PatternFill(fill_type='solid', start_color='9932CC')
     # purpleFill = PatternFill(fill_type='solid', start_color='C694F8')
@@ -98,6 +136,12 @@ def get_fills():
             'dark_orchid' : PatternFill(fill_type='solid', start_color='9932CC'),
             'purple' : PatternFill(fill_type='solid', start_color='5F2D91'),
             'red'    : PatternFill(fill_type='solid', start_color='00FF0000'),
+            'orange' : PatternFill(fill_type='solid', start_color='00FF9000'),
+            # 'orange' : PatternFill(fill_type='solid', start_color='00FFBF00'),
+            # 'dark-orange' : PatternFill(fill_type='solid', start_color='00D56F00'),
+            # 'pink'   : PatternFill(fill_type='solid', start_color='00FFB9C3'),
+            'pink'   : PatternFill(fill_type='solid', start_color='00ffe9ec'),
+            # 'pink'   : PatternFill(fill_type='solid', start_color='00ff7386'),
         }
 
     
@@ -105,11 +149,12 @@ def get_fills():
     # start_color='FFFFFFFF',
     # end_color='FF000000')    
 
-    return fill
+    ans = fill[val] if val is not None else fill
+    return ans
 
 ## -----------------------------------------------------------------------
 ## -----------------------------------------------------------------------
-def get_fonts() -> dict:
+def get_fonts(val=None) -> dict:
 
     color=\
         {
@@ -125,7 +170,8 @@ def get_fonts() -> dict:
             for color,hex_code in color.items()
         }
 
-    return fonts
+    ans = fonts[val] if val is not None else fonts
+    return ans
 
 ## -----------------------------------------------------------------------
 ## -----------------------------------------------------------------------
@@ -141,56 +187,136 @@ def get_fonts() -> dict:
 
 ## -----------------------------------------------------------------------
 ## -----------------------------------------------------------------------
+def col_hdr(sheet, col, word, align=None, row=None, width=None):
+
+    # sheet = Workbook().active
+    
+    if row is None:
+        row = 1
+
+    cell = sheet.cell(row=row, column=col)
+
+    cell.font = get_fonts('yellow')
+    cell.fill = get_fills('purple')
+
+    if align is None:
+        align = 'center'
+    cell.alignment = Alignment(horizontal=align)
+
+    if width is not None:
+        letter = chr(ord('A') + col - 1)
+        sheet.column_dimensions[letter].width = width
+        
+    cell.value = word
+
+## -----------------------------------------------------------------------
+## -----------------------------------------------------------------------
+def do_sheet_header(ws, headers, col_max=None):
+    """Given a data structure render a spreadsheet header.
+
+    :param ws: Worksheet to generate a header for.
+    :type  ws:
+
+    :param header: A structure containing header data to render.
+    :type  header:
+    """
+
+    if col_max is None:
+        col_max = 100
+
+    col = 1 # for visiblity in col_fill floop
+    for header in headers:
+        col   = header['col']
+        label = header['label']
+        width = header['width']
+        align = header['align']        
+        col_hdr(ws, col, label, width=width, align=align)
+
+    for col_fill in range(col, col_max):
+        col_hdr(ws, col_fill, '')
+
+## -----------------------------------------------------------------------        
+## -----------------------------------------------------------------------        
+def get_raw_header():
+
+    headers = [
+        { 'label':'DATE',     'width':11 },
+        #
+        { 'label':'Enabled',  'width':8 },
+        { 'label':'Disabled', 'width':8 },
+        { 'label':'',         'width':1 },
+        { 'label':'Success',  'width':8 },
+        { 'label':'Failure',  'width':8 },
+        { 'label':'Unstable', 'width':8 },
+        { 'label':'Aborted',  'width':8 },
+        { 'label':'',         'width':1 },
+        { 'label':'SFUA',     'width': 2 + len('UNSTABLE') },
+        { 'label':'VIEW',     'width':6 },
+        { 'label':'URL',      'width':6 },
+        { 'label':'TOTAL',    'width':6 },
+        { 'label':'',         'width':1 },
+#        { 'label':'START',    'width':15, },
+#        { 'label':'DURATION', 'width':10, },
+#        { 'label':'',         'width':1 },
+        { 'label':'NOTES',    'width':100, 'align':'left' },
+    ]
+
+    col = 1
+    for header in headers:
+        header['key']    = header['label'].upper()
+        header['col']    = col
+        header['letter'] = chr(ord('A') + col - 1)
+        if not 'align' in header:
+            header['align'] = None
+        col = col + 1
+
+    return headers
+
+## -----------------------------------------------------------------------
+## -----------------------------------------------------------------------
+def get_header_rec(val=None):
+
+    ans = None
+    headers = get_raw_header()
+
+    if val is None:
+        ans = headers
+    else:
+        val_uc = val.upper()
+        for header in headers:
+            if header['key'] == val_uc:
+                ans = header
+                break
+
+    if not ans:
+        raise ValueError("Invalid header key detected [%s]" % val)
+
+    return ans
+
+## -----------------------------------------------------------------------
+## -----------------------------------------------------------------------
+def get_column_idx(val=None):
+
+    hdr = get_header_rec(val)
+    ans = hdr['col']
+    
+    return ans
+
+## -----------------------------------------------------------------------
+## -----------------------------------------------------------------------
 def do_header(sheet):
     
     sheet.column_dimensions['A'].width = 40
     sheet.column_dimensions['C'].width = 10
     sheet.column_dimensions['D'].width = 20
 
-    # sheet.title = title
-
-    header = [
-        # name          width  alignment]
-        [ 'Enabled',    8,     'center', ], # 1
-        [ 'Disabled',   8,     'center', ],
-        [ '',           1,     'center', ],
-        [ 'Success',    8,     'center', ],
-        [ 'Failure',    8,     'center', ], # 5
-        [ 'Unstable',   8,     'center', ],
-        [ 'Aborted',    7,     'center', ],
-        [ '',           1,     'center', ],
-        [ 'SFUA',       None,  'center', ],
-        [ 'VIEW',       6,     'center', ], # 10
-        [ 'URL',        6,     None      ],
-        [ 'TOTAL',      6,     None      ],
-    ]
-
-    align = get_aligns()
-    font = get_fonts()
-    fill = get_fills()
-
-    last_row = 0
-    for row in range(1,2):
-        last_row = row
-        for col in range(1,100):
-            cell = sheet.cell(row=row, column=col)
-            cell.font = font['yellow']
-            cell.fill = fill['purple']
+    headers = get_raw_header()
+    do_sheet_header(sheet, headers)
 
     # c.fill = PatternFill('gray0625')                  # DOTTED
     # c.fill = PatternFill('solid', fgColor = 'F2F2F2') # SEPARATOR
     # ws['E7'].fill = GradientFill('linear', stop = ('85E4F7','4617F1'))
     # https://pythoninoffice.com/python-openpyxl-excel-formatting-cells/
-    for idx,rec in enumerate(header, start=1):
-        letter = chr(ord('A') + idx - 1)
-        if rec[1] is not None:
-            sheet.column_dimensions[letter].width = rec[1]
-
-        cell = sheet.cell(row=last_row, column=idx)
-        cell.value = rec[0]
-        if rec[2] is not None:
-            cell.alignment = align[rec[2]]
-
     return
 
 ## -----------------------------------------------------------------------
@@ -198,25 +324,36 @@ def do_header(sheet):
 def do_formulas(sheet, row):
     """ . """
 
-    # worksheet.get_highest_row()
-    # worksheet.get_highest_column()
+    total_row = row
 
     center = Alignment(horizontal='center',vertical='center')
 
-    col=4
-    states = get_states()
+    col = get_column_idx('TOTAL')
+    cell = sheet.cell(row=row, column=col)
+
+    total_6   = get_letter('SFUA', 6)
+    total_max = get_letter('SFUA', sheet.max_row)
+    cell.value = '= COUNTA(%s:%s)' % (total_6, total_max)
+    cell = sheet.cell(row=row+1, column=col)
+
+    cell.value = 1
+    cell.style = 'Percent'
+
+    states = get_types_result()
     for idx,state in enumerate(states):
+        col = get_column_idx(state)
         for row in range(2,4):
-            cell = sheet.cell(row=row, column=col+idx)
-            cell.alignment = center
+            cell = sheet.cell(row=row, column=col)
+            cell.alignment = get_aligns('center')
+
             if row == 2:
                 cell.value = '= COUNTIFS(I6:I%s, "%s")' % (sheet.max_row, state)
             else:
-                continue
-                # Ranges supported
-                # https://openpyxl.readthedocs.io/en/stable/styles.html
-                cell.value = '= COUNTIFS(I6:I%s, "%s")' % (sheet.max_row, state)
-                cell.style = percent
+                numerator   = get_letter(state,   row=total_row)
+                denominator = get_letter('TOTAL', row=total_row)
+
+                cell.value = '= %s/%s' % (numerator, denominator)
+                cell.style = 'Percent'
 
 ## -----------------------------------------------------------------------
 ## -----------------------------------------------------------------------
@@ -235,113 +372,108 @@ def grey_grid(data):
 def summary_page(wb):
 
     argv = main_getopt.get_argv()
-    align = get_aligns()
 
-    ws = wb.create_sheet('index')
+    ws = wb.get_sheet_by_name('summary')
     ws.column_dimensions['A'].width = 4
     ws.column_dimensions['B'].width = 70
 
-    # ws = wb.get_sheet_by_name('V0')
-    for idx, view in enumerate(argv['view_name']):
+    headers = [
+        { 'label':'view', 'width':8, },
+        { 'label':'name', 'width':40, 'align':'left'},
+    ]
 
-        vx = 'V%s' % (idx)
+    for col,header in enumerate(headers, start=1):
+        header['key']    = header['label'].upper()
+        header['col']    = col
+        header['letter'] = chr(ord('A') + col - 1)
+        if not 'align' in header:
+            header['align'] = None
+        col = col + 1
+        
+    do_sheet_header(ws, headers)
+    
+    row=2
+    for rec in get_view_tabs():
+        idx, vx, view = rec
 
-        cell = ws.cell(row=4+idx, column=1)
+        # short view name
+        cell = ws.cell(row=idx+row, column=1)
         cell.value = vx
-        cell.alignment = align['center']
+        cell.alignment = get_aligns('center')
 
-        cell = ws.cell(row=4+idx, column=2)
+        # link-to-view-tab
+        cell = ws.cell(row=idx+row, column=2)
         cell.value = view
         cell.hyperlink = '#%s!A1' % vx
 
 ## -----------------------------------------------------------------------
 ## -----------------------------------------------------------------------
-def gen_spreadsheet(data):
+def gen_spreadsheet(data, job_data):
     """ . """
 
     workbook = Workbook()
     # sheet = workbook.active
 
+    # Where is this stray tab coming from ?
+    junk = workbook.get_sheet_by_name('Sheet')
+    workbook.remove_sheet(junk)
+    
+    workbook.create_sheet('summary')
     summary_page(workbook)
 
-    row = 2
+    view_map = jobs_by.IndexUtils().view_to_jobs()
+    
+    for rec in get_view_tabs():
+        idx, vx, view = rec
 
-    job_data = sorted(data.keys())
-    for idx, view in enumerate(job_data):
-        view = data[view]
-        name = view['name']
-        
         ## Cannot use literal view name, 4 tabs fill screen
-        ws = workbook.create_sheet(title="V%d" % idx)
-        
+        ws = workbook.create_sheet(title=vx)
         do_header(ws)
-        # do_body_format(ws)
 
-        totals = 0
+        if view not in view_map:
+            print(" ** warning: view not mapped %s" % view)
+            continue
 
-        AFUS = ['SUCCESS', 'FAILURE', 'UNSTABLE', 'ABORTED']
-#        for col,state in enumerate(AFUS, start=64):
-        for col,state in enumerate(AFUS, start=4):
-            totals += len(view[state])
-
-            cell = ws.cell(row=row, column=col)
-            cell.value = len(view[state])
-            ws.cell(row=row, column=10).value = name
-
-        ws.cell(row=row, column=12).value = totals
-
-        for col,state in enumerate(AFUS, start=4):
-            cell = ws.cell(row=1+row, column=col)
-            cell.value = len(view[state]) / totals
-            cell.style = 'Percent'
-
-            
+        fills = get_fills()
+        # redFill = PatternFill(fill_type='solid', start_color='00FF0000')
+        
         row = 5
-        for state in AFUS:
-                
-            # for val in sorted(view[state], reverse=True): struct not list
-            for val in view[state]:
-                
-                col  = 9
-                row = row + 1
-                
+        for job in view_map[view]:
+
+            print(" ** view: %s, job: %s" % (view, job))
+
+            if job not in job_data:
+                print(" ** warning: JOB NOT FOUND [%s]" % job)
+
+            for rec in job_data[job]:
+                col = 9
+                row = row + 1  
                 cell = ws.cell(row=row, column=col)
-                cell.value = state
-                
+                cell.value = rec['result']
+                if cell.value == 'ABORTED':
+                    cell.fill = fills['orange']
+                elif cell.value == 'FAILURE':
+                    cell.fill = fills['pink']
+
                 col = col + 1
                 cell = ws.cell(row=row, column=col)
                 cell.style = "Hyperlink"
-                
-                # https://programtalk.com/vs4/python/birforce/vnpy_crypto/venv/lib/python3.6/site-packages/openpyxl/writer/worksheet.py/
-                
+                cell.value     = rec['job_id']
+                cell.hyperlink = rec['urls'][view]
 
-                if True:
-                    for key,url in val['urls'].items():
-                        job_id = Path(url).parent.name
-                        # cell.value = data['job_id']
-                        cell.value     = job_id
-                        cell.hyperlink = url
-                else:
-                    idx = 0
-                    hll = HyperlinkList()
-                    for key,val in val['urls'].items():
-                        link = Hyperlink(val, display= "V%d" % idx)
-                        link.display   = "V%d" % idx
-                        # link.hyperlink = val
-                        idx = idx + 1
-                        hll.append(link)
-                        
-                        # cell.value = hll
-                        cell.hyperlink = str(hll.hyperlink)
-
+                if False
+                    hdr        = get_header_rec('DURATION')
+                    cell       = ws.cell(row=row, column=hdr['col'])
+                    cell.value = rec['duration']
+                
+                hdr        = get_header_rec('NOTES')
+                cell       = ws.cell(row=row, column=hdr['col'])
+                cell.value = rec['job_name']
+                
         # Add total formuals after grid populated and size is known
         do_formulas(ws, 2)
 
-        # Where is this stray tab coming from ?
-        junk = workbook.get_sheet_by_name('Sheet')
-        workbook.remove_sheet(junk)
-
-        return workbook
+    return workbook
 
 ## [SEE ALSO]
 ## ---------------------------------------------------------------------------

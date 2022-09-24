@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<listView _class="hudson.model.ListView">
+  <description>Verify API Test Jobs per gerrit check-ins</description>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>verify_xos_api-test</name>
+    <url>https://jenkins.opencord.org/job/verify_xos_api-test/</url>
+    <color>blue</color>
+  </job>
+  <name>API-Tests</name>
+  <url>https://jenkins.opencord.org/view/API-Tests/</url>
+</listView>

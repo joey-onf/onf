@@ -1,0 +1,303 @@
+<?xml version="1.0"?>
+<listView _class="hudson.model.ListView">
+  <description>&lt;h2&gt;&lt;a href=https://github.com/omec-project&gt;OMEC Project&lt;/a&gt; Jenkins Jobs&lt;/h2&gt;
+Check out the &lt;a href=https://docs.google.com/document/d/1N5QV5Cgr-kkfzZbwUei12jTPW_UarCqHmpzHNiXKcvE/edit&gt;
+OMEC Contributor Guide&lt;/a&gt; for detailed information about these jobs.
+&lt;h3&gt;&lt;a href=https://github.com/omec-project/Nucleus&gt;Nucleus&lt;/a&gt;&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=https://jenkins.opencord.org/view/OMEC/job/omec_Nucleus_combined/&gt;VM-Based Tests&lt;/a&gt; - Install Components &#x2192; Config &amp; Run Components &#x2192; NG40 Test Cases&lt;/li&gt;
+  &lt;li&gt;&lt;a href=https://jenkins.opencord.org/view/OMEC/job/omec_Nucleus_container/&gt;Container-Based Tests&lt;/a&gt; - Build &amp; Push Docker Image &#x2192; OMEC Deployment &#x2192; NG40 Test Cases&lt;/li&gt;
+  &lt;li&gt;&lt;a href=https://jenkins.opencord.org/view/OMEC/job/omec_Nucleus_fossa/&gt;FOSSA License Scan&lt;/a&gt; - License scans dependencies, checks for safe dependency usage.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=https://jenkins.opencord.org/view/OMEC/job/omec_Nucleus_reuse/&gt;REUSE License Scan&lt;/a&gt; - License scans project files, checks for copyright and license per file.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;&lt;a href=https://github.com/omec-project/upf-epc&gt;UPF-EPC&lt;/a&gt;&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=https://jenkins.opencord.org/view/OMEC/job/omec_upf-epc_container/&gt;Container-Based Tests&lt;/a&gt;
+  &lt;li&gt;&lt;a href=https://jenkins.opencord.org/view/OMEC/job/omec_upf-epc_fossa/&gt;FOSSA License Scan&lt;/a&gt;
+  &lt;li&gt;&lt;a href=https://jenkins.opencord.org/view/OMEC/job/omec_upf-epc_reuse/&gt;REUSE License Scan&lt;/a&gt;
+&lt;/ul&gt;
+&lt;h3&gt;&lt;a href=https://github.com/omec-project/ngic-rtc&gt;NGIC-RTC&lt;/a&gt;&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=https://jenkins.opencord.org/view/OMEC/job/omec_ngic-rtc_combined/&gt;VM-Based Tests&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=https://jenkins.opencord.org/view/OMEC/job/omec_ngic-rtc_container/&gt;Container-Based Tests&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=https://jenkins.opencord.org/view/OMEC/job/omec_ngic-rtc_fossa/&gt;FOSSA License Scan&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=https://jenkins.opencord.org/view/OMEC/job/omec_ngic-rtc_reuse/&gt;REUSE License Scan&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;&lt;a href=https://github.com/omec-project/c3po&gt;C3PO&lt;/a&gt;&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=https://jenkins.opencord.org/view/OMEC/job/omec_c3po_combined/&gt;VM-Based Tests&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=https://jenkins.opencord.org/view/OMEC/job/omec_c3po_container/&gt;Container-Based Tests&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=https://jenkins.opencord.org/view/OMEC/job/omec_c3po_fossa/&gt;FOSSA License Scan&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=https://jenkins.opencord.org/view/OMEC/job/omec_c3po_reuse/&gt;REUSE License Scan&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;&lt;a href=https://github.com/omec-project/openmme&gt;OpenMME&lt;/a&gt;&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=https://jenkins.opencord.org/view/OMEC/job/omec_openmme_combined/&gt;VM-Based Tests&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=https://jenkins.opencord.org/view/OMEC/job/omec_openmme_fossa/&gt;FOSSA License Scan&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=https://jenkins.opencord.org/view/OMEC/job/omec_openmme_reuse/&gt;REUSE License Scan&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=https://jenkins.opencord.org/view/OMEC/job/docker-publish-github_openmme/&gt;Docker Publish&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;OMEC Test Cases&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=https://jenkins.opencord.org/view/OMEC/job/omec_tc1/&gt;OMEC_TC1&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=https://jenkins.opencord.org/view/OMEC/job/omec_tc2/&gt;OMEC_TC2&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;Post-Merge Actions&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=https://jenkins.opencord.org/view/OMEC/job/omec_postmerge/&gt;Post-Merge&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>aether-archive-artifacts</name>
+    <url>https://jenkins.opencord.org/job/aether-archive-artifacts/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>docker-publish-github_c3po</name>
+    <url>https://jenkins.opencord.org/job/docker-publish-github_c3po/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>docker-publish-github_ngic-rtc</name>
+    <url>https://jenkins.opencord.org/job/docker-publish-github_ngic-rtc/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>docker-publish-github_openmme</name>
+    <url>https://jenkins.opencord.org/job/docker-publish-github_openmme/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>docker-publish_omec-cni</name>
+    <url>https://jenkins.opencord.org/job/docker-publish_omec-cni/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>docker-publish_omec-pod-init</name>
+    <url>https://jenkins.opencord.org/job/docker-publish_omec-pod-init/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>omec_archive-artifacts_dev</name>
+    <url>https://jenkins.opencord.org/job/omec_archive-artifacts_dev/</url>
+    <color>disabled</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>omec_c3po-hss_install</name>
+    <url>https://jenkins.opencord.org/job/omec_c3po-hss_install/</url>
+    <color>disabled</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>omec_c3po-sgx_install</name>
+    <url>https://jenkins.opencord.org/job/omec_c3po-sgx_install/</url>
+    <color>disabled</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>omec_c3po_combined</name>
+    <url>https://jenkins.opencord.org/job/omec_c3po_combined/</url>
+    <color>disabled</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>omec_c3po_container</name>
+    <url>https://jenkins.opencord.org/job/omec_c3po_container/</url>
+    <color>disabled</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>omec_c3po_container_remote</name>
+    <url>https://jenkins.opencord.org/job/omec_c3po_container_remote/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>omec_c3po_fossa</name>
+    <url>https://jenkins.opencord.org/job/omec_c3po_fossa/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>omec_c3po_reuse</name>
+    <url>https://jenkins.opencord.org/job/omec_c3po_reuse/</url>
+    <color>notbuilt</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>omec_ci-test_pipeline</name>
+    <url>https://jenkins.opencord.org/job/omec_ci-test_pipeline/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>omec_ci_combined</name>
+    <url>https://jenkins.opencord.org/job/omec_ci_combined/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>omec_deploy_dev</name>
+    <url>https://jenkins.opencord.org/job/omec_deploy_dev/</url>
+    <color>disabled</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>omec_freediameter_fossa</name>
+    <url>https://jenkins.opencord.org/job/omec_freediameter_fossa/</url>
+    <color>notbuilt</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>omec_freediameter_reuse</name>
+    <url>https://jenkins.opencord.org/job/omec_freediameter_reuse/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>omec_func_dev</name>
+    <url>https://jenkins.opencord.org/job/omec_func_dev/</url>
+    <color>disabled</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>omec_ignite_fossa</name>
+    <url>https://jenkins.opencord.org/job/omec_ignite_fossa/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>omec_ignite_reuse</name>
+    <url>https://jenkins.opencord.org/job/omec_ignite_reuse/</url>
+    <color>notbuilt</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>omec_integration-test_dev</name>
+    <url>https://jenkins.opencord.org/job/omec_integration-test_dev/</url>
+    <color>disabled</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>omec_ng40-test_dev</name>
+    <url>https://jenkins.opencord.org/job/omec_ng40-test_dev/</url>
+    <color>disabled</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>omec_ngic-rtc_combined</name>
+    <url>https://jenkins.opencord.org/job/omec_ngic-rtc_combined/</url>
+    <color>disabled</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>omec_ngic-rtc_container</name>
+    <url>https://jenkins.opencord.org/job/omec_ngic-rtc_container/</url>
+    <color>disabled</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>omec_ngic-rtc_fossa</name>
+    <url>https://jenkins.opencord.org/job/omec_ngic-rtc_fossa/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>omec_ngic-rtc_install</name>
+    <url>https://jenkins.opencord.org/job/omec_ngic-rtc_install/</url>
+    <color>disabled</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>omec_ngic-rtc_reuse</name>
+    <url>https://jenkins.opencord.org/job/omec_ngic-rtc_reuse/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>omec_Nucleus-cppcheck</name>
+    <url>https://jenkins.opencord.org/job/omec_Nucleus-cppcheck/</url>
+    <color>notbuilt</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>omec_Nucleus_combined</name>
+    <url>https://jenkins.opencord.org/job/omec_Nucleus_combined/</url>
+    <color>disabled</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>omec_Nucleus_container</name>
+    <url>https://jenkins.opencord.org/job/omec_Nucleus_container/</url>
+    <color>disabled</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>omec_Nucleus_container_remote</name>
+    <url>https://jenkins.opencord.org/job/omec_Nucleus_container_remote/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>omec_Nucleus_fossa</name>
+    <url>https://jenkins.opencord.org/job/omec_Nucleus_fossa/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>omec_Nucleus_install</name>
+    <url>https://jenkins.opencord.org/job/omec_Nucleus_install/</url>
+    <color>disabled</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>omec_Nucleus_reuse</name>
+    <url>https://jenkins.opencord.org/job/omec_Nucleus_reuse/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>omec_openmme_combined</name>
+    <url>https://jenkins.opencord.org/job/omec_openmme_combined/</url>
+    <color>disabled</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>omec_openmme_fossa</name>
+    <url>https://jenkins.opencord.org/job/omec_openmme_fossa/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>omec_openmme_install</name>
+    <url>https://jenkins.opencord.org/job/omec_openmme_install/</url>
+    <color>disabled</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>omec_openmme_reuse</name>
+    <url>https://jenkins.opencord.org/job/omec_openmme_reuse/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>omec_post-results_dev</name>
+    <url>https://jenkins.opencord.org/job/omec_post-results_dev/</url>
+    <color>disabled</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>omec_postmerge</name>
+    <url>https://jenkins.opencord.org/job/omec_postmerge/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>omec_scale_dev</name>
+    <url>https://jenkins.opencord.org/job/omec_scale_dev/</url>
+    <color>disabled</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>omec_tc1</name>
+    <url>https://jenkins.opencord.org/job/omec_tc1/</url>
+    <color>disabled</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>omec_tc2</name>
+    <url>https://jenkins.opencord.org/job/omec_tc2/</url>
+    <color>disabled</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>omec_upf_fossa</name>
+    <url>https://jenkins.opencord.org/job/omec_upf_fossa/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_omec-cni_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_omec-cni_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_omec-cni_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_omec-cni_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_omec-pod-init_licensed</name>
+    <url>https://jenkins.opencord.org/job/verify_omec-pod-init_licensed/</url>
+    <color>blue</color>
+  </job>
+  <job _class="hudson.model.FreeStyleProject">
+    <name>verify_omec-pod-init_unit-test</name>
+    <url>https://jenkins.opencord.org/job/verify_omec-pod-init_unit-test/</url>
+    <color>blue</color>
+  </job>
+  <name>OMEC</name>
+  <url>https://jenkins.opencord.org/view/OMEC/</url>
+</listView>

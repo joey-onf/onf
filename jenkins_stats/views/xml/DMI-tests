@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<listView _class="hudson.model.ListView">
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>periodic-voltha-test-DMI</name>
+    <url>https://jenkins.opencord.org/job/periodic-voltha-test-DMI/</url>
+    <color>blue</color>
+  </job>
+  <name>DMI-tests</name>
+  <url>https://jenkins.opencord.org/view/DMI-tests/</url>
+</listView>

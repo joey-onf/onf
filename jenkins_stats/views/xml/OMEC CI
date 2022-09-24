@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<listView _class="hudson.model.ListView">
+  <description>CI jobs for OMEC repos</description>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>docker-publish-github_c3po</name>
+    <url>https://jenkins.opencord.org/job/docker-publish-github_c3po/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>docker-publish-github_ngic-rtc</name>
+    <url>https://jenkins.opencord.org/job/docker-publish-github_ngic-rtc/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>docker-publish-github_Nucleus</name>
+    <url>https://jenkins.opencord.org/job/docker-publish-github_Nucleus/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>docker-publish-github_openmme</name>
+    <url>https://jenkins.opencord.org/job/docker-publish-github_openmme/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>omec_c3po_container_remote</name>
+    <url>https://jenkins.opencord.org/job/omec_c3po_container_remote/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>omec_Nucleus_container_remote</name>
+    <url>https://jenkins.opencord.org/job/omec_Nucleus_container_remote/</url>
+    <color>blue</color>
+  </job>
+  <job _class="org.jenkinsci.plugins.workflow.job.WorkflowJob">
+    <name>omec_postmerge</name>
+    <url>https://jenkins.opencord.org/job/omec_postmerge/</url>
+    <color>blue</color>
+  </job>
+  <name>OMEC CI</name>
+  <url>https://jenkins.opencord.org/view/OMEC%20CI/</url>
+</listView>
