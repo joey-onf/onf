@@ -1,4 +1,0 @@
-# Cleanups
-
-   * Rename subdir vlan/ to be something more appropriate.
-   * Skeleton hierarchy and arg parsing copied in form another project.

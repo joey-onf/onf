@@ -60,6 +60,9 @@ for raw0 in "${views[@]}";
 do
     case "$raw0" in
 	hardcoded-1) raw0="VOLTHA 2.x verify.xml" ;;
+	hardcoded-2) raw0="All Jobs" ;;
+	hardcoded-3) raw0="OMEC CI" ;;
+	hardcoded-4) raw0="ONOS Apps" ;;
     esac
     raw="${raw0//[[:space:]]/%20}"
     

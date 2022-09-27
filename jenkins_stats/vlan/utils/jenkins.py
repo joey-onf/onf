@@ -9,7 +9,6 @@ import sys
 ##-------------------##
 ##---]  IMPORTS  [---##
 ##-------------------##
-import pdb
 import pprint
 
 from pathlib           import Path
@@ -57,6 +56,14 @@ class JobDirUtils:
         """Return contents of a job permalink file.
         :return: Content read from the permalink file.
         :rtype:  dict
+
+        ..todo: Historical archived jobs use symlinks rather than a file.
+  drwxr-xr-x 4 joey joey 4096 Aug 10  2021 builds
+  -rw-r--r-- 1 joey joey 9884 Sep 16 16:31 config.xml
+  lrwxrwxrwx 1 joey joey   22 Oct  1  2019 lastStable -> builds/lastStableBuild
+  lrwxrwxrwx 1 joey joey   26 Oct  1  2019 lastSuccessful -> builds/lastSuccessfulBuild
+  -rw-r--r-- 1 joey joey    5 Jun 11  2021 nextBuildNumber
+  drwxr-xr-x 4 joey joey 4096 Feb  3  2021 workspace@libs
         """
 
         ans = {

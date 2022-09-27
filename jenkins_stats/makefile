@@ -26,7 +26,7 @@ jargs        += --no-show # squelch stdout
 # jargs += --view voltha-scale-measurements
 # jargs += --view XOS-Integration-Tests
 
-# 1 job when enabled
+# Report on a single job
 # jargs += --job-name bbsim_scale_test
 
 
@@ -41,7 +41,8 @@ jargs-spread += --spreadsheet 'jobs.xlsx'
 # ---------------------------
 soffice-cmd := $(shell which soffice 2>/dev/null)
 SOFFICE = $(if $(soffice-cmd),$(soffice-cmd),@#)
-# SOFFICE := $(null)
+# SOFFICE := $(null)\#
+
 ##-------------------##
 ##---]  TARGETS  [---##
 ##-------------------##
@@ -58,6 +59,7 @@ views:
 ## -----------------------------------------------------------------------
 ## -----------------------------------------------------------------------
 spreadsheet:
+	-@pkill soffice
 	$(RM) *.xlsx
 	./jenkins_stats.py $(jargs) $(jargs-spread) 2>&1 | tee log
 	 $(SOFFICE) *.xlsx &

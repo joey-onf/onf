@@ -10,7 +10,6 @@
 ##-------------------##
 ##---]  IMPORTS  [---##
 ##-------------------##
-import pdb
 import pprint
 
 from pathlib            import PurePath, Path
@@ -56,14 +55,40 @@ class JobUtils:
 
     ## -----------------------------------------------------------------------
     ## -----------------------------------------------------------------------
-    def get_job(self) -> dict:
+    def get_job_by_log_dir(self) -> dict:
+        """Gather a list of job filesystem paths via jenkins/logs
+        
+        :param src: Filesystem path that contains views/xml as a subdir.
+        :type  src: str
 
+        :return: Information about the current filesystem path.
+        :rtype:  dict(via yield)
+        """
+
+        raise NotImplementedError( main_utils.iam() )
+        
+    ## -----------------------------------------------------------------------
+    ## -----------------------------------------------------------------------
+    def get_job_by_views_xml(self, src=None) -> dict:
+        """Gather a list of job filesystem paths from views/xml.
+        
+        :param src: Filesystem path that contains views/xml as a subdir.
+        :type  src: str
+
+        :return: Information about the current filesystem path.
+        :rtype:  dict(via yield)
+        """
+
+        ## [TODO]
+        ##    o refactor with get_job()
+        ##    o Pass as incl/excl filter lists
         argv = main_getopt.get_argv()
-        src  = argv['jenkins_dir']
+        if src is None:
+            src  = argv['jenkins_dir']
 
-        argv_jobs  = argv['job_name']        
-        argv_views = argv['view_name']        
-
+        argv_jobs  = argv['job_name']
+        argv_views = argv['view_name']
+        
         root    = self.get_root_dir()
         xml_dir = Path(root + '/views/xml').resolve().as_posix()
 
@@ -87,13 +112,6 @@ class JobUtils:
                 if len(overlap) == 0:
                     continue
 
-            ## -------------------------------------------
-            ## Filter report by command line --job-name(s)
-            ## -------------------------------------------
-#            if len(argv_jobs) > 0:
-#                if job_name not in argv_jobs:
-#                    continue
-
             ans=\
                 {
                     'name'   : job_name,
@@ -103,4 +121,41 @@ class JobUtils:
 
             yield ans
 
+    ## -----------------------------------------------------------------------
+    ## -----------------------------------------------------------------------
+    def get_job(self, method=None, src=None) -> dict:
+        """Return a list of jobs based on traversal of views/xml.
+        
+        :param method: Gather job names by this method.
+        :type  method: str, conditional
+
+        :return: String name of the current jenkins job to process.
+        :rtype : str
+
+        ..todo: Refactor with get_job_by_views_xml()
+        ..todo: Refactor with get_job_by_log_dir()
+        ..todo: Pass argv[{job,view}_name] as {excl,incl}=[] filter lists.
+
+        ..note: Filtering by views/xml will render current results.
+        """
+
+        valid = [ 'jekins/logdir', 'views/xml']
+        
+        if method is None:
+            method = 'views/xml'
+
+        if src is None:
+            argv = main_getopt.get_argv()
+            src  = argv['jenkins_dir']
+        
+        ans = None
+        if method == 'views/xml':
+            ans = self.get_job_by_views_xml(src)
+        elif method == 'jenkins/logs':
+            ans = self.get_job_by_log_dir(src)
+        else: # not in valid
+            raise ValueError("Detected invalid travseral mode [%s]" % mode)
+
+        return ans
+            
 # [EOF]

@@ -12,7 +12,10 @@
 ##-------------------##
 import pprint
 import sys
+
+# import datetime
 import time
+from datetime import datetime
 
 from pathlib import Path
 
@@ -107,22 +110,32 @@ def digest_args():
         ## ----------------------------------------------------
         jit = job_iterator.JobUtils(attrs={})
 
-        for job_meta in jit.get_job():
+        ## -----------------------------------------------------------------------
+        ## Delta between get_job methods:
+        ##   o jenkins/logs
+        ##          type: historical logs, {pass,fail} state
+        ##       unknown: effect of job pruning rates is unknown.
+        ##   o view/xml:
+        ##            quick: simple grouping of job-by-view
+        ##        duplicate: a job may belong to multiple groups.
+        ##       incomplete: aged historical jobs are removed.
+        ## -----------------------------------------------------------------------
+        for job_meta in jit.get_job(method='views/xml'):
 
             if debug:
                 pprint.pprint(job_meta)
-       
+
             job_name = job_meta['name']
             job_dir  = job_meta['path']
             my_stats[job_name] = init_stats_rec(job_name)
-                
+
             # ------------------------------
             # Track job statistics;
             #   o total = enabled + disabled
             # ------------------------------
             jdu = jenk_utils.JobDirUtils(job_meta['path'])
             state = jdu.get_job_state()
-            my_stats[job_name][state] += [job_name]
+            my_stats[job_name][state] += [job_name] # DISABLED
             my_stats[job_name]['permalinks'] = jdu.get_permalinks()
 
             job_data[job_name] = []
@@ -132,6 +145,12 @@ def digest_args():
             #   ABORTED, FAILURE, SUCCESS, UNSTABLE
             # -------------------------------------
             job_dirs = traverse.find_by_name(job_dir, ['build.xml'])
+
+            # Filter out permalinks symlinks in the build directory
+            # job_dirs = [ path for path in job_dirs if Path(path).is_dir() ]
+            job_dirs = [ path for path in job_dirs \
+                         if not Path(path).is_symlink() \
+                         and Path(path).is_dir() ]
             for job_dir in job_dirs:
 
                 job_id = Path(job_dir).name
@@ -178,9 +197,10 @@ def digest_args():
                 ## --------------------------------------------------
                 duration     = runtime['duration']
                 tg_duration  = time.gmtime( int(duration) )
-
+                
                 timestamp    = runtime['timestamp']
                 tg_timestamp = time.gmtime( int(timestamp) )
+                # tg_timestamp = datetime.fromtimestamp(int(timestamp), tz=None)
 
                 job_data[job_name] += [{
                     'job_id'    : job_id,
@@ -189,13 +209,15 @@ def digest_args():
                     'urls'      : urls,        # { view : url }
                     #
                     'timestamp'       : timestamp,
-                    'weekday'         : time.strftime('%a',        tg_timestamp),
-                    'month'           : time.strftime('%b',        tg_timestamp),
-                    'ts_ccyymmdd'     : time.strftime('%Y/%m/%d',  tg_timestamp),
-                    'ts_hhmmss'       : time.strftime('%-H:%M:%s', tg_timestamp),
+                    'weekday'         : time.strftime('%a',       tg_timestamp),
+                    'month'           : time.strftime('%b',       tg_timestamp),
+                    'ts_ccyymmdd'     : time.strftime('%Y/%m/%d', tg_timestamp),
+                    'ts_hhmmss'       : time.strftime('%-H:%M:%S', tg_timestamp),
                     #
                     'duration'        : duration,
-                    'duration_hhmmss' : time.strftime("%H:%M:%S", tg_duration)
+                    'duration_hhmmss' : time.strftime("%-H:%M:%S", tg_duration),
+                    #
+                    'state'           : state,
                 }]
 
                 my_stats[job_name][result] += [stats]
@@ -220,7 +242,6 @@ def main(argv_raw):
     if debug:
         print(" ** %s: BEGIN" % iam)
 
-    init()
     main_getopt.getopts(argv_raw)
     digest_args()
 

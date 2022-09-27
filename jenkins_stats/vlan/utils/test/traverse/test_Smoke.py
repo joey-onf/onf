@@ -68,7 +68,7 @@ class TestStringMethods(unittest.TestCase):
 
         xml_file_names = [Path(path).name for path in xml_files]
         self.assertTrue('voltha-scale-measurements' in xml_file_names)
-        self.assertEqual(len(xml_files), 7, 'Invalid VOLTHA xml view count detected')
+        self.assertEqual(len(xml_files), 23, 'Invalid VOLTHA xml view count detected')
 
 ##----------------##
 ##---]  MAIN  [---##

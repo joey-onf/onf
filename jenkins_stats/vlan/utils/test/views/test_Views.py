@@ -64,14 +64,31 @@ class TestStringMethods(unittest.TestCase):
     ## -----------------------------------------------------------------------
     def exp_voltha_view_names(self) -> list:
         exp = [
+            'All Jobs',
+            'API-Tests',
+            'ATT-Workflow',
             'ci-management', 
             'Community-PODs',
+            'Coverage',
+            'DMI-tests',
+            'Guide',
+            'M-CORD',
+            'OMEC',
+            'OMEC CI',
+            'ONOS Apps',
+            'Publish',
+            'SEBA-Releases',
+            'SIAB',
+            'Tucson',
+            'UP4',
+            'Verify',
             'VOLTHA 2.x verify',
             'VOLTHA-2.8',
             'VOLTHA-2.X-Tests',
             'voltha-scale-measurements',
             'voltha-soak',
         ]
+
         return exp
 
     ## ----------------------------------------------------------------------- 
@@ -191,11 +208,15 @@ class TestStringMethods(unittest.TestCase):
         # got = vu.ViewUtils(xml_dir).get_view_names()
         got = vu.ViewUtils(xml_dir).get_views()
 
-        # Basic check: Verify gathered view names.
+        # Basic check: Verify gathered view names:
         got_names = sorted(got.keys(), key = lambda s: s.casefold())
         exp_names = self.exp_voltha_view_names()
-        self.assertListEqual(got_names, exp_names,\
-                        'get_views ERROR: Invalid view name(s) detected')
+        self.assertListEqual\
+            (
+                got_names,
+                exp_names,
+                'get_views ERROR: Invalid view name(s) detected'
+            )
 
         # Room for improvement:
         #   o perform simple existence test for now.

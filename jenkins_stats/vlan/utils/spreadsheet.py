@@ -27,50 +27,12 @@ from vlan.main          import argparse        as main_getopt
 
 from vlan.jenkins       import jobs_by
 
+from vlan.spreadsheet   import hdr, col, row
+
 from vlan.utils.consts  import \
     get_types_result,          \
     get_types_state,           \
     get_types_stat
-
-
-## -----------------------------------------------------------------------
-## -----------------------------------------------------------------------
-def init():
-    pass
-
-    # Register named styles: separate format from cells
-    # https://openpyxl.readthedocs.io/en/stable/styles.html#creating-a-named-style
-    # See also: merge styles
-
-    # Conditional formatting
-    # https://openpyxl.readthedocs.io/en/stable/formatting.html#conditional-formatting
-
-    # Color if cell within range
-    # https://openpyxl.readthedocs.io/en/stable/formatting.html
-    # ws.conditional_formatting.add\
-    #    (
-    #        'D2:D10',
-    #        CellIsRule(operator='between', formula=['1','5'], stopIfTrue=True, fill=redFill)
-    #    )
-
-    # Format using a formula
-    # ws.conditional_formatting.add('E1:E10',
-    #     FormulaRule(formula=['ISBLANK(E1)'], stopIfTrue=True, fill=redFill))
-
-    # Row format
-    # >>> red_fill = PatternFill(bgColor="FFC7CE")
-    # >>> dxf = DifferentialStyle(fill=red_fill)
-    # >>> r = Rule(type="expression", dxf=dxf, stopIfTrue=True)
-    # >>> r.formula = ['$A2="Microsoft"']
-    # >>> ws.conditional_formatting.add("A1:C10", r)
-    #    =IF(A12>30, TRUE())
-    #    0 == MOD(cell, 2)
-
-
-    # worksheet.get_highest_row()
-    # worksheet.get_highest_column()
-
-    # TOTALS:  =SUM(range)
 
 ## -----------------------------------------------------------------------
 ## -----------------------------------------------------------------------
@@ -114,10 +76,8 @@ def get_aligns(val=None):
     if val is not None and val not in orients:
         raise ValueError("get_aligns: detected invalid alignment %s" % val)
 
-    # cell.alignment = Alignment(horizontal='center', 
     align = { orient : Alignment(horizontal=orient,vertical='center') for orient in orients }
     ans = align[val] if val is not None else align
-#    center = Alignment(horizontal='center',vertical='center')
     return ans
 
 ## -----------------------------------------------------------------------
@@ -142,6 +102,7 @@ def get_fills(val=None):
             # 'pink'   : PatternFill(fill_type='solid', start_color='00FFB9C3'),
             'pink'   : PatternFill(fill_type='solid', start_color='00ffe9ec'),
             # 'pink'   : PatternFill(fill_type='solid', start_color='00ff7386'),
+            'grey'   : PatternFill(fill_type='solid', start_color='ecececec'),           
         }
 
     
@@ -226,69 +187,46 @@ def do_sheet_header(ws, headers, col_max=None):
 
     col = 1 # for visiblity in col_fill floop
     for header in headers:
+        if not 'col' in header:
+            pprint.pprint(header)
+            
         col   = header['col']
         label = header['label']
         width = header['width']
         align = header['align']        
         col_hdr(ws, col, label, width=width, align=align)
 
-    for col_fill in range(col, col_max):
+    for col_fill in range(col+1, col_max):
         col_hdr(ws, col_fill, '')
 
-## -----------------------------------------------------------------------        
-## -----------------------------------------------------------------------        
+## -----------------------------------------------------------------------
+## -----------------------------------------------------------------------  
 def get_raw_header():
+    return hdr.HdrUtils().get_headers(raw=None)
 
-    headers = [
-        { 'label':'DATE',     'width':11 },
-        #
-        { 'label':'Enabled',  'width':8 },
-        { 'label':'Disabled', 'width':8 },
-        { 'label':'',         'width':1 },
-        { 'label':'Success',  'width':8 },
-        { 'label':'Failure',  'width':8 },
-        { 'label':'Unstable', 'width':8 },
-        { 'label':'Aborted',  'width':8 },
-        { 'label':'',         'width':1 },
-        { 'label':'SFUA',     'width': 2 + len('UNSTABLE') },
-        { 'label':'VIEW',     'width':6 },
-        { 'label':'URL',      'width':6 },
-        { 'label':'TOTAL',    'width':6 },
-        { 'label':'',         'width':1 },
-#        { 'label':'START',    'width':15, },
-#        { 'label':'DURATION', 'width':10, },
-#        { 'label':'',         'width':1 },
-        { 'label':'NOTES',    'width':100, 'align':'left' },
-    ]
-
-    col = 1
-    for header in headers:
-        header['key']    = header['label'].upper()
-        header['col']    = col
-        header['letter'] = chr(ord('A') + col - 1)
-        if not 'align' in header:
-            header['align'] = None
-        col = col + 1
-
-    return headers
 
 ## -----------------------------------------------------------------------
 ## -----------------------------------------------------------------------
 def get_header_rec(val=None):
 
     ans = None
-    headers = get_raw_header()
+    # headers = get_raw_header()
+    headers = hdr.HdrUtils().get_headers(raw=None)
 
     if val is None:
         ans = headers
     else:
         val_uc = val.upper()
         for header in headers:
-            if header['key'] == val_uc:
+            if header['label'] == val_uc:
                 ans = header
                 break
 
     if not ans:
+        pprint.pprint({
+            'iam' : main_utils.iam(),
+            'ans' : ans,
+        })
         raise ValueError("Invalid header key detected [%s]" % val)
 
     return ans
@@ -310,13 +248,64 @@ def do_header(sheet):
     sheet.column_dimensions['C'].width = 10
     sheet.column_dimensions['D'].width = 20
 
-    headers = get_raw_header()
+    headers = hdr.HdrUtils().get_headers(raw=None)
+    # headers = get_raw_header()
     do_sheet_header(sheet, headers)
 
     # c.fill = PatternFill('gray0625')                  # DOTTED
     # c.fill = PatternFill('solid', fgColor = 'F2F2F2') # SEPARATOR
     # ws['E7'].fill = GradientFill('linear', stop = ('85E4F7','4617F1'))
     # https://pythoninoffice.com/python-openpyxl-excel-formatting-cells/
+    return
+
+## -----------------------------------------------------------------------
+## -----------------------------------------------------------------------
+def do_stats(ws, row=None):
+
+    return
+
+    if row is None:
+        row = 2
+    
+    for state in get_types_state(): # ABORT, FAIL
+        hdr  = get_header_rec(state)
+        col = hdr['col']
+
+        for idx in range(0,4):
+            cell = ws.cell(row=row, column=col+idx)
+            if idx == 0:
+                cell.value = state
+
+    return
+
+## -----------------------------------------------------------------------
+## -----------------------------------------------------------------------
+def do_header_vertical(sheet, max_row=None):
+    """Apply cell based formatting, workaround lack of column-wide apply"""
+
+    if max_row is None:
+        max_row = sheet.max_row
+
+    align_def = get_aligns()
+ 
+    headers = hdr.HdrUtils().get_headers(raw=None)
+    # headers = get_raw_header()
+    for rec in headers:
+        label = rec['label']
+        col   = get_column_idx(label)
+
+        align = None
+        if 'align' not in rec:
+            align = 'center'
+        elif rec['align'] is None:
+            align = 'center'
+        else:
+            align = rec['align']
+
+        for row_fill in range(3, 1+max_row):
+            cell = sheet.cell(row=row_fill, column=col)
+            cell.alignment = align_def[align]
+    
     return
 
 ## -----------------------------------------------------------------------
@@ -347,7 +336,7 @@ def do_formulas(sheet, row):
             cell.alignment = get_aligns('center')
 
             if row == 2:
-                cell.value = '= COUNTIFS(I6:I%s, "%s")' % (sheet.max_row, state)
+                cell.value = '= COUNTIFS(%s:%s, "%s")' % (total_6, total_max, state)
             else:
                 numerator   = get_letter(state,   row=total_row)
                 denominator = get_letter('TOTAL', row=total_row)
@@ -377,21 +366,14 @@ def summary_page(wb):
     ws.column_dimensions['A'].width = 4
     ws.column_dimensions['B'].width = 70
 
-    headers = [
+    raw = [
         { 'label':'view', 'width':8, },
         { 'label':'name', 'width':40, 'align':'left'},
     ]
 
-    for col,header in enumerate(headers, start=1):
-        header['key']    = header['label'].upper()
-        header['col']    = col
-        header['letter'] = chr(ord('A') + col - 1)
-        if not 'align' in header:
-            header['align'] = None
-        col = col + 1
-        
+    headers = hdr.HdrUtils().get_headers(raw)
     do_sheet_header(ws, headers)
-    
+   
     row=2
     for rec in get_view_tabs():
         idx, vx, view = rec
@@ -406,6 +388,27 @@ def summary_page(wb):
         cell.value = view
         cell.hyperlink = '#%s!A1' % vx
 
+## -----------------------------------------------------------------------
+## -----------------------------------------------------------------------
+def apply_per_sheet(wb):
+    """Iterate over workbook sheets and apply formatting, totals, etc.
+
+    :param wb: Workbook providing sheets to iterate over.
+    :type  wb: openpyxl.workbook.Workbook
+    """
+
+    # ------------------------------
+    # Apply to each sheet with stats
+    # ------------------------------
+    hdr_row = 2
+    for sheet in wb.worksheets:
+        if sheet.title == 'summary':
+            continue
+
+        do_formulas(sheet, hdr_row)
+        do_header_vertical(sheet)
+        do_stats(sheet, hdr_row)
+        
 ## -----------------------------------------------------------------------
 ## -----------------------------------------------------------------------
 def gen_spreadsheet(data, job_data):
@@ -435,7 +438,6 @@ def gen_spreadsheet(data, job_data):
             continue
 
         fills = get_fills()
-        # redFill = PatternFill(fill_type='solid', start_color='00FF0000')
         
         row = 5
         for job in view_map[view]:
@@ -444,10 +446,49 @@ def gen_spreadsheet(data, job_data):
 
             if job not in job_data:
                 print(" ** warning: JOB NOT FOUND [%s]" % job)
+                continue
 
+            # apply_to_row()
             for rec in job_data[job]:
-                col = 9
-                row = row + 1  
+
+                if False:
+                    hdr        = get_header_rec('DATE')
+                    cell       = ws.cell(row=row, column=hdr['col'])
+                    cell.value = rec['ts_ccyymmdd']
+
+                if True: 
+                    hdr        = get_header_rec('TIME')
+                    cell       = ws.cell(row=row, column=hdr['col'])
+                    cell.value = rec['ts_hhmmss']
+
+                if True:
+                    hdr        = get_header_rec('DAY')
+                    cell       = ws.cell(row=row, column=hdr['col'])
+                    cell.value = rec['weekday']
+
+                if rec['state'] == 'DISABLED':
+                    hdr        = get_header_rec('ACTIVE')
+                    col        = hdr['col']
+                    cell       = ws.cell(row=row, column=col)
+                    cell.value = 'N' 
+
+                    if True:
+                        cell      = ws.cell(row=row, column=col)
+                        cell.fill = get_fills('grey')
+                        cell.alignment = Alignment(horizontal='center',vertical='center')
+
+                    elif False:
+                        max_col    = ws.max_column
+                        if 15 > max_col:
+                            max_col = 15
+                        for col_fill in range(1, max_col):
+                            cell      = ws.cell(row=row, column=col_fill)
+                            cell.fill = get_fills('grey')
+
+
+                hdr  = get_header_rec('SFUA') # col=9
+                col  = hdr['col']
+                row  = row + 1  
                 cell = ws.cell(row=row, column=col)
                 cell.value = rec['result']
                 if cell.value == 'ABORTED':
@@ -461,7 +502,7 @@ def gen_spreadsheet(data, job_data):
                 cell.value     = rec['job_id']
                 cell.hyperlink = rec['urls'][view]
 
-                if False
+                if False:
                     hdr        = get_header_rec('DURATION')
                     cell       = ws.cell(row=row, column=hdr['col'])
                     cell.value = rec['duration']
@@ -469,9 +510,8 @@ def gen_spreadsheet(data, job_data):
                 hdr        = get_header_rec('NOTES')
                 cell       = ws.cell(row=row, column=hdr['col'])
                 cell.value = rec['job_name']
-                
-        # Add total formuals after grid populated and size is known
-        do_formulas(ws, 2)
+
+    apply_per_sheet(workbook)
 
     return workbook
 
