@@ -63,6 +63,7 @@ def to_bool(val:str) -> bool:
 ## -----------------------------------------------------------------------
 def init_stats_rec(path:str) -> dict:
     """Define a standard storage rec for stats accumulation.
+
     :param path: Path to a jenkins job directory.
     :type  path: str
 
@@ -146,11 +147,16 @@ def digest_args():
             # -------------------------------------
             job_dirs = traverse.find_by_name(job_dir, ['build.xml'])
 
-            # Filter out permalinks symlinks in the build directory
-            # job_dirs = [ path for path in job_dirs if Path(path).is_dir() ]
+            # -----------------------------------------------------
+            # Filter out permalinks/symlinks in the build directory
+            # ----------------------------------------------------- 
             job_dirs = [ path for path in job_dirs \
                          if not Path(path).is_symlink() \
                          and Path(path).is_dir() ]
+
+            # --------------------------------------------------------
+            # Traverse each jenkins job director and gather attributes
+            # --------------------------------------------------------
             for job_dir in job_dirs:
 
                 job_id = Path(job_dir).name
@@ -191,7 +197,7 @@ def digest_args():
 #                                            'Jobs/job/bbsim_scale_test/9511/console',
 #                                'voltha-scale-measurements': 'https://jenkins.opencord.org/view/voltha-scale-measurements/job/bbsim_scale_test/9511/console'},
 #                       'weekday': 'Thu'}]}
-# -----------------------------------------------------------------------               
+# -----------------------------------------------------------------------
 
                 ## --------------------------------------------------
                 ## --------------------------------------------------

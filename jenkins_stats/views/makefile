@@ -3,7 +3,6 @@
 # Intent: Retrieve view information for VOLTHA (contributing jobs).
 # ---------------------------------------------------------------------------
 
-
 voltha-views += ci-management
 voltha-views += Community-PODs
 voltha-views += VOLTHA-2.8
@@ -30,7 +29,6 @@ voltha-views += UP4
 voltha-views += Verify
 # voltha-views += XOS-Integration-Tests
 voltha-views += ci-management
-
 
 # voltha-views += XOS-Integration-Tests
 

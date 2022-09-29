@@ -58,6 +58,12 @@ args+=('--netrc-file' "$token")
 
 for raw0 in "${views[@]}";
 do
+    ## This is a complete hack:
+    ## ----------------------------------------------------
+    ## View names with embedded whitespace are problematic.
+    ## Re-implement in another language to avoid for
+    ## loop word splitting by the shell.
+    ## ----------------------------------------------------
     case "$raw0" in
 	hardcoded-1) raw0="VOLTHA 2.x verify.xml" ;;
 	hardcoded-2) raw0="All Jobs" ;;
