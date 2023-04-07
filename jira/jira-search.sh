@@ -44,6 +44,51 @@ function do_components()
 }
 
 ## --------------------------------------------------------------------
+## Intent: Query filter by labels assigned to a ticket:
+##   o pods, failing, testing
+## --------------------------------------------------------------------
+# "project in (UKSCR, COMPRG) AND issuetype = Bug AND labels in (BAT)" and
+## --------------------------------------------------------------------
+function do_labels()
+{
+    declare -n args=$1; shift
+    declare -n ans=$1; shift
+
+    if [[ ${#args[@]} -gt 0 ]]; then
+
+	local modifier
+	if [[ -v bool_not ]]; then
+	    modifier='NOT IN'
+	else
+	    modifier='IN'
+	fi
+	ans+=("labels ${modifier} (${args[@]})")
+       # alt: comp='foo' OR comp='bar'
+    fi
+
+    return
+}
+
+
+## --------------------------------------------------------------------
+## Intent: Modify search query by ticket resolution
+## --------------------------------------------------------------------
+function do_resolved()
+{
+    declare -n ans=$1; shift
+    declare -g resolved
+
+## Ticket resolution
+    case "$resolved" in
+	0) ans+=('(resolution IS EMPTY)') ;;
+	1) ans+=('(resolution IS NOT EMPTY)') ;;
+	99) ;;
+    esac
+    
+    return
+}
+
+## --------------------------------------------------------------------
 ## Intent: Query by compound text filters
 ## --------------------------------------------------------------------
 function do_text()
@@ -113,18 +158,63 @@ function do_user()
 }
 
 ## --------------------------------------------------------------------
+## Intent: Combine filter arguments into a search query
+## --------------------------------------------------------------------
+function gen_filter()
+{
+    declare -n ans=$1; shift
+    declare -n args=$1; shift
+
+    ## -----------------------------------
+    ## Begin by joining major search terms
+    ## -----------------------------------
+    declare -a _tmp=()
+    local val
+    for val in "${args[@]}";
+    do
+	_tmp+=("$val" 'AND')
+    done
+    unset _tmp[-1]
+
+    ## -----------------------
+    ## Massage with html codes
+    ## -----------------------
+    ans="$(join_by '%20' "${_tmp[@]}")"
+    return
+}
+
+## --------------------------------------------------------------------
+## Intent: Combine filter arguments into a search query
+## --------------------------------------------------------------------
+function gen_url()
+{
+    declare -n ans=$1; shift
+    declare -n args=$1; shift
+
+    ## Which jira server to query (?)
+    [[ ! -v server ]] && declare -g server='jira.opennetworking.org'
+    tmp_url="https://${server}/issues/?jql="
+    tmp="${tmp_url}${args}"
+    ans="${tmp// /%20}"
+    return
+}
+
+## --------------------------------------------------------------------
 ## Intent: Dispaly command usage
 ## --------------------------------------------------------------------
 function usage()
 {
     cat <<EOH
 Usage: $0
+  --debug       Enable script debug mode
 
 [SERVER]
   --onf         jira.opennetworking.org (default)
   --opencord    jira.opencord.org
 
-  --component   Search by component assigned to a ticket
+[WHAT]
+  --component   Search by component name assigned to ticket
+  --label       Search by label name assigned to ticket.
   --text        Search string(s)
   --unresolved  Search for open tickets
 
@@ -154,8 +244,6 @@ Usage: $0
   --newer [d]   Search for tickets created < [n] days ago.
   --older [d]   Search for tickets created > [n] days ago.
 
-[TODO]
-
 [USAGE]
   $0 --assigned
      o Display all tickets assigned to my login
@@ -167,6 +255,9 @@ Usage: $0
      o Search jira.opencord for tickets that contain release and voltctl
   $0 --text 'bitergia' --text 'Jira' -and
      o Search jira.opennetworking for tickets containing string bitergia and Jira
+
+  $0 --cord --label failing --label pod
+     o Search jira.opencord for tests failing due to pod/hardware issuses.
 EOH
 
     return
@@ -199,6 +290,11 @@ while [ $# -gt 0 ]; do
 
 	-*help) usage; exit 0 ;;
 
+	##-----------------##
+	##---]  MODES  [---##
+	##-----------------##
+	-*debug) declare -g -i debug=1 ;;
+
 	##-------------------##
 	##---]  BY USER  [---##
 	##-------------------##
@@ -217,14 +313,19 @@ while [ $# -gt 0 ]; do
 	-*onf) declare server='jira.opennetworking.org'; error "FOUND --onf" ;;
 	-*cord) declare server='jira.opencord.org' ;;
 
-	##----------------------------##
-	##---]  Component Search  [---##
-	##----------------------------##
-	# https://support.atlassian.com/jira-software-cloud/docs/advanced-search-reference-jql-fields/
+	##---------------------##
+	##---]  SEARCH-BY  [---##
+	##---------------------##
 	--component|--comp*)
 	    arg="$1"; shift
 	    [[ ! -v components ]] && declare -g -a components=()
 	    components+=("$arg")
+	    ;;
+
+	--label)
+	    arg="$1"; shift
+	    [[ ! -v labels ]] && declare -g -a labels=()
+	    labels+=("$arg")
 	    ;;
 
 	##-----------------------##
@@ -239,7 +340,6 @@ while [ $# -gt 0 ]; do
 	# text ~ "\"Jira Software\""  # [STRING]
 	-*text)
 	    arg="$1"; shift
-	    echo "TEXT: $arg"
 	    if [[ -v bool_and ]]; then
 		text_and+=("$arg")
 	    elif [[ -v bool_or ]]; then
@@ -295,34 +395,23 @@ done
 ## ----------------------
 ## Construct query filter
 ## ----------------------
-do_components components suffix0
-do_text suffix0
 do_user suffix0
+do_components components suffix0
+do_labels     labels     suffix0
+do_text                  suffix0
+do_resolved              suffix0
 
-declare -p suffix0
-[[ "${suffix0[-1]}" != 'AND' ]] && suffix0+=('AND')
+filter=''
+gen_filter filter suffix0
 
-## Ticket resolution
-case "$resolved" in
-    0) suffix0+=('resolution IS EMPTY') ;;
-    1) suffix0+=('resolution IS NOT EMPTY') ;;
-    99) ;;
-esac
+url=''
+gen_url url filter
 
-## Massage with html codes
-suffix=$(join_by '%20' "${suffix0[@]}")
-
-## Which jira server to query (?)
-[[ ! -v server ]] && declare -g server='jira.opennetworking.org'
-
-url="https://${server}/issues/?jql="
-
-tmp="${url}${suffix}"
-url="${tmp// /%20}"
-echo "URL: $url"
-
+[[ -v debug ]] && echo "URL: $url"
 browser="${BROWSER:-/snap/bin/firefox}"
-
 "$browser" "${url}"
+
+# [SEE ALSO]
+#   o https://support.atlassian.com/jira-software-cloud/docs/advanced-search-reference-jql-fields/
 
 # [EOF]
