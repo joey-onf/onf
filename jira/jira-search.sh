@@ -3,6 +3,13 @@
 ## Intent: Construct a jira ticket query with attributes
 ## --------------------------------------------------------------------
 
+##-------------------##
+##---]  GLOBALS  [---##
+##-------------------##
+declare -g -a text=()
+declare -g -a text_and=()
+declare -g -a text_or=()
+
 ## --------------------------------------------------------------------
 ## --------------------------------------------------------------------
 function error()
@@ -10,7 +17,6 @@ function error()
     echo "ERROR ${FUNCNAME[1]}: $@"
     exit 1
 }
-
 
 ## --------------------------------------------------------------------
 ## Intent: Query by component name filter
@@ -38,6 +44,49 @@ function do_components()
 }
 
 ## --------------------------------------------------------------------
+## Intent: Query by compound text filters
+## --------------------------------------------------------------------
+function do_text()
+{
+    declare -n ans=$1; shift
+    local val
+
+    ## Accumulate
+    if [[ ${#text[@]} -gt 0 ]]; then
+	if [[ -v bool_and ]]; then
+	    text_and+=("${text[@]}")
+	else
+	    text_or+=("${text[@]}")
+	fi
+    fi
+
+    ## Append terms: AND
+    if [[ ${#text_and[@]} -gt 0 ]]; then
+	declare -a term=()
+	for val in "${text_and[@]}";
+	do
+	    term+=("text ~ \"$val\"")
+	done
+	val=$(join_by ' AND ' "${term[@]}")
+	ans+=("($val)")
+    fi
+
+    ## Append terms: OR
+    if [[ ${#text_or[@]} -gt 0 ]]; then
+	declare -a term=()
+	for val in "${text_or[@]}";
+	do
+	    term+=("text ~ \"$val\"")
+	done
+	val=$(join_by ' OR ' "${term[@]}")
+	ans+=("($val)")
+    fi
+
+    return
+}
+
+## --------------------------------------------------------------------
+## Intent: Dispaly command usage
 ## --------------------------------------------------------------------
 function usage()
 {
@@ -77,7 +126,7 @@ Usage: $0
   $0 --asignee
   $0 --reported --or --text 'bbsim' --text 'release'
   $0 --text-and 'opencord' --text-and 'voltctl'
-
+  $0 --text 'bitergia' --text 'Jira' -and
 EOH
 
     return
@@ -95,8 +144,6 @@ function join_by()
 ##---]  MAIN  [---##
 ##----------------##
 declare -a suffix0=()
-declare -a text_and=()
-declare -a text_or=()
 
 declare -g -i resolved=0
 while [ $# -gt 0 ]; do
@@ -115,7 +162,7 @@ while [ $# -gt 0 ]; do
 	##-------------------##
 	##---]  BY USER  [---##
 	##-------------------##
-	-*assignee)
+	--ass*|--assignee|--assigned)
 	    suffix0+=('assignee=currentUser()') ;;
 	-*reporter)
 	    suffix0+=('reporter=currentUser()') ;;
@@ -148,6 +195,7 @@ while [ $# -gt 0 ]; do
 	# text ~ "\"Jira Software\""  # [STRING]
 	-*text)
 	    arg="$1"; shift
+	    echo "TEXT: $arg"
 	    if [[ -v bool_and ]]; then
 		text_and+=("$arg")
 	    elif [[ -v bool_or ]]; then
@@ -204,31 +252,7 @@ done
 ## Construct query filter
 ## ----------------------
 do_components components suffix0
-
-if [[ ${#text_and[@]} -gt 0 ]]; then
-    for val in "${text_and[@]}";
-    do
-	declare -p val
-	term+=("text ~ \"$val\"")
-    done
-    val=$(join_by ' AND ' "${term[@]}")
-    suffix0+=("(${val})")
-fi
-
-declare -p text_or
-if [[ ${#text_or[@]} -gt 0 ]]; then
-    declare -a term=()
-    for val in "${text_or[@]}";
-    do
-	declare -p val
-	term+=("text ~ \"$val\"")
-    done
-    declare -p term
-    val=$(join_by ' OR ' "${term[@]}")
-    declare -p val
-    suffix0+=("(${val})")
-fi
-
+do_text suffix0
 
 declare -p suffix0
 [[ "${suffix0[-1]}" != 'AND' ]] && suffix0+=('AND')
@@ -240,17 +264,10 @@ case "$resolved" in
     99) ;;
 esac
 
+## Massage with html codes
 suffix=$(join_by '%20' "${suffix0[@]}")
 
-# https://jira.opennetworking.org/issues/?filter=15405&jql=text%20~%20bitergia%20AND%20resolution%20IS%20EMPTY
-
-# url="https://jira.opennetworking.org/issues/?filter=15405&jql=text%20~%20${val}"
-# url+="%20AND%20resolution%20IS%20EMPTY"
-# url="https://jira.opennetworking.org/issues/?filter=15405&jql=text%20~%20${val}"
-# url+="%20AND%20resolution%20IS%20EMPTY"
-
-
-# url='https://jira.opennetworking.org/issues/?jql='
+## Which jira server to query (?)
 [[ ! -v server ]] && declare -g server='jira.opennetworking.org'
 
 url="https://${server}/issues/?jql="
@@ -258,6 +275,9 @@ url="https://${server}/issues/?jql="
 tmp="${url}${suffix}"
 url="${tmp// /%20}"
 echo "URL: $url"
-/snap/bin/firefox "${url}"
+
+browser="${BROWSER:-/snap/bin/firefox}"
+
+"$browser" "${url}"
 
 # [EOF]
