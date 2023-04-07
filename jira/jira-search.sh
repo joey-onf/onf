@@ -86,6 +86,33 @@ function do_text()
 }
 
 ## --------------------------------------------------------------------
+## Intent: Query by assigned or requestor
+## --------------------------------------------------------------------
+## Note: Simple for now but support query by a list of suers
+## --------------------------------------------------------------------
+function do_user()
+{
+    declare -n ans=$1; shift
+
+    [[ -v argv_nobody ]] && return
+
+    local user='currentUser()'
+    if [[ -v argv_user ]]; then
+	user="$argv_user"
+    fi
+
+    if [[ -v argv_assigned ]]; then
+	ans+=("assignee=${user}")
+    fi
+
+    if [[ -v argv_reported ]]; then
+	ans+=("reporter=${user}")
+    fi
+
+    return
+}
+
+## --------------------------------------------------------------------
 ## Intent: Dispaly command usage
 ## --------------------------------------------------------------------
 function usage()
@@ -101,9 +128,14 @@ Usage: $0
   --text        Search string(s)
   --unresolved  Search for open tickets
 
-[ByUser]
-  --assignee    Tickets assided to user
-  --reporter    Tickets created by user
+[USER(s)]
+  --me          Tickets assigned to or reported by me.
+  --user [u]    Tickets assigned to this user.
+  --nobody      Raw query, no filtering by user
+
+[BY-USER]
+  --assigned    Tickets assided to user
+  --reported    Tickets created by user
 
 [BOOL]
   --and            Join terms using 'AND'
@@ -122,11 +154,19 @@ Usage: $0
   --newer [d]   Search for tickets created < [n] days ago.
   --older [d]   Search for tickets created > [n] days ago.
 
+[TODO]
+
 [USAGE]
-  $0 --asignee
+  $0 --assigned
+     o Display all tickets assigned to my login
+  $0 --requested --user tux
+     o Display all tickets requested by user tux
   $0 --reported --or --text 'bbsim' --text 'release'
-  $0 --text-and 'opencord' --text-and 'voltctl'
+     o Search for tickets that contain strings bbsim or release
+  $0 --cord --text-and 'release' --text-and 'voltctl'
+     o Search jira.opencord for tickets that contain release and voltctl
   $0 --text 'bitergia' --text 'Jira' -and
+     o Search jira.opennetworking for tickets containing string bitergia and Jira
 EOH
 
     return
@@ -162,11 +202,15 @@ while [ $# -gt 0 ]; do
 	##-------------------##
 	##---]  BY USER  [---##
 	##-------------------##
-	--ass*|--assignee|--assigned)
-	    suffix0+=('assignee=currentUser()') ;;
-	-*reporter)
-	    suffix0+=('reporter=currentUser()') ;;
-	
+	--assigned) declare -g -i argv_assigned=1 ;;
+	--reported) declare -g -i argv_reported=1 ;;
+	--me)       declare -g -i argv_me=1       ;;
+	--nobody)   declare -g -i argv_nobody=1   ;;
+	--user)
+	    arg="$1"; shift
+	    declare -g argv_user="$arg"
+	    ;;	
+
 	##------------------##
 	##---]  SERVER  [---##
 	##------------------##
@@ -253,6 +297,7 @@ done
 ## ----------------------
 do_components components suffix0
 do_text suffix0
+do_user suffix0
 
 declare -p suffix0
 [[ "${suffix0[-1]}" != 'AND' ]] && suffix0+=('AND')
