@@ -411,6 +411,15 @@ def apply_per_sheet(wb):
         
 ## -----------------------------------------------------------------------
 ## -----------------------------------------------------------------------
+def elapsed_stats(data, job_data):
+    '''Render a tab containing elapsed runtime job stats'''
+
+    workbook = Workbook()
+    workbook.create_sheet('elapsed')
+#     summary_page(workbook)
+
+## -----------------------------------------------------------------------
+## -----------------------------------------------------------------------
 def gen_spreadsheet(data, job_data):
     """ . """
 

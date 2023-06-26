@@ -1,0 +1,6 @@
+ip link add link $device name $device_xx type vlan id $vlan_id_xx
+ip link set $device_xx up
+ip link add link $device_xx name $device_xy type vlan id $vlan_id_yy
+ip link set $device_xy up
+ip addr add $cidr dev $device_xy
+

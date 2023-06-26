@@ -1,0 +1,6 @@
+# -*- makefile -*-
+
+graphviz/
+ods/
+
+# [EOF]

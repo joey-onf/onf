@@ -1,0 +1,69 @@
+// -----------------------------------------------------------------------
+// -----------------------------------------------------------------------
+
+"voltha-release" [
+    label         = "voltha-release"
+    shape         = "hexagon",
+    style         = "filled",
+    fillcolor     = "yellow:green"
+    gradientangle = 315,
+    fontcolor     = "black",
+    ];
+
+"voltha-release"   -> "2.11"    [ label=" ", color="black" ];
+"voltha-release"   -> "2.10"    [ label=" ", color="black" ];
+"voltha-release"   -> "2.9"     [ label=" ", color="black" ];
+
+"2.11"   -> "voltha-helm-charts"    [ label=" ", color="black" ];
+"2.11"   -> "voltha-system-tests"   [ label=" ", color="black" ];
+
+"voltha-helm-charts" [
+    shape         = "hexagon",
+    style         = "filled",
+    fillcolor     = "orange:purple",
+    gradientangle = 315,
+    fontcolor     = "black",
+    ];
+
+"voltha-system-tests" [
+    shape         = "hexagon",
+    style         = "filled",
+    fillcolor     = "orange:purple",
+    gradientangle = 315,
+    fontcolor     = "black",
+    ];
+"voltha-helm-charts" -> "branch-voltha-2.11" [ label=" ", color="black" ];
+// "voltha-system-tests" -> "branch-voltha-2.11" [ label=" ", color="black" ];
+
+
+"branch-voltha-2.11" [
+    shape         = "oval",
+    style         = "filled",
+    // fillcolor     = "orange:purple",
+    gradientangle = 315,
+    fontcolor     = "black",
+    ];
+
+"tag-voltha-2.11" [
+    shape         = "oval",
+    style         = "filled",
+    // fillcolor     = "orange:purple",
+    gradientangle = 315,
+    fontcolor     = "black",
+    ];
+
+//-----------------------------------------------------------------------
+//-----------------------------------------------------------------------
+{ rank=same
+  "2.11"
+  "2.10"
+  "2.9"
+}
+
+//-----------------------------------------------------------------------
+//-----------------------------------------------------------------------
+{ rank=same
+  "voltha-helm-charts"
+  "voltha-system-tests"
+}
+

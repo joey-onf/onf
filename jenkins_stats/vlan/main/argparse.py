@@ -15,8 +15,6 @@ namespace = None
 ##-------------------##
 from pathlib import Path
 
-import pdb
-
 import argparse
 import pprint
 
@@ -125,6 +123,12 @@ def getopts(argv, debug=None) -> None:
                         action  = 'store_true',
                         default = False,
                         help    = 'Enable debug mode',
+                    )
+
+    parser.add_argument('--trace',
+                        action  = 'store_true',
+                        default = False,
+                        help    = 'Invoke interactive python pdb debugger.',
                     )
 
     argparse_todo.add_arg_todo(parser)

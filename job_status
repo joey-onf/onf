@@ -1,0 +1,1 @@
+grep -r '<result>.*</result>' voltha*  | grep -v -e 'ABORTED' -e 'FAILURE' -e 'SUCCESS'

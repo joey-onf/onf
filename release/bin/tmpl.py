@@ -1,0 +1,1 @@
+../validate/bin/tmpl.py

@@ -9,10 +9,10 @@
 import __main__
 import os
 
-from vlan.main   import utils    as main_utils
+from validate.main         import utils    as main_utils
 
 ## -----------------------------------------------------------------------
-## Intent: Display pending enhancements for artifact.py --components
+## Intent: Display pending program enhancements.
 ## -----------------------------------------------------------------------
 def show_todo():
     cmd = os.path.basename(__main__.__file__)
@@ -20,10 +20,14 @@ def show_todo():
 
     print('Usage: %s [options]' % cmd)
     print('''
-[TODO]
-  o Generate DHCP server config for VLAN generation.
+[TODO: %s]
+  o Future enhancement 1.
+  o Future enhancement 2.
+  o Future enhancement 3.
+  o Future enhancement 4.
+''' % cmd)
 
-''')
+    main_utils.todo()
 
     return
 

@@ -1,0 +1,71 @@
+## -----------------------------------------------------------------------
+## -----------------------------------------------------------------------  
+def get_meta():
+
+    raw = [
+        # -------------------------------------------------
+        { 'label':'DATE',     'width':11,
+          'skip':True,
+         },
+        { 'label':'TIME',     'width':11,
+          # 'align':'right'
+         } ,
+        { 'label':'DAY',      'width':5, 'align':'center',
+         },
+        { 'label':'',         'width':1,
+          'skip':True,
+         },
+        # -------------------------------------------------
+        { 'label':'ACTIVE',   'width':2 + len('ACTIVE'),
+         },
+        { 'label':'ENABLED',  'width':8,
+         },
+        { 'label':'DISABLED', 'width':8,
+         },
+        { 'label':'',         'width':1,
+         },
+        # -------------------------------------------------
+        { 'label':'SUCCESS',  'width':8,
+         },
+        { 'label':'FAILURE',  'width':8,
+         },
+        { 'label':'UNSTABLE', 'width': 2 + len('UNSTABLE'),
+         },
+        { 'label':'ABORTED',  'width':8,
+         },
+        { 'label':'',         'width':1,
+         },
+        # -------------------------------------------------
+        { 'label':'SFUA',     'width': 2 + len('UNSTABLE'),
+         },
+        { 'label':'VIEW',     'width':6,
+         },
+        { 'label':'URL',      'width':6,
+         },
+        { 'label':'TOTAL',    'width':6,
+         },
+        { 'label':'',         'width':1,
+         },
+        # -------------------------------------------------
+        { 'label':'NOTES',    'width':100, 'align':'left',
+         },
+    ]
+
+    headers = []
+    col = 1
+    for header in raw:
+
+        if 'skip' in header and header['skip']:
+            continue
+
+        header['key']    = header['label'].upper()
+        header['col']    = col
+        header['letter'] = chr(ord('A') + col - 1)
+        if not 'align' in header:
+            header['align'] = None
+
+        headers += [header]
+
+        col = col + 1
+
+    return headers

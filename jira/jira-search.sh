@@ -10,6 +10,9 @@ declare -g -a text=()
 declare -g -a text_and=()
 declare -g -a text_or=()
 
+declare -g -a urls_raw=()
+declare -g -a urls_filt=()
+
 ## --------------------------------------------------------------------
 ## --------------------------------------------------------------------
 function error()
@@ -379,6 +382,28 @@ while [ $# -gt 0 ]; do
 	--[iI][nN])     declare -g -i bool_in=1  ;;
 	--[nN][oO][tT]) declare -g -i bool_not=1 ;;
 
+	[A-Z][A-Z][A-Z]-[0-9]*)
+	    case "$arg" in
+		CORD-[0-9]*)
+		    url="https://jira.opencord.org/browse/${arg}"
+		    urls_raw+=('--new-window' "$url")
+		    ;;
+		
+		INF-[0-9]*)
+		    url="https://jira.opennetworking.org/browse/${arg}"
+		    urls_raw+=('--new-window' "$url")
+		    ;;
+		
+		VOL-[0-9]*)
+		    url="https://jira.opencord.org/browse/${arg}"
+		    urls_raw+=('--new-window' "$url")
+		    ;;
+
+		*) error "Detected invalid ticket [$arg]" ;;
+		     
+	    esac
+	    ;;
+		    
 	# -----------------------------------------------------------------------
 	# https://support.atlassian.com/jira-software-cloud/docs/search-syntax-for-text-fields/
 	# -----------------------------------------------------------------------
@@ -404,12 +429,17 @@ do_resolved              suffix0
 filter=''
 gen_filter filter suffix0
 
-url=''
-gen_url url filter
+if [ ${#urls_raw} -eq 0 ]; then
+    url=''
+    gen_url url filter
+    urls_filt+=("$url")
+fi
 
 [[ -v debug ]] && echo "URL: $url"
 browser="${BROWSER:-/snap/bin/firefox}"
-"$browser" "${url}"
+# echo '**' "$browser" "${url}" "${urls_raw[@]}"
+# echo "$browser" '**' "${urls_filt[@]}" "${urls_raw[@]}"
+"$browser" "${urls_filt[@]}" "${urls_raw[@]}"
 
 # [SEE ALSO]
 #   o https://support.atlassian.com/jira-software-cloud/docs/advanced-search-reference-jql-fields/

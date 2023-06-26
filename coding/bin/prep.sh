@@ -21,7 +21,7 @@ fi
 for source in "${sources[@]}";
 do
     # Cleanup whitespace
-    sed -i 's/[[:blank:]]*$//' "$file"
+    sed -i 's/[[:blank:]]*$//' "$source"
 done
 
 # [EOF]

@@ -10,15 +10,23 @@ space	:=$(null) $(null)
 # kubuntu: why are you failing when CMD is available $PATH ?
 # rebuild GNU make from source to determine if this is a security enhancement (?)
 # -----------------------------------------------------------------------
-PYTHON  ?= /home/joey/.venv/3.10.6/bin/python 
+PYTHON       ?= $(HOME)/.venv/3.10.6/bin/python 
 
 jargs        := $(null)
 
-job-dir-opts += /var/lib/jenkins/jobs
-job-dir-opts += /home/joey/projects/sandbox/onf/logs
-job-dir      := $(firstword $(wildcard $(job-dir-opts)))
+job-dir-src += /var/lib/jenkins/jobs
+job-dir-src += /media/joey/microsd/var/lib/jenkins/jobs
+job-dir-src += /home/joey/projects/sandbox/onf/logs
+job-dir-opts += $(wildcard $(job-dir-src))
+
+TOP ?= .
+MAKEDIR = $(TOP)/makefiles
+
+job-dir := $(null)
+include $(MAKEDIR)/job-names/include.mk
 jargs        += $(addprefix --jenkins-dir$(space),$(job-dir))
 
+# jargs        += --trace
 jargs        += --no-show # squelch stdout
 
 # 4 jobs when enabled
@@ -31,9 +39,10 @@ jargs        += --no-show # squelch stdout
 
 
 
-# jargs += --spreadsheet 'jobs.xlsx'
+spreadsheet-file := 'jobs.xlsx'
+jargs += --spreadsheet $(spreadsheet-file)
 # if $(finstring spreadsheet MAKEDCMDGOALS)
-jargs-spread += --spreadsheet 'jobs.xlsx'
+# jargs-spread += --spreadsheet 'jobs.xlsx'
 # jargs += --view-name 'bbsim_scale_test'
 
 # ---------------------------
@@ -62,7 +71,9 @@ spreadsheet:
 	-@pkill soffice
 	$(RM) *.xlsx
 	./jenkins_stats.py $(jargs) $(jargs-spread) 2>&1 | tee log
-	 $(SOFFICE) *.xlsx &
+ifndef NO_VIEW
+	$(SOFFICE) --norestore *.xlsx &
+endif
 
 ## -----------------------------------------------------------------------
 ## -----------------------------------------------------------------------
@@ -84,6 +95,9 @@ install:
 clean:
 	-$(HOME)/etc/cleanup
 	$(RM) *.xlsx
+
+edit:
+	./edit.sh
 
 ## -----------------------------------------------------------------------
 ## -----------------------------------------------------------------------

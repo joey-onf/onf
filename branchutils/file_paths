@@ -1,0 +1,23 @@
+# git diff master:voltha-210
+
+/home/joey/projects/sandbox/voltha-lib-go/.gitreview
+====================================================
+[gerrit]
+host=gerrit.opencord.org
+port=29418
+project=voltha-openonu-adapter-go.git
+defaultremote=origin
+defaultbranch=voltha-2.10
+
+
+1) Iterate over each branch
+2) Verify branch(es) are up-to-date
+3) clone master
+4) checkout -b {branch}
+5.0) Verify .gitreview contents, project name, etc
+5.1) edit .gitreview
+    * Insert: defaultbranch=voltha-2.10
+
+[ ... ]
+
+10.0) Jenkins automation job

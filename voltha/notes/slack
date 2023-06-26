@@ -1,0 +1,9 @@
+  4:53 PM
+I guess you are talking about pod-config, and this is the repository -> https://github.com/opencord/pod-configs . It is a mirror of gerrit project. Easier to browse on github.
+  4:54 PM
+yea that must be it, thought I heard port config, thanks!
+  4:54 PM
+the deployment-configs folder in the project (https://github.com/opencord/pod-configs/tree/master/deployment-configs) has the details about RG and BNG tags and more for a given subscriber.
+New
+4:56
+Based on the test pipeline that is being run, the pod on which it is being run and the operator work flow that is being tested - a particular deployment-config file is being picked

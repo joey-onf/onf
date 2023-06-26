@@ -1,0 +1,9 @@
+https://docs.voltha.org/master/overview/release_process.html
+
+1) Increment VERSION number:
+   - go from -dev or release x.y.z to next higher -- minor(y++) or patch(z++)
+
+2) Post release, increment helm chart rep.
+   - version should not include -dev
+
+3) if repo is branched .gitreview needs to be changed.

@@ -1,0 +1,44 @@
+# -*- makefile -*-
+
+interface -> enp3s0d1
+
+# Clean tagged interaces
+ip link delete enp3s0d1.92
+ethtool -K enp3s0-d1 rxvlan off txvlan off
+
+## Create tagged interfaces for ONUs
+## vlans are pre-decided [c & s]
+##   o what are ctags or stags for the onus.
+##   o see repo:port.configs:
+##         deployment config
+##         certification for radisys-1600g-olt-for-dt-workflow
+##      ctag - 222
+##      stag - 22
+##        BNG - create the endpoint.
+## BNG endpoints for various ONUs
+
+[cs]vlan tags
+
+2) Define DHCP server for IP range.
+
+3) /etc/default/isc-dhcp-server
+   o INTERFACES += enp3s0d1.555.55
+   o INTERFACES += enp3s0d1.550.55
+   o INTERFACES += enp3s0d1.222.11
+
+
+# [EOF]
+
+
+  4:53 PM
+I guess you are talking about pod-config, and this is the repository -> https://github.com/opencord/pod-configs . It is a mirror of gerrit project. Easier to browse on github.
+  4:54 PM
+yea that must be it, thought I heard port config, thanks!
+  4:54 PM
+the deployment-configs folder in the project (https://github.com/opencord/pod-configs/tree/master/deployment-configs) has the details about RG and BNG tags and more for a given subscriber.
+New
+4:56
+Based on the test pipeline that is being run, the pod on which it is being run and the operator work flow that is being tested - a particular deployment-config file is being picked
+
+
+The k8s config for each pod is present in this folder https://github.com/opencord/pod-configs/tree/master/kubernetes-configs

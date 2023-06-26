@@ -18,12 +18,12 @@ def show_todo():
     cmd = os.path.basename(__main__.__file__)
     iam = main_utils.iam()
 
-    print('Usage: %s [options]' % cmd)
-    print('''
+    print("USAGE: %s" % cmd)
+    print("""
 [TODO]
   o Generate DHCP server config for VLAN generation.
 
-''')
+""")
 
     return
 

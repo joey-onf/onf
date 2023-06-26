@@ -12,6 +12,8 @@
 ##-------------------##
 import pprint
 import sys
+import random
+
 
 # import datetime
 import time
@@ -32,6 +34,7 @@ from vlan.jenkins       import url             as jurl
 from vlan.report        import to_stdout
 
 from vlan.utils.consts  import \
+    get_types_elapsed,         \
     get_types_result,          \
     get_types_state,           \
     get_types_stat
@@ -40,6 +43,16 @@ from vlan.utils         import jenkins         as jenk_utils
 from vlan.utils         import views           as vu
 from vlan.utils         import spreadsheet
 from vlan.utils         import traverse
+
+from stats.runtime      import utils           as jen_stats
+from stats.spreadsheet  import hdr             as sheet_hdr
+from stats.tab          import utils           as tab_utils
+
+from openpyxl           import Workbook
+
+from stats.tab          import utils           as tab_utils
+from stats.spreadsheet  import utils           as spread_utils
+
 
 ## -----------------------------------------------------------------------
 ## -----------------------------------------------------------------------
@@ -71,13 +84,19 @@ def init_stats_rec(path:str) -> dict:
     :rtype:  dict
     """
 
+    elapsed = get_types_elapsed()
     stats   = get_types_stat()
     states  = get_types_state()
     results = get_types_result()
+#    runtime = get_types_runtime()
 
     ans = {}
     for key in stats + states + results:
         ans[key] = []
+
+    ans['elapsed'] = {}
+    for key in elapsed:
+        ans['elapsed'][key] = []
 
     ans['name'] = Path(path).name
     return ans
@@ -96,6 +115,9 @@ def digest_args():
 
     argv = main_getopt.get_argv()
     debug = argv['debug']
+    if argv['trace']:
+        import pdb
+        pdb.set_trace()
 
     stats_keys = ['job_views', 'job_dirs', 'job_totals']
     stats = { key:[] for key in stats_keys }
@@ -172,6 +194,10 @@ def digest_args():
                     .JobDirUtils(job_dir)\
                     .get_job_attrs(wanted)
 
+                elapsed = int(runtime['duration'])
+                my_stats[job_name]['elapsed']['TOTAL'] += [elapsed]
+                my_stats[job_name]['elapsed'][result]  += [elapsed]
+
                 # ---------------------------------
                 # Construct URLs for jenkins access
                 # ---------------------------------
@@ -228,13 +254,37 @@ def digest_args():
 
                 my_stats[job_name][result] += [stats]
 
+            job_dirs = traverse.find_by_name(job_dir, ['build.xml'])
+                
+            ## ----------------------------
+            ## Calculate runtime statistics
+            ## ----------------------------
+            ans = {}
+            for key in get_types_elapsed():
+                elapsed = my_stats[job_name]['elapsed'][key]
+                ans[key] = jen_stats.Elapsed().gen_stats(elapsed)
+
+
     if argv['show']:
         to_stdout.ReportUtils().generate(my_stats)
         # show_report(my_stats)
 
+#        elapsed = int(runtime['duration'])
+#        my_stats[job_name]['elapsed']['TOTAL'] += [elapsed]
+#        my_stats[job_name]['elapsed'][result]  += [elapsed]
+
     if argv['spreadsheet']:
-        work = spreadsheet.gen_spreadsheet(my_stats, job_data)
-        work.save(filename=argv['spreadsheet'])
+        xlsx = argv['spreadsheet']
+
+        su = spread_utils.Utils()
+        with su.new_spreadsheet(xlsx) as wb:
+            tab_utils.Elapsed(wb, 'elapsed')\
+                .prepare(my_stats, job_data)\
+                .generate()
+
+        # elapsed = stats.spreadsheet.jenkins.Elapsed(wb)
+        # elapsed.gen_header()
+        # elapsed.gen_rows(data)
 
     return
 
@@ -248,6 +298,8 @@ def main(argv_raw):
     if debug:
         print(" ** %s: BEGIN" % iam)
 
+    init()
+
     main_getopt.getopts(argv_raw)
     digest_args()
 
@@ -257,4 +309,9 @@ def main(argv_raw):
 if __name__ == "__main__":
     main(sys.argv[1:]) # NOSONAR
 
+# [SEE ALSO]
+# -----------------------------------------------------------------------
+# .. seealso: https://openpyxl.readthedocs.io/en/latest/api/openpyxl.cell.read_only.html#openpyxl.cell.read_only.EmptyCell
+# -----------------------------------------------------------------------
+    
 # [EOF]
