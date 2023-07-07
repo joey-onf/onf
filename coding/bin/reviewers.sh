@@ -20,9 +20,11 @@ function get_bat_email()
 {
     declare -n ref=$1; shift
     ref+=('daf@opennetworking.org')
-    ref+=('jan@opennetworking.org')
     ref+=('joey@opennetworking.org')
-    ref+=('roger@opennetworking.org')
+
+    # Not paying attention to reviews atm so filter as a default
+    # ref+=('jan@opennetworking.org')
+    # ref+=('roger@opennetworking.org')
 
     ## -------------------------------------------
     ## Remove exclusions from the list
@@ -81,7 +83,6 @@ declare -a emails=()
 early_exit=0
 for val in "$@";
 do
-    
     case "$val" in
 
 	-*help) usage; exit 0  ;;

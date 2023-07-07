@@ -39,13 +39,13 @@ case "$my_branch" in
 	;;
 esac
 
-
-## Check sandbox name and disable sterile when needed
-# make sterile
-
 ##------------------##
 ##---]  MASTER  [---##
 ##------------------##
+if [ "$USER" == 'joey']; then
+    make sterile
+fi
+
 echo "** BACKUP: ENTER"
 time tar czvf ../rebase.backup.tgz .
 echo "** BACKUP: LEAVE"
