@@ -13,12 +13,49 @@ declare -g -a text_or=()
 declare -g -a urls_raw=()
 declare -g -a urls_filt=()
 
+declare -g -a labels_incl=()
+declare -g -a labels_excl=()
+
 ## --------------------------------------------------------------------
 ## --------------------------------------------------------------------
 function error()
 {
     echo "ERROR ${FUNCNAME[1]}: $@"
     exit 1
+}
+
+## -----------------------------------------------------------------------
+## Intent: Insert a conjunction into the stream when prior statements exist
+## -----------------------------------------------------------------------
+function conjunction()
+{
+    local -n ref=$1; shift
+    [[ $# -gt 0 ]] && { local literal="$1"; shift; }
+
+    ## -------------------------------
+    ## Conjunction if prior statements
+    ## -------------------------------
+    if [ ${#ref[@]} -gt 0 ]; then
+	if [[ -v literal ]]; then
+	    ref+=("$literal")
+	elif [[ -v bool_and ]]; then
+	    ref+=('AND')
+	else
+	    ref+=('OR')
+	fi
+    fi
+
+    return
+}
+
+## -----------------------------------------------------------------------
+## Intent: Helper method
+## -----------------------------------------------------------------------
+## Usage : local path="$(join_by '/' 'lib' "${fields[@]}")"
+## -----------------------------------------------------------------------
+function join_by()
+{
+    local d=${1-} f=${2-}; if shift 2; then printf %s "$f" "${@/#/$d}"; fi;
 }
 
 ## --------------------------------------------------------------------
@@ -54,21 +91,52 @@ function do_components()
 ## --------------------------------------------------------------------
 function do_labels()
 {
-    declare -n args=$1; shift
+    declare -n incl=$1; shift # was args=
+    declare -n excl=$1; shift
     declare -n ans=$1; shift
 
-    if [[ ${#args[@]} -gt 0 ]]; then
+    ## --------------------------------
+    ## Conjunction if stream tokens > 0
+    ## --------------------------------
+    conjunction ans
 
-	local modifier
-	if [[ -v bool_not ]]; then
-	    modifier='NOT IN'
-	else
-	    modifier='IN'
-	fi
-	ans+=("labels ${modifier} (${args[@]})")
-       # alt: comp='foo' OR comp='bar'
+    declare -a tokens=()
+
+    ## -----------------------------
+    ## -----------------------------
+    if [[ ${#incl[@]} -gt 0 ]]; then
+    
+ 	local modifier
+ 	if [[ -v bool_not ]]; then
+ 	    modifier='NOT IN'
+ 	else
+ 	    modifier='IN'
+ 	fi
+
+	local labels=$(join_by ',' "${incl[@]}")
+	local -a tmp=(\
+	    '('\
+	    'label IS EMPTY' \
+	    'OR' \
+	    "labels ${modifier} ($labels)" \
+	    ')'\
+	    )
+	tokens+=("${tmp[@]}")
     fi
 
+    conjunction tokens 'AND'
+
+    ## -----------------------------
+    ## -----------------------------
+    if [[ ${#excl[@]} -gt 0 ]]; then
+	local labels=$(join_by ',' "${excl[@]}")
+	tokens+=('(' "labels NOT IN ($labels)" ')')
+    fi
+
+    declare -p tokens
+    
+    ans+=("${tokens[@]}")
+    echo "ANS=${ans[@]}"
     return
 }
 
@@ -96,15 +164,17 @@ function do_resolved()
 ## --------------------------------------------------------------------
 function do_text()
 {
-    declare -n ans=$1; shift
+    local -n ref=$1; shift
+    local -n ans=$1; shift
     local val
 
     ## Accumulate
-    if [[ ${#text[@]} -gt 0 ]]; then
+    if [[ ${#ref[@]} -gt 0 ]]; then
+
 	if [[ -v bool_and ]]; then
-	    text_and+=("${text[@]}")
+	    text_and+=("${ref[@]}")
 	else
-	    text_or+=("${text[@]}")
+	    text_or+=("${ref[@]}")
 	fi
     fi
 
@@ -210,6 +280,7 @@ function usage()
     cat <<EOH
 Usage: $0
   --debug       Enable script debug mode
+  --dry-run     Simulate
 
 [SERVER]
   --onf         jira.opennetworking.org (default)
@@ -296,7 +367,8 @@ while [ $# -gt 0 ]; do
 	##-----------------##
 	##---]  MODES  [---##
 	##-----------------##
-	-*debug) declare -g -i debug=1 ;;
+	-*debug)   declare -g -i debug=1 ;;
+	--dry-run) declare -g -i dry_run=1 ;;
 
 	##-------------------##
 	##---]  BY USER  [---##
@@ -325,10 +397,14 @@ while [ $# -gt 0 ]; do
 	    components+=("$arg")
 	    ;;
 
-	--label)
+	--label-excl)	
 	    arg="$1"; shift
-	    [[ ! -v labels ]] && declare -g -a labels=()
-	    labels+=("$arg")
+	    labels_excl+=("$arg")
+	    ;;
+
+	--label|--label-incl)
+	    arg="$1"; shift
+	    labels_incl+=("$arg")
 	    ;;
 
 	##-----------------------##
@@ -422,8 +498,8 @@ done
 ## ----------------------
 do_user suffix0
 do_components components suffix0
-do_labels     labels     suffix0
-do_text                  suffix0
+do_labels labels_incl labels_excl suffix0
+do_text  text            suffix0
 do_resolved              suffix0
 
 filter=''
@@ -437,9 +513,11 @@ fi
 
 [[ -v debug ]] && echo "URL: $url"
 browser="${BROWSER:-/snap/bin/firefox}"
-# echo '**' "$browser" "${url}" "${urls_raw[@]}"
-# echo "$browser" '**' "${urls_filt[@]}" "${urls_raw[@]}"
-"$browser" "${urls_filt[@]}" "${urls_raw[@]}"
+echo "$browser ${urls_filt[@]} ${urls_raw[@]}"
+
+if [[ ! -v dry_run ]]; then
+    "$browser" "${urls_filt[@]}" "${urls_raw[@]}"
+fi
 
 # [SEE ALSO]
 #   o https://support.atlassian.com/jira-software-cloud/docs/advanced-search-reference-jql-fields/

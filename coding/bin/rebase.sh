@@ -31,6 +31,7 @@ my_branch="$(git rev-parse --abbrev-ref HEAD)"
 case "$my_branch" in
     dev-${USER}) ;;
     review/*_*/*) ;;
+    voltha-2.12-beta) ;;
 
     *)
 	echo "ERROR: Unknown branch"
@@ -42,7 +43,7 @@ esac
 ##------------------##
 ##---]  MASTER  [---##
 ##------------------##
-if [ "$USER" == 'joey']; then
+if [ "$USER" == 'joey' ]; then
     make sterile
 fi
 

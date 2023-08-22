@@ -127,7 +127,7 @@ function update_meta()
 	local gid=''
 	local rep=''
 
-	get_meta $(realpath 'review.log') cid gid rep
+	get_meta "$log" cid gid rep
 
 	local cpath="$get_root/change_id/$cid"
 	if [[ ${#cid} -gt 0 ]] && [[ ! -e "$cpath" ]]; then
@@ -228,8 +228,8 @@ EOH
 ##---]  MAIN  [---##
 ##----------------##
 
-update_meta 'review_log'
-error "EARLY EXIT"
+# update_meta 'review_log'
+# error "EARLY EXIT"
 
 echo "$0: $*"
 
@@ -268,13 +268,18 @@ do
 
 	-*bisdn*)
 	    emails+=('jan@opennetworking.org')
-	    emails+=('roger@opennetworking.org')                 ;;
-		    
+	    emails+=('roger@opennetworking.org')
+	    emails+=('cristina.defrancisco@bisdn.de')
+	    ;;
+
+	-*christina)
+	           emails+=('cristina.defrancisco@bisdn.de')     ;;
 	-*daf)     emails+=('daf@opennetworking.org')            ;;
 	-*gustavo) emails+=('gsilva@furukawalatam.com')          ;;
 #	-*holger)  emails+=('holger.hildebrandt@adtran.com')     ;;
 	-*joey)    emails+=('joey@opennetworking.org')           ;;
 	-*mahir)   emails+=('mahir.gunyel@netsia.com')           ;;
+	-*nikesh)  emails+=('tesseract12345678@gmail.com')       ;;
         -*serkant) emails+=('serkant.uluderya@netsia.com')       ;;	
 #	-*torsten) emails+=('torsten.thieme@adtran.com') ;;
 	-*vinod)   emails+=('vinod.kumar@radisys.com')           ;;
@@ -327,7 +332,7 @@ fi
 set -x
 git review "${review_args[@]}" 2>&1 | tee review.log
 set +x
-update_meta 'review_log'
+update_meta "$(realpath --canonicalize-existing 'review.log')"
     
 
 # [EOF]

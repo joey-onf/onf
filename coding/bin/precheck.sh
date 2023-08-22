@@ -2,7 +2,8 @@
 ## -----------------------------------------------------------------------
 ## Intent: Perform actions based on available sources
 ##   o Lint/syntax checking
-##   o Cosmetic source cleanup (trailing whitespace, tab-to-space expansion
+##   o Cosmetic source cleanup (trailing whitespace, tab-to-space expansion)
+##   o Verify copyright notice has been updated.
 ## -----------------------------------------------------------------------
 ## Cleanup common problems in source based on language:
 ##   o Replace tab with space:
@@ -23,8 +24,36 @@ declare -g tab_spaces="        "
 ## --------------------------------------------------------------------
 function error()
 {
-    echo "ERROR: $@*"
+    echo "ERROR: $@"
     exit 1
+}
+
+## -----------------------------------------------------------------------
+## Intent: Helper method
+## -----------------------------------------------------------------------
+## Usage : local path="$(join_by '/' 'lib' "${fields[@]}")"
+## -----------------------------------------------------------------------
+function join_by()
+{
+    local d=${1-} f=${2-}; if shift 2; then printf %s "$f" "${@/#/$d}"; fi;
+}
+
+## --------------------------------------------------------------------
+## Intent: Display an error message then exit with status.
+## --------------------------------------------------------------------
+push_error_dir='precheck.tmp'
+function push_err()
+{
+    local src="$1"; shift
+
+    readarray -d'/' -t _fields <<<"$src"
+    local name="$(join_by '-' "${_fields[@]}")"
+    local log="$push_error_dir/$name"
+
+    [[ ! -d "$push_error_dir" ]] && mkdir -p "$push_error_dir"
+    touch "$log"
+    echo "$*" >> "$log"
+    return
 }
 
 ## ----------------------------------------------------
@@ -96,6 +125,30 @@ function func_check()
 }
 
 ## --------------------------------------------------------------------
+## Intent: Verify copyright notice updated
+## --------------------------------------------------------------------
+function do_copyright
+{
+    local src="$1" ; shift
+    if [[ ! -v this_year ]]; then
+	this_year="$(date '+%Y')"
+    fi
+ 
+    # https://phoenixnap.com/kb/grep-regex
+
+    # Copyright 2017-2023 Open Networking Foundation (ONF) and the ONF Contributors
+    readarray -t lines < <(grep -Ei 'copyright \b([[:digit:]]{4})' "$src")
+    # declare -p lines
+
+    if ! [[ "${lines[@]}" = *"${this_year}"* ]]; then
+	push_err "$src" "Source is not copyright [${this_year}]"
+	# error "$src is not copyright [${this_year}]"
+    fi
+    
+    return
+}
+
+## --------------------------------------------------------------------
 ## Intent: Syntax checking by file path
 ## --------------------------------------------------------------------
 function lint_check
@@ -110,6 +163,10 @@ function lint_check
     case "$_type_" in
 	bash)
 	    shellcheck "$src"
+	    ;;
+
+	golang)
+	    echo "NYI -- fix this: gofmt -w -s $src"
 	    ;;
 
 	groovy)
@@ -136,9 +193,10 @@ function reformat_source()
 {
     local src="$1"    ; shift
     local _type_="$1" ; shift
+    local tmp="${src}.tmp"
 
     # Prune trailing whitespace
-    sed -i -e "s/[[:blank:]]*$//g" "$src"
+    sed -i -e "s/[[:blank:]]*$//g" "$src" # de-blank
 
     # ------------------------------
     # Define cleanup based on source
@@ -147,6 +205,9 @@ function reformat_source()
     case "$_type_" in
 	bash)
 	    actions+=('tab_replace')
+	    ;;
+	golang)
+	    actions+=('gofmt')
 	    ;;
 	groovy)
 	    actions+=('tab_replace')
@@ -165,8 +226,14 @@ function reformat_source()
     for action in "${actions[@]}";
     do
 	case "$action" in
+	    gofmt)
+		gofmt -s -w "$src"
+		;;
+		
 	    tab_replace)
-		sed -i -e "s/\t/${tab_spaces}/g" "$src"
+		expand -i -t 8 "$src" > "$tmp"
+		mv -f "$tmp" "$src"
+		# sed -i -e "s/\t/${tab_spaces}/g" "$src"
 		;;
 	    *)
 		error "Detected unknown action [$action]"
@@ -188,6 +255,7 @@ Options:
   --git-add                   Git add locally modified source
 
   --help                      Print this message and exit.
+  --copyright                 Verify copyright dates
   --lint                      Perform source syntax checking.
 
 Repair common syntax and formatting problems in source.
@@ -206,7 +274,10 @@ declare -a fyls=() # todo
 while [ $# -gt 0 ]; do
     arg="$1"; shift
     case "$arg" in
+	--copyright) declare -g -i argv_copyright=1    ;;
+
 	-*help) usage; exit 0                          ;;
+
 	-*git-add) declare -g -i argv_git_add=1        ;;
 	-*all-source) declare -g -i all_source=1       ;;
 	-*lint) lint=1                                 ;;
@@ -221,7 +292,6 @@ while [ $# -gt 0 ]; do
 		
     esac
 done
-
 
 ## ----------------------------------------------------
 ## Process source by:
@@ -253,7 +323,8 @@ do
     echo "** Checking: $fyl"
     ## Identify source type
     language=''
-    case "$fyl" in
+    case "$fyl" in	
+	         *.go) language='golang'   ;;
 	     *.groovy) language='groovy'   ;;
 	[mM]ake*|*.mk) language='makefile' ;;
 	         *.sh) language='bash'     ;;
@@ -264,10 +335,25 @@ do
     reformat_source "$fyl" "$language"
     
     [[ $lint -gt 0 ]] && lint_check "$fyl" "$language"
-
+    [[ -v argv_copyright ]] && do_copyright "$fyl"
+	
     case "$language" in
 	bash) func_check "$fyl" ;;
     esac
 done
 
+push_error_dir='precheck.tmp'
+pushd "$push_error_dir" >/dev/null
+readarray -t fyls < <(find '.' -type f -print | sort -i)
+for fyl in "${fyls[@]}";
+do
+    echo
+    echo "FYL: $fyl"
+    cat "$fyl"
+done
+popd                    >/dev/null
+
+/bin/rm -fr "$push_error_dir"
+
 # EOF
+
