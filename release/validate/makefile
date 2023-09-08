@@ -4,12 +4,9 @@
 
 .DEFAULT_GOAL := args
 
-null 	    :=#
-space	    :=$(null) $(null)
-
-TOP	    ?= .
-MAKEDIR     ?= $(TOP)/makefiles
-ONF_MAKE    ?= $(TOP)/makefiles
+TOP         ?= .
+include $(TOP)/config.mk
+include $(TOP)/makefiles/include.mk
 
 PYTHON      ?= $(HOME)/.venv/3.10.6/bin/python 
 
@@ -65,7 +62,7 @@ main-help:
 ## -----------------------------------------------------------------------
 ## -----------------------------------------------------------------------
 .PHONY: todo
-todo:
+todo ::
 	$(main) --$@ stub-required-arg
 
 ## -----------------------------------------------------------------------
@@ -99,4 +96,7 @@ help ::
 	@echo
 	@echo "[EOF]"
 
+# submodules:
+#	git submodule add https://github.com/opencord/onf-make.git
+#	ssh://joey@opennetworking.org@gerrit.opencord.org:29418/onf-make
 # [EOF]
