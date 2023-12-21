@@ -217,7 +217,9 @@ Usage: $0
   --bisdn    Jan and Roger
   --tst      Request a code review from VOLTHA TST members
 
+[TRANSIENT SWITCHES]
   --review-make   Send out requests for makefile reviewers
+  --golang        Voltha golang upgrade for VGC
 
 [DEV MODE]
   --nop      Early exit
@@ -261,7 +263,7 @@ do
             todo+=('--mahir')
             ;;
 
-        --golang)
+        --golang) # reviewers for 
             todo+=('--abhilash')
             todo+=('--mahir')
             todo+=('--sridhar')
@@ -281,34 +283,30 @@ do
             todo+=('--jan')
             todo+=('--roger')
  #           todo+=('--christina')
-            # emails+=('jan@opennetworking.org')
-            # emails+=('roger@opennetworking.org')
-            # emails+=('cristina@opennetworking.org')
             ;;
 
         ## users
-        --abhil*)  emails+=('abhilash.laxmeshwar@radisys.com')   ;;
-        --amit)    emails+=('amit.ghosh@radisys.com')            ;;
+        --abhil*)    emails+=('abhilash.laxmeshwar@radisys.com') ;;
+        --amit)      emails+=('amit.ghosh@radisys.com')          ;;
 
-        --burak) emails+=('burak.gurdag@netsia.com')             ;;
+        --burak)     emails+=('burak.gurdag@netsia.com')         ;;
         
         --christina) emails+=('cristina@opennetworking.org')     ;;
-        # emails+=('cristina.defrancisco@bisdn.de')     ;;
-        -*daf)     emails+=('daf@opennetworking.org')            ;;
-        -*gustavo) emails+=('gsilva@furukawalatam.com')          ;;
-        #   -*holger)  emails+=('holger.hildebrandt@adtran.com')     ;;
-        -*jan)     emails+=('jan@opennetworking.org')            ;;
+        -*daf)       emails+=('daf@opennetworking.org')          ;;
+        -*gustavo)   emails+=('gsilva@furukawalatam.com')        ;;
+        #   -*holger)  emails+=('holger.hildebrandt@adtran.com')    ;;
+        -*jan)       emails+=('jan@opennetworking.org')          ;;
 
-        -*joey)    emails+=('joey@opennetworking.org')           ;;
-        -*mahir)   emails+=('mahir.gunyel@netsia.com')           ;;
-        -*nikesh)  emails+=('tesseract12345678@gmail.com')       ;;
-        --roger)   emails+=('roger@opennetworking.org')          ;;
-        -*serkant) emails+=('serkant.uluderya@netsia.com')       ;;
-        -*sridhar) emails+=('sridhar.ravindra@radisys.com')      ;;
+        -*joey)      emails+=('joey@opennetworking.org')         ;;
+        -*mahir)     emails+=('mahir.gunyel@netsia.com')         ;;
+        -*nikesh)    emails+=('tesseract12345678@gmail.com')     ;;
+        --roger)     emails+=('roger@opennetworking.org')        ;;
+        -*serkant)   emails+=('serkant.uluderya@netsia.com')     ;;
+        -*sridhar)   emails+=('sridhar.ravindra@radisys.com')    ;;
 
-        #   -*torsten) emails+=('torsten.thieme@adtran.com') ;;
+        #   -*torsten) emails+=('torsten.thieme@adtran.com')     ;;
         -*vinod)   emails+=('vinod.kumar@radisys.com')           ;;
-        #   -*zack)    emails+=('zack.williams@intel.com')           ;;
+        #   -*zack)    emails+=('zack.williams@intel.com')       ;;
 
         -*tst*)
             todo+=('--abhilash')
@@ -316,11 +314,6 @@ do
             todo+=('--burak')
             todo+=('--mahir')
             todo+=('--serkant')
-            # emails+=('amit.ghosh@radisys.com')
-            # emails+=('mahir.gunyel@netsia.com')
-            # emails+=('serkant.uluderya@netsia.com')
-            # emails+=('abhilash.laxmeshwar@radisys.com')
-            # emails+=('burak.gurdag@netsia.com')
             ;;
 
         *@*) emails+=("$val") ;;
