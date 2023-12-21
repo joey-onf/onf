@@ -8,13 +8,15 @@ while [ $# -gt 0 ]; do
 	-*debug) declare -g -i debug=1 ;;
 	*) break ;;
     esac
+    shift
 done
 
 declare -a sources=()
 [[ $# -gt 0 ]] && sources+=("$*")
 
 if [[ ${#source[@]} -eq 0 ]]; then
-    readarray -t sources < <(git ls-files --modified --deleted)
+    readarray -t git_status < <(git ls-files --modified --deleted)
+    sources+=("${git_status[@]}")
     declare -p sources
 fi
 

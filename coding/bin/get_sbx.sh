@@ -2,6 +2,8 @@
 ## -----------------------------------------------------------------------
 ## -----------------------------------------------------------------------
 
+make_path="$HOME/projects/sandbox"
+
 sbx_root="$(realpath '.')"
 source ~/.sandbox/trainlab-common/common_args.sh
 
@@ -24,10 +26,11 @@ repos+=('voltha-protos')
 repos+=('voltctl')
 repos+=('voltha-helm-charts')
 
+here="$(realpath '.')"
 storage="${here}/.get"
+declare -p storage
 review_log="${storage}/review.log"
 review_tmp="${review_log}.tmp"
-
 
 declare -A cs=()
 
@@ -60,7 +63,7 @@ EOB
 ## -----------------------------------------------------------------------
 function error()
 {
-    echo "** ERROR: $@"
+    echo -e "** ERROR: $@"
     exit 1
 }
 
@@ -74,13 +77,13 @@ function clean()
 
     func_echo "ENTER"
     declare -p clean
-    
+
     ## --------------------------------------------------------------------
     ## --------------------------------------------------------------------
     if [[ clean -ne 0 ]] || [[ -v __clean_sandbox__ ]]; then
-       if [ -d "$path" ]; then
-	   /bin/rm -fr "$path"
-	fi
+        if [ -d "$path" ]; then
+            /bin/rm -fr "$path"
+        fi
     fi
 
     [ -d "$path" ] && error "Sandbox Exists: $path"
@@ -94,7 +97,7 @@ function clean()
 ## -----------------------------------------------------------------------
 function review_init
 {
-    mkdir -p "${review_log%/*}"    
+    mkdir -p "${review_log%/*}"
     touch "$review_log"
     return
 }
@@ -108,9 +111,9 @@ function checkout_by_make()
 
     func_banner "REPO: $repo"
 
-    func_echo "make -f \"$sbx_root/makefile\" \"${__repo}\" TOP=\"$sbx_root\""
-    make -f "$sbx_root/makefile" "${__repo}" TOP="$sbx_root" \
-	 >/dev/null
+    func_echo "make -f \"$make_path/makefile\" \"${__repo}\" TOP=\"$sbx_root\""
+    make -f "$make_path/makefile" "${__repo}" TOP="$sbx_root" \
+         >/dev/null
     return
 }
 
@@ -155,7 +158,7 @@ function contains()
     local value="$1"; shift
 
     [[ " $list " =~ " $value " ]]
-#    [[ $1 =~ (^|[[:space:]])$2($|[[:space:]]) ]] && true || false
+    #    [[ $1 =~ (^|[[:space:]])$2($|[[:space:]]) ]] && true || false
     return
 }
 
@@ -172,46 +175,46 @@ function archive_sandbox()
     local sbx="$1"    ; shift
 
     local sbx_all="${sbx}-all"
-  
+
     case "$action" in
-	-*push)
-	    [[ ! -d "$sbx" ]] && return
+        -*push)
+            [[ ! -d "$sbx" ]] && return
 
-	    echo
-	    func_echo "Archive sandbox for review checkout: $sbx"
-	    
-	    local ts="$(date '+%Y%m%d%H%M%s.%N')"
-	    local dst="$sbx_all/$ts"
-	    [[ -d "$dst" ]] && error "Destination exists: $dst"
-	    
-	    func_echo "Archive existing sandbox: $sbx"	
+            echo
+            func_echo "Archive sandbox for review checkout: $sbx"
 
-	    declare -g -a archived_sandboxes
-	    archvied_sandboxes+=("$dst")
-	    mv -v "$sbx" "$dst"
-	;;
+            local ts="$(date '+%Y%m%d%H%M%s.%N')"
+            local dst="$sbx_all/$ts"
+            [[ -d "$dst" ]] && error "Destination exists: $dst"
 
-	-*pop)
-	    [[ !  archived_sandboxes ]] && return
-	    declare -p archived_sandboxes    
-	    
-	    local path="${archived_sandboxes[0]}"
-	    echo
-	    func_echo "Restore archived sandbox: $src"
-	    mv -v "$path" "$src"
-	    archived_sandboxes=() # array cleanup needed
-	    ;;
+            func_echo "Archive existing sandbox: $sbx"
 
-	*)
-	    func_echo "Detected unknown argument: $action"
-	    error 'outa here'
-	    ;;
+            declare -g -a archived_sandboxes
+            archvied_sandboxes+=("$dst")
+            mv -v "$sbx" "$dst"
+            ;;
+
+        -*pop)
+            [[ !  archived_sandboxes ]] && return
+            declare -p archived_sandboxes
+
+            local path="${archived_sandboxes[0]}"
+            echo
+            func_echo "Restore archived sandbox: $src"
+            mv -v "$path" "$src"
+            archived_sandboxes=() # array cleanup needed
+            ;;
+
+        *)
+            func_echo "Detected unknown argument: $action"
+            error 'outa here'
+            ;;
     esac
 
     func_echo "archived_sandboxes = $(declare -p archived_sandboxes)"
     return
 }
- 
+
 ## -----------------------------------------------------------------------
 ## Intent: Checkout a repository and create a developer _branch_ when needed.
 ## -----------------------------------------------------------------------
@@ -223,7 +226,7 @@ function create_branch()
 {
     local _repo_="$1"   ; shift
     local _branch_="$1" ; shift
-    local _id_="$1"     ; shift
+    local _id_="$1"     ; shift  # destination
     declare -g clean
 
     func_echo "ENTER"
@@ -231,22 +234,22 @@ function create_branch()
     ## --------------------------------------------------------------------
     ## --------------------------------------------------------------------
     if [[ clean -ne 0 ]]; then
-       [ -d "$_repo_" ] && /bin/rm -fr "$_repo_"
+        [ -d "$_repo_" ] && /bin/rm -fr "$_repo_"
     fi
 
     ## --------------------------------------------------------------------
     ## --------------------------------------------------------------------
     if [ ! -d "$_repo_" ]; then
-	cat <<EOM
+        cat <<EOM
 
 ** -----------------------------------------------------------------------
 **  ! -d ${_repo_}
 ** checkout_by_make "$_repo_"
 ** -----------------------------------------------------------------------
 EOM
-	checkout_by_make "$_repo_"
-	func_echo "PWD: $(/bin/pwd)"
-	func_echo " LS: $(/bin/ls)"	
+        checkout_by_make "$_repo_"
+        func_echo "PWD: $(/bin/pwd)"
+        func_echo " LS: $(/bin/ls)"
     fi
 
     echo
@@ -258,35 +261,36 @@ EOM
 
     case "$_branch_" in
 
-	master) : ;; # fall through
+        master) : ;; # fall through
 
-	--branch)
-	    echo "** --branch $branch"
-	    pushd "$_repo_" >/dev/null
-	    git checkout -b "$_id_"
-	    popd          >/dev/null
-	    ;;
-	
-	--review)
-	    echo "** --review $review"
-	    pushd "$_repo_" >/dev/null
-	    # clean "$_id_"
-	    func_echo "PWD: $(/bin/pwd)"
+        --branch)
+            echo "** --branch $branch"
+            pushd "$_repo_" >/dev/null
+            git checkout -b "$_id_"
+            popd          >/dev/null
+            ;;
 
-	    git review -d "$_id_"
-	    popd          >/dev/null
-	    mv -v "${_repo_}" "${_id_}"
-	    ;;
+        --review)
+            echo "** --review $review"
+            
+            pushd "$_repo_" >/dev/null
+            # clean "$_id_"
+            func_echo "PWD: $(/bin/pwd)"
 
-	*)
-	   pushd "$_repo_" >/dev/null
-	   git checkout -b "$_branch_"
-	   popd          >/dev/null
-	   ;;
+            git review -d "$_id_"
+            popd          >/dev/null
+            mv -v "${_repo_}" "${_id_}"
+            ;;
+
+        *)
+            pushd "$_repo_" >/dev/null
+            git checkout -b "$_branch_"
+            popd          >/dev/null
+            ;;
     esac
 
     func_echo "LEAVE"
-    
+
     return
 }
 
@@ -302,7 +306,7 @@ function do_changeset()
     [[ ! -v change_id ]] && { echo "repo= is required"; exit 1; }
 
     repo_all="${repo}-all"
-    
+
     sbx_id="${repo_all}/${change_id}"
     clean "$sbx_id"
 
@@ -320,11 +324,11 @@ function do_changeset()
 
     echo
     pushd "$repo" >/dev/null
-      git review -d "$change_id"
-      echo
-      git branch
+    git review -d "$change_id"
+    echo
+    git branch
     popd          >/dev/null
-    
+
     ## -----------------------------------
     ## Create convenience links to current
     ## -----------------------------------
@@ -368,12 +372,12 @@ function create_temp_sandbox_v2()
     local repo="$1"; shift
 
     while [[ $# -gt 0 ]]; do
-	local arg="$1"; shift
-	case "$arg" in
-	    --branch) local ctsv2_branch="$1"; shift ;;
-	    --review) local ctsv2_review="$1"; shift ;;
-	    *) error "Detected invalid argument $arg" ;;
-	esac
+        local arg="$1"; shift
+        case "$arg" in
+            --branch) local ctsv2_branch="$1"; shift ;;
+            --review) local ctsv2_review="$1"; shift ;;
+            *) error "Detected invalid argument $arg" ;;
+        esac
     done
 
     local temp_sandbox
@@ -383,13 +387,13 @@ function create_temp_sandbox_v2()
     pushd "$temp_sandbox"
 
     if [[ -v ctsv2_branch ]]; then
-	create_branch "${repo}" '--branch' "${ctsv2_branch}"
+        create_branch "${repo}" '--branch' "${ctsv2_branch}"
     elif [[ -v ctsv2_review ]]; then
-	create_branch "${repo}" '--review' "${ctsv2_review}"
+        create_branch "${repo}" '--review' "${ctsv2_review}"
     else
-	create_branch "${repo}" 'master' 'master'
+        create_branch "${repo}" 'master' 'master'
     fi
-    
+
     popd
 
     ref="${temp_sandbox}/${repo}"
@@ -404,17 +408,20 @@ function memory_recall()
     local review_id="$1"; shift
     local -n ref=$1; shift
 
+    func_echo "Checking $review_id"
     ## memory load
     local conf="$storage/change_id/${review_id}"
+    declare -p conf
+    /bin/ls -ld "$conf"
     if [ -e "$conf" ]; then
-	source "$conf"
-	# --review => change_id
+        source "$conf"
+        # --review => change_id
 
-	func_echo "$(declare -p repo)"
-	[[ ! -v __repo__ ]] && ref+=('--repo' "$repo")
-	# repo="ci-management"
-	# change_id="I09385c0544221cc87839b5182200977e0571039a"
-	# gerrit_id="33686"
+        func_echo "$(declare -p repo)"
+        [[ ! -v __repo__ ]] && ref+=('--repo' "$repo")
+        # repo="ci-management"
+        # change_id="I09385c0544221cc87839b5182200977e0571039a"
+        # gerrit_id="33686"
     fi
     return
 }
@@ -429,6 +436,8 @@ Options:
   --review [r]      Checkout gerrit Chageset-Id patch
   --repo   [r]      Repository to checkout
   --clean           Remove an existing sandbox ford a pristine checkout.
+
+  --todo            Display pending tasks
 
 Examples
   % $0 --review Ie2e879dbaba4442c2ec0203049a4e48f950d9322 --repo infra-docs
@@ -456,7 +465,7 @@ Options:
 EOH
     exit 0
 }
-	
+
 ##----------------##
 ##---]  MAIN  [---##
 ##----------------##
@@ -467,9 +476,16 @@ declare -g mirror=0
 
 if [ $# -eq 1 ]; then
     case "$1" in
-	I*) ;;
-	[0-9]*) ;;
-	*) set -- '--clean' '--repo' "$1" ;;
+        I*) ;;
+        [0-9]*) ;;
+        --todo)
+            source "$pgm_root/get_sbx/todo/loader.sh"
+            echo
+            error "EARLY EXIT"
+            ;;
+
+
+        *) set -- '--clean' '--repo' "$1" ;;
     esac
 fi
 
@@ -483,132 +499,166 @@ while [ $# -gt 0 ]; do
     # readarray -t ans < <(find "${sbx_root}/.get" -name "$arg" -print)
 
     case "$arg" in
-	-*help)
-	    usage
-	    exit 0
-	    ;;
+        -*help)
+            usage
+            exit 0
+            ;;
 
-	-*edit) declare -g -i argv_edit_mode=1 ;;
+        -*edit) declare -g -i argv_edit_mode=1 ;;
+        -*name) __name__="$1"; shift           ;;
 
-	-*branch)
-	    branch="$1"; shift
-	    args+=('--branch' "$branch")
-	    declare -g __branch__="$branch"
-	    readonly __branch__
-	    ;;
+        -*branch)
+            branch="$1"; shift
+            args+=('--branch' "$branch")
+            declare -g __branch__="$branch"
+            readonly __branch__
+            ;;
 
-	-*review)
-	    review="$1"; shift
-	    declare -g __review__="$review"
-	    readonly __review__
-	    
-	    declare -a tmp=()
-	    if memory_recall "$review" tmp; then
-		set -- "${tmp[@]}"
-	    fi
-	    ;;
+        --review)
+            review="$1"; shift
+            declare -g __review__="$review"
+            readonly __review__
 
-	-*clean)
-	    clean=1	    
-	    declare -g -i __clean_sandbox__=1
-	    ;;
+            declare -a tmp=()
+            if memory_recall "$review" tmp; then
+                set -- "${tmp[@]}"
+            fi
+            ;;
 
-	--jira)
-	    arg="$1"; shift
-	    __jira__="$arg"
-	    ;;
+        -*clean)
+            clean=1
+            declare -g -i __clean_sandbox__=1
+            ;;
 
-	-*master) branch='master'    ;;
+        --jira)
+            arg="$1"; shift
+            __jira__="$arg"
+            ;;
 
-	-*mirror) mirror=1           ;;
+        -*master) branch='master'    ;;
 
-	-*repo)
-	    arg="$1"; shift
-	    [[ ${arg:0:1} == '-' ]] && error "--repo requires an argument not a switch"
-	    declare -g __repo__="$arg"
-	    readonly __repo__
-	    ;;
-	
-	*)
-	    # --edit Ia167a9d46ee48fbf27c6cd09d78fcf31f3d4aedf
-	    error 'SHOULD NOT BE HERE'
-	    ;;
+        -*mirror) mirror=1           ;;
+
+        -*repo*)
+            arg="$1"; shift
+            [[ ${arg:0:1} == '-' ]] && error "--repo requires an argument not a switch"
+            declare -g __repo__="$arg"
+            readonly __repo__
+            ;;
+
+        *)
+            # --edit Ia167a9d46ee48fbf27c6cd09d78fcf31f3d4aedf
+            error "SHOULD NOT BE HERE:\n     $(declare -p arg)"
+            ;;
     esac
 done
 
+## -----------------------------------------------------------------------
+## Secondary switch detection
+## -----------------------------------------------------------------------
+# if [[ -v __repo__ ]]; then
+# fi
+
 if [[ -v __repo__ ]]; then
-
     if false; then
-	:
-	
+        :
+
     elif [[ -v __jira__ ]]; then
-	func_echo "Create-by-jira: $__jira__"
+        func_echo "Create-by-jira: $__jira__"
 
-	dst=''
-	sbx_all_path dst "$__repo__" "$__jira__"
-	clean "$dst"
+        dst=''
+        sbx_all_path dst "$__repo__" "$__jira__"
+        clean "$dst"
 
-	declare -a args=()
-	[[ -v __branch__ ]] && args+=('--branch' "${__branch__}")
-	[[ -v __review__ ]] && args+=('--review' "${__review__}")
+        declare -a args=()
+        [[ -v __branch__ ]] && args+=('--branch' "${__branch__}")
+        [[ -v __review__ ]] && args+=('--review' "${__review__}")
 
-	tmp_sbx=''
-	create_temp_sandbox_v2 tmp_sbx "$__repo__" "${args[@]}"
+        tmp_sbx=''
+        create_temp_sandbox_v2 tmp_sbx "$__repo__" "${args[@]}"
 
-	sbx_meta "$tmp_sbx"
-	
-	mkdir -p "$dst"
-	rsync -r --checksum "$tmp_sbx/." "$dst/."
+        sbx_meta "$tmp_sbx"
 
-	create_myenv "$dst"
-	
-    # unset review
+        mkdir -p "$dst"
+        rsync -r --checksum "$tmp_sbx/." "$dst/."
+
+        create_myenv "$dst"
+
+        # unset review
+    elif [[ -v __name__ ]]; then
+
+        sbx_all=''
+        sbx_all_mkdir "${__repo__}" sbx_all # 20230818
+
+        # voltha-docs-all/__name__
+        dst="$sbx_all/${__name__}"
+        clean "$dst"
+
+        path=''
+        common_tempdir_mkdir path # create_temp_sandbox "${__repo__}" path
+        declare -p path
+
+        pushd "$path"
+        func_echo "Create sandbox: ${__name__}"
+        
+        create_branch "${__repo__}" '--branch' 'dev-joey' "${_name_}"
+        popd
+
+        mkdir -p "$dst"
+        rsync -rv --checksum "${path}/." "${sbx_all}/." # renamed so copy
+cat <<EOM
+
+** -----------------------------------------------------------------------
+** Remove path: $path
+** -----------------------------------------------------------------------
+EOM
+bash
+
+        # rm -fr "$path"
+        create_myenv "$dst"
+        edit_mode "$dst"
     elif [[ -v __review__ ]]; then
 
-	sbx_all=''
-	sbx_all_mkdir "${__repo__}" sbx_all # 20230818
-	sbx_all_mkdir "$__repo__" sbx_all
+        sbx_all=''
+        sbx_all_mkdir "${__repo__}" sbx_all # 20230818
+#        sbx_all_mkdir "$__repo__" sbx_all
 
-#	src="${__repo__}"
-#	sbx_all="${__repo__}-all"
-#	mkdir -p "$sbx_all"
+        # voltha-docs-all/I8a847fcaa01ae9bf261b2db6bd34262f08d71009
+        dst="$sbx_all/${__review__}"
+        # if [[ -d "$dst" ]]; then
+        clean "$dst"
+        ## [[ -d "$dst" ]] && error "Destination sandbox exists: $dst"
 
-	# voltha-docs-all/I8a847fcaa01ae9bf261b2db6bd34262f08d71009
-	dst="$sbx_all/${__review__}"
-	# if [[ -d "$dst" ]]; then
-	clean "$dst"
-	## [[ -d "$dst" ]] && error "Destination sandbox exists: $dst"
+        path=''
+        common_tempdir_mkdir path # create_temp_sandbox "${__repo__}" path
+        declare -p path
 
-	path=''
-	common_tempdir_mkdir path # create_temp_sandbox "${__repo__}" path
-	declare -p path
+        pushd "$path"
+        func_echo "Edit review: ${__review__}"
+        create_branch "${__repo__}" '--review' "${__review__}"
+        popd
 
-	pushd "$path"
-	func_echo "Edit review: ${__review__}"
-	create_branch "${__repo__}" '--review' "${__review__}"
-       	popd
+        mkdir -p "$dst"
+        rsync -rv --checksum "${path}/." "${sbx_all}/." # renamed so copy
 
-	mkdir -p "$dst"
-	rsync -rv --checksum "${path}/." "${sbx_all}/." # renamed so copy
+        create_myenv "$dst"
+        #   echo#
+        #   echo "cd $dst" > myenv
+        #   echo "## source myenv
 
-	create_myenv "$dst"
-#	echo#
-#	echo "cd $dst" > myenv
-#	echo "## source myenv
+        edit_mode "$dst"
 
-	edit_mode "$dst"
-	
-# 	archive_sandbox '--pop' "$src"
+        #   archive_sandbox '--pop' "$src"
 
     elif [[ -v __branch__ ]]; then
-	func_echo "Create-by-branch: $__branch__"
-	create_branch "${__repo__}" '--branch' "${__branch__}"
+        func_echo "Create-by-branch: $__branch__"
+        create_branch "${__repo__}" '--branch' "${__branch__}"
 
     else
-	br="dev-${USER}"
-	declare -p br
-	func_echo "Create-by-branch: $br"
-	create_branch "${__repo__}" '--branch' "$br"	
+        br="dev-${USER}"
+        declare -p br
+        func_echo "Create-by-branch: $br"
+        create_branch "${__repo__}" '--branch' "$br"
     fi
 
 else

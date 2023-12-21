@@ -14,6 +14,8 @@
 ##   o expand -i -t 4 tab-file.txt > no-tab-file.txt
 ## -----------------------------------------------------------------------
 
+umask 022
+
 ##-------------------##
 ##---]  GLOBALS  [---##
 ##-------------------##
@@ -36,6 +38,36 @@ function error()
 function join_by()
 {
     local d=${1-} f=${2-}; if shift 2; then printf %s "$f" "${@/#/$d}"; fi;
+}
+
+## -----------------------------------------------------------------------
+## Intent: Create helper functions for emacs
+## -----------------------------------------------------------------------
+function configure_emacs()
+{
+    local emacs_dir="$HOME/.emacs.d/local"
+    local conf="${emacs_dir}/precommit.el"
+    declare -p conf
+    [[ -e "$conf" ]] && return
+
+    mkdir -p "$emacs_dir"
+
+    cat <<EOC > "$conf"
+;; -----------------------------------------------------------------------
+;; Intent: Emacs batch functions to run prior to commit
+;; -----------------------------------------------------------------------
+
+(defun precommit-whitespace ()
+  (interactive)
+  (mark-whole-buffer)
+   (untabify (point-min) (point-max))
+   (indent-region (point-min) (point-max))
+   (delete-trailing-whitespace (point-min) (point-max))
+)
+
+(global-set-key (kbd "<f12>") 'precommit-whitespace)
+EOC
+    return
 }
 
 ## --------------------------------------------------------------------
@@ -77,13 +109,13 @@ function do_git_add_others()
     local todo
     for todo in "${todos[@]}";
     do
-	case "$todo" in
-	    *~) ;;
-	    *)
-		echo "** ${FUNCNAME}: $todo"
-		git add "$todo"
-		;;
-	esac
+        case "$todo" in
+            *~) ;;
+            *)
+                echo "** ${FUNCNAME}: $todo"
+                git add "$todo"
+                ;;
+        esac
     done
     return
 }
@@ -111,14 +143,14 @@ function func_check()
     readarray -t funcs < <(awk -F'[ (]' '/^function/ {print $2}' "$src")
     for func in "${funcs[@]}";
     do
-	readarray -t found < <(grep -e "$func" "$src" \
-			           | awk -F'#' '{print $1}' \
-				   | grep -v grep)
+        readarray -t found < <(grep -e "$func" "$src" \
+                                   | awk -F'#' '{print $1}' \
+                                   | grep -v grep)
 
 
-	if [ ${#found[@]} -lt 2 ]; then
-	    echo "ERROR: Detected unused function $func in $src"
-	fi
+        if [ ${#found[@]} -lt 2 ]; then
+            echo "ERROR: Detected unused function $func in $src"
+        fi
     done
 
     return
@@ -131,9 +163,9 @@ function do_copyright
 {
     local src="$1" ; shift
     if [[ ! -v this_year ]]; then
-	this_year="$(date '+%Y')"
+        this_year="$(date '+%Y')"
     fi
- 
+
     # https://phoenixnap.com/kb/grep-regex
 
     # Copyright 2017-2023 Open Networking Foundation (ONF) and the ONF Contributors
@@ -141,10 +173,10 @@ function do_copyright
     # declare -p lines
 
     if ! [[ "${lines[@]}" = *"${this_year}"* ]]; then
-	push_err "$src" "Source is not copyright [${this_year}]"
-	# error "$src is not copyright [${this_year}]"
+        push_err "$src" "Source is not copyright [${this_year}]"
+        # error "$src is not copyright [${this_year}]"
     fi
-    
+
     return
 }
 
@@ -161,26 +193,26 @@ function lint_check
     # ------------------------------
     declare -a actions=()
     case "$_type_" in
-	bash)
-	    shellcheck "$src"
-	    ;;
+        bash)
+            shellcheck "$src"
+            ;;
 
-	golang)
-	    echo "NYI -- fix this: gofmt -w -s $src"
-	    ;;
+        golang)
+            echo "NYI -- fix this: gofmt -w -s $src"
+            ;;
 
-	groovy)
-	    # groovy "$src" # cannot always use on jjb pipeline source
-	    npm-groovy-lint "$src"
-	    ;;
+        groovy)
+            # groovy "$src" # cannot always use on jjb pipeline source
+            npm-groovy-lint "$src"
+            ;;
 
-	makefile)
-	    make --recon "$src"
-	    ;;
+        makefile)
+            make --recon "$src"
+            ;;
 
-	*)
-	    echo "[SKIP] Unknown file to lint $src"
-	    ;;
+        *)
+            echo "[SKIP] Unknown file to lint $src"
+            ;;
     esac
 
     return
@@ -203,20 +235,20 @@ function reformat_source()
     # ------------------------------
     declare -a actions=()
     case "$_type_" in
-	bash)
-	    actions+=('tab_replace')
-	    ;;
-	golang)
-	    actions+=('gofmt')
-	    ;;
-	groovy)
-	    actions+=('tab_replace')
-	    ;;
-	makefile)
-	    ;;
-	*)
-	    echo "[SKIP] Unknown file type: $src"
-	    ;;
+        bash)
+            actions+=('tab_replace')
+            ;;
+        golang)
+            actions+=('gofmt')
+            ;;
+        groovy)
+            actions+=('tab_replace')
+            ;;
+        makefile)
+            ;;
+        *)
+            echo "[SKIP] Unknown file type: $src"
+            ;;
     esac
 
     # -------------
@@ -225,22 +257,40 @@ function reformat_source()
     local action
     for action in "${actions[@]}";
     do
-	case "$action" in
-	    gofmt)
-		gofmt -s -w "$src"
-		;;
-		
-	    tab_replace)
-		expand -i -t 8 "$src" > "$tmp"
-		mv -f "$tmp" "$src"
-		# sed -i -e "s/\t/${tab_spaces}/g" "$src"
-		;;
-	    *)
-		error "Detected unknown action [$action]"
-		;;
-	esac
+        case "$action" in
+            gofmt)
+                gofmt -s -w "$src"
+                ;;
+
+            tab_replace_)
+                declare -a eargs=()
+                # eargs+=('-l' "~/.emacs")
+                emacs -batch "${eargs[@]}" \
+                      --eval="(require 'foo)" \
+                      --eval="(require 'bar)" \
+                      --eval="(some-function $*)"
+                ;;
+
+            tab_replace_orig)                
+                expand -i -t 8 "$src" > "$tmp"
+                mv -f "$tmp" "$src"
+                # sed -i -e "s/\t/${tab_spaces}/g" "$src"
+                ;;
+
+            *)
+                error "Detected unknown action [$action]"
+                ;;
+        esac
     done
-    
+
+    return
+}
+
+## -----------------------------------------------------------------------
+## -----------------------------------------------------------------------
+function init()
+{
+    configure_emacs
     return
 }
 
@@ -274,24 +324,28 @@ declare -a fyls=() # todo
 while [ $# -gt 0 ]; do
     arg="$1"; shift
     case "$arg" in
-	--copyright) declare -g -i argv_copyright=1    ;;
+        --copyright) declare -g -i argv_copyright=1    ;;
 
-	-*help) usage; exit 0                          ;;
+        -*help) usage; exit 0                          ;;
 
-	-*git-add) declare -g -i argv_git_add=1        ;;
-	-*all-source) declare -g -i all_source=1       ;;
-	-*lint) lint=1                                 ;;
-	-*) error "Detected unsupported switch [$arg]" ;;
-	*)
-	    if [ -f "$arg" ]; then
-		fyls+=("$arg")
-	    else
-		error "File does not exist: $arg"
-	    fi
-	    ;;
-		
+        -*git-add) declare -g -i argv_git_add=1        ;;
+        -*all-source) declare -g -i all_source=1       ;;
+        -*lint) lint=1                                 ;;
+        -*) error "Detected unsupported switch [$arg]" ;;
+        *)
+            if [ -f "$arg" ]; then
+                fyls+=("$arg")
+            else
+                error "File does not exist: $arg"
+            fi
+            ;;
+
     esac
 done
+
+init
+error "OUTA HERE"
+
 
 ## ----------------------------------------------------
 ## Process source by:
@@ -307,7 +361,7 @@ do_git_add
 ## ----------------------------------------------------
 if [ ${#fyls[@]} -eq 0 ]; then
     if [ -d '.git' ]; then
-	readarray -t fyls < <(git ls-files --modified --others)
+        readarray -t fyls < <(git ls-files --modified --others)
     fi
 fi
 
@@ -323,22 +377,22 @@ do
     echo "** Checking: $fyl"
     ## Identify source type
     language=''
-    case "$fyl" in	
-	         *.go) language='golang'   ;;
-	     *.groovy) language='groovy'   ;;
-	[mM]ake*|*.mk) language='makefile' ;;
-	         *.sh) language='bash'     ;;
-	     *.python) language='python'   ;;
-	 	    *) language='skip'     ;;
+    case "$fyl" in
+        *.go) language='golang'   ;;
+        *.groovy) language='groovy'   ;;
+        [mM]ake*|*.mk) language='makefile' ;;
+        *.sh) language='bash'     ;;
+        *.python) language='python'   ;;
+        *) language='skip'     ;;
     esac
 
     reformat_source "$fyl" "$language"
-    
+
     [[ $lint -gt 0 ]] && lint_check "$fyl" "$language"
     [[ -v argv_copyright ]] && do_copyright "$fyl"
-	
+
     case "$language" in
-	bash) func_check "$fyl" ;;
+        bash) func_check "$fyl" ;;
     esac
 done
 
@@ -356,4 +410,3 @@ popd                    >/dev/null
 /bin/rm -fr "$push_error_dir"
 
 # EOF
-

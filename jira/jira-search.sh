@@ -516,7 +516,7 @@ browser="${BROWSER:-/snap/bin/firefox}"
 echo "$browser ${urls_filt[@]} ${urls_raw[@]}"
 
 if [[ ! -v dry_run ]]; then
-    "$browser" "${urls_filt[@]}" "${urls_raw[@]}"
+    "$browser" "${urls_filt[@]}" "${urls_raw[@]}" >/dev/null 2>/dev/null &
 fi
 
 # [SEE ALSO]

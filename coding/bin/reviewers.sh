@@ -59,7 +59,7 @@ function join_by()
 function get_meta()
 {
     local log="$1"; shift
-    
+
     local -n refc=$1; shift # change id
     local -n refg=$1; shift # gerrit id
     local -n refr=$1; shift # repo
@@ -70,7 +70,7 @@ function get_meta()
 
     local dir="${log%/*}"
     pushd "$dir" >/dev/null
-    
+
     local revparse
     revparse="$(git rev-parse --show-toplevel)"
     local repo="${revparse##*/}"
@@ -83,7 +83,7 @@ function get_meta()
     refc="$change_id"
     refg="$gerrit_id"
     refr="$repo"
-    
+
     declare -p refc
     declare -p refg
     declare -p refr
@@ -101,7 +101,7 @@ function update_meta()
     local log="$1"; shift
     local conf="$pgmroot/.get"
     declare -p conf
-    
+
     [[ $USER != 'joey' ]] && return
 
     func_echo 'ENTER'
@@ -114,25 +114,25 @@ function update_meta()
 
     for idx in $(seq 0 $((${#fields[@]} -1)) | sort -nr);
     do
-	local check="$(join_by '/' "${fields[@]:0:idx}" '.get')"
-	if [[ -e "$check" ]]; then
-	    declare get_root="$check"
-	    echo "FOUND: $check"
-	    break
-	fi
+        local check="$(join_by '/' "${fields[@]:0:idx}" '.get')"
+        if [[ -e "$check" ]]; then
+            declare get_root="$check"
+            echo "FOUND: $check"
+            break
+        fi
     done
 
     if [[ -v get_root ]]; then
-	local cid=''
-	local gid=''
-	local rep=''
+        local cid=''
+        local gid=''
+        local rep=''
 
-	get_meta "$log" cid gid rep
+        get_meta "$log" cid gid rep
 
-	local cpath="$get_root/change_id/$cid"
-	if [[ ${#cid} -gt 0 ]] && [[ ! -e "$cpath" ]]; then
-	    func_echo "Create: $cpath"
-	    cat <<EOD>"$cpath"
+        local cpath="$get_root/change_id/$cid"
+        if [[ ${#cid} -gt 0 ]] && [[ ! -e "$cpath" ]]; then
+            func_echo "Create: $cpath"
+            cat <<EOD>"$cpath"
 #!/bin/bash
 
 repo="${rep}"
@@ -141,18 +141,18 @@ gerrit_id="${gid}"
 
 # [EOF]
 EOD
-	fi
+        fi
 
-	## ----------------------------------------------
-	## ----------------------------------------------
-	local gpath="$get_root/gerrit_id/$gid"
-	if [[ ${#gid} -gt 0 ]] && [[ ! -e "$gpath" ]]; then
-	    func_echo "Create: $gpath"
-	    local dir="${gpath%/*}"
-	    pushd "$dir" >/dev/null
-	    ln -vfns "$gid" "../$cid"
-	    popd         >/dev/null
-	fi
+        ## ----------------------------------------------
+        ## ----------------------------------------------
+        local gpath="$get_root/gerrit_id/$gid"
+        if [[ ${#gid} -gt 0 ]] && [[ ! -e "$gpath" ]]; then
+            func_echo "Create: $gpath"
+            local dir="${gpath%/*}"
+            pushd "$dir" >/dev/null
+            ln -vfns "$gid" "../$cid"
+            popd         >/dev/null
+        fi
     fi
 
     func_echo 'LEAVE'
@@ -171,22 +171,22 @@ function get_bat_email()
 
     # Not paying attention to reviews atm so filter as a default
     ref+=('jan@opennetworking.org')
-    ref+=('roger@opennetworking.org')
+#    ref+=('roger@opennetworking.org')
 
     ## -------------------------------------------
     ## Remove exclusions from the list
     ## ie: Avoid requesting a review from yourself
     ## -------------------------------------------
     if false && [ $# -gt 0 ]; then
-	declare -n __excls=$1; shift
-	local __excl
-	for __excl in "${__excls[@]}";
-	do
-	    ## Hmmm ?!? single quotes causing a problem.
-	    ##   with - no filtering, list remains intact
-	    ##   w/o  - email address filtered leaving only quotes (fail!)
-	    ref=( "${ref[@]/$__excl/}" )
-	done
+        declare -n __excls=$1; shift
+        local __excl
+        for __excl in "${__excls[@]}";
+        do
+            ## Hmmm ?!? single quotes causing a problem.
+            ##   with - no filtering, list remains intact
+            ##   w/o  - email address filtered leaving only quotes (fail!)
+            ref=( "${ref[@]/$__excl/}" )
+        done
     fi
 
     return
@@ -211,11 +211,13 @@ function usage
     cat <<EOH
 
 Usage: $0
+  --none     Simple git review with logging
+
   --bat      Request infra code reviews
   --bisdn    Jan and Roger
   --tst      Request a code review from VOLTHA TST members
 
-  --none     Simple git review with logging
+  --review-make   Send out requests for makefile reviewers
 
 [DEV MODE]
   --nop      Early exit
@@ -237,68 +239,96 @@ declare -a emails=()
 
 declare -A ARGV=()
 early_exit=0
-for val in "$@";
+
+declare -a todo=("$@")
+while [[ ${#todo[@]} -gt 0 ]];
 do
+
+    val="${todo[0]}"
+    unset todo[0]
+    todo=("${todo[@]}") # reindex: array[1] => array[0]
+
+    # echo "** val=[$val], todo=[${todo[@]}]"
+
     case "$val" in
 
-	-*none) declare -i ARGV['none']=1; ;;
+        -*none) declare -i ARGV['none']=1; ;;
+        --help) usage; exit 0 ;;
 
-	-*help) usage; exit 0  ;;
-	-*nop) early_exit=1    ;;
-	-*todo*)  todo         ;;
-	-*early*) early_exit=1 ;;
+        --review-make)
+            todo+=('--bat')
+            todo+=('--bisdn') 
+            todo+=('--mahir')
+            ;;
 
-	-*abhil*)  emails+=('abhilash.laxmeshwar@radisys.com')   ;;
-	
-	-*bat|-*infra)
-	    declare -a bat=()
-	    declare -a excl=()
-	    case "$USER" in
-		# Avoid requesting from yourself
-		daf|jan|joey|roger)
-		    excl+=("${USER}@opennetworking.org")
-		    get_bat_email bat excl
-		    ;;
-		*)
-		    get_bat_email bat
-		    ;;
-	    esac
-	    emails+=("${bat[@]}")
-	    ;;
+        --golang)
+            todo+=('--abhilash')
+            todo+=('--mahir')
+            todo+=('--sridhar')
+            ;;
 
-	-*bisdn*)
-	    emails+=('jan@opennetworking.org')
-	    emails+=('roger@opennetworking.org')
-	    emails+=('cristina.defrancisco@bisdn.de')
-	    ;;
+        -*help) usage; exit 0  ;;
+        -*nop) early_exit=1    ;;
+        -*todo*)  todo         ;;
+        -*early*) early_exit=1 ;;
 
-	-*christina)
-	           emails+=('cristina.defrancisco@bisdn.de')     ;;
-	-*daf)     emails+=('daf@opennetworking.org')            ;;
-	-*gustavo) emails+=('gsilva@furukawalatam.com')          ;;
-#	-*holger)  emails+=('holger.hildebrandt@adtran.com')     ;;
-	-*joey)    emails+=('joey@opennetworking.org')           ;;
-	-*mahir)   emails+=('mahir.gunyel@netsia.com')           ;;
-	-*nikesh)  emails+=('tesseract12345678@gmail.com')       ;;
-        -*serkant) emails+=('serkant.uluderya@netsia.com')       ;;	
-#	-*torsten) emails+=('torsten.thieme@adtran.com') ;;
-	-*vinod)   emails+=('vinod.kumar@radisys.com')           ;;
-#	-*zack)    emails+=('zack.williams@intel.com')           ;;
+        -*bat|-*infra)
+            todo+=('--daf')
+            todo+=('--joey')
+            ;;
+
+        -*bisdn*)
+            todo+=('--jan')
+            todo+=('--roger')
+ #           todo+=('--christina')
+            # emails+=('jan@opennetworking.org')
+            # emails+=('roger@opennetworking.org')
+            # emails+=('cristina@opennetworking.org')
+            ;;
+
+        ## users
+        --abhil*)  emails+=('abhilash.laxmeshwar@radisys.com')   ;;
+        --amit)    emails+=('amit.ghosh@radisys.com')            ;;
+
+        --burak) emails+=('burak.gurdag@netsia.com')             ;;
+        
+        --christina) emails+=('cristina@opennetworking.org')     ;;
+        # emails+=('cristina.defrancisco@bisdn.de')     ;;
+        -*daf)     emails+=('daf@opennetworking.org')            ;;
+        -*gustavo) emails+=('gsilva@furukawalatam.com')          ;;
+        #   -*holger)  emails+=('holger.hildebrandt@adtran.com')     ;;
+        -*jan)     emails+=('jan@opennetworking.org')            ;;
+
+        -*joey)    emails+=('joey@opennetworking.org')           ;;
+        -*mahir)   emails+=('mahir.gunyel@netsia.com')           ;;
+        -*nikesh)  emails+=('tesseract12345678@gmail.com')       ;;
+        --roger)   emails+=('roger@opennetworking.org')          ;;
+        -*serkant) emails+=('serkant.uluderya@netsia.com')       ;;
+        -*sridhar) emails+=('sridhar.ravindra@radisys.com')      ;;
+
+        #   -*torsten) emails+=('torsten.thieme@adtran.com') ;;
+        -*vinod)   emails+=('vinod.kumar@radisys.com')           ;;
+        #   -*zack)    emails+=('zack.williams@intel.com')           ;;
 
         -*tst*)
-	    emails+=('amit.ghosh@radisys.com')
-	    emails+=('mahir.gunyel@netsia.com')
-            emails+=('serkant.uluderya@netsia.com')
-	    emails+=('abhilash.laxmeshwar@radisys.com')
-	    emails+=('burak.gurdag@netsia.com')
-	    ;;
+            todo+=('--abhilash')
+            todo+=('--amit')
+            todo+=('--burak')
+            todo+=('--mahir')
+            todo+=('--serkant')
+            # emails+=('amit.ghosh@radisys.com')
+            # emails+=('mahir.gunyel@netsia.com')
+            # emails+=('serkant.uluderya@netsia.com')
+            # emails+=('abhilash.laxmeshwar@radisys.com')
+            # emails+=('burak.gurdag@netsia.com')
+            ;;
 
-	 *@*) emails+=("$val") ;;
+        *@*) emails+=("$val") ;;
 
-	 *)
-	     echo "ERROR: Unknown reviewer [$val]"
-	     exit 1
-	     ;;
+        *)
+            echo "ERROR: Unknown reviewer [$val]"
+            exit 1
+            ;;
     esac
 done
 
@@ -311,13 +341,12 @@ done
 
 [[ ${#reviewers[@]} -gt 0 ]] \
     && declare -p reviewers \
-	| grep '@' \
-	| tr ' ' '\n'
-
+        | grep '@' \
+        | tr ' ' '\n'
 
 declare -a review_args=()
 if [ $early_exit -gt 0 ]; then
-    echo "[DEUBG] git review --reviewers ${reviewers[@]}"
+    echo "[DEUBG] git review --reviewers ${reviewers[@]} [--work-in-progress]"
 
 elif [[ -v ARGV['none'] ]]; then
     echo "** Running in dev mode"
@@ -333,58 +362,5 @@ set -x
 git review "${review_args[@]}" 2>&1 | tee review.log
 set +x
 update_meta "$(realpath --canonicalize-existing 'review.log')"
-    
 
 # [EOF]
-
-# remote: 
-# remote: Processing changes: (\)        
-# remote: Processing changes: (|)        
-# remote: Processing changes: (/)        
-# remote: Processing changes: (-)        
-# remote: Processing changes: (\)        
-# remote: Processing changes: (|)        
-# remote: Processing changes: (/)        
-# remote: Processing changes: (-)        
-# remote: Processing changes: (\)        
-# remote: Processing changes: refs: 1, new: 1 (\)        
-# remote: Processing changes: refs: 1, new: 1 (\)        
-# remote: Processing changes: refs: 1, new: 1 (\)        
-# remote: Processing changes: refs: 1, new: 1, done            
-# remote: commit bd9673f: warning: subject >50 characters; use shorter first paragraph        
-# remote: 
-# remote: SUCCESS        
-# remote: 
-# remote:   https://gerrit.opencord.org/c/voltha-lib-go/+/34417 [VOL-5053] - Pre-release triage build of voltha-lib-go [NEW]        
-# remote: 
-# To ssh://gerrit.opencord.org:29418/voltha-lib-go.git
-#  * [new reference]   HEAD -> refs/for/master%topic=dev-joey
-# #!/bin/bash
-# 
-# changeid="$(git log -1 | grep 'Change-Id:' | awk -F: '{print $2}')"
-# declare -p changeid
-# 
-# # remote:   https://gerrit.opencord.org/c/voltha-lib-go/+/34417 [VOL-5053] - Pre-release triage build of voltha-lib-go [NEW]        
-# 
-# url="$(grep '://' review.log | grep 'remote:' | awk '{print $2}')"
-# gerrit_id="${url##*/}"
-# 
-# revparse="$(git rev-parse --show-toplevel)"
-# repo="${revparse##*/}"
-# 
-# # $sbx/.get
-# # $sbx/.get/change_id/{xxxx}
-# # --------------------------
-# # #!/bin/bash
-# # 
-# # repo="ci-management"
-# # change_id="I09385c0544221cc87839b5182200977e0571039a"
-# # gerrit_id="33686"
-# #
-# # # [EOF]
-# 
-# # $sbx/.get/change_id/gerrit_id
-# # -----------------------------
-# #   o symlink to change_id 
-# 
-# # EOF

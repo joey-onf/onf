@@ -31,13 +31,16 @@ my_branch="$(git rev-parse --abbrev-ref HEAD)"
 case "$my_branch" in
     dev-${USER}) ;;
     review/*_*/*) ;;
-    voltha-2.12-beta) ;;
+    voltha-2.12) ;;
+    voltha-2.11) ;;
+    voltha-2.10) ;;
+#    voltha-2.12-beta) ;;
 
     *)
-	echo "ERROR: Unknown branch"
-	declare -p my_branch
-	exit 1
-	;;
+        echo "ERROR: Unknown branch"
+        declare -p my_branch
+        exit 1
+        ;;
 esac
 
 ##------------------##
