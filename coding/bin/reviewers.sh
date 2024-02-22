@@ -254,12 +254,13 @@ do
 
     case "$val" in
 
+        # --make) declare -g -i argv_review_make=1 ;;
+                                                   
         -*none) declare -i ARGV['none']=1; ;;
         --help) usage; exit 0 ;;
 
         --review-make)
             todo+=('--bat')
-            todo+=('--bisdn') 
             todo+=('--mahir')
             ;;
 
@@ -291,19 +292,26 @@ do
 
         --burak)     emails+=('burak.gurdag@netsia.com')         ;;
         
-        --christina) emails+=('cristina@opennetworking.org')     ;;
         -*daf)       emails+=('daf@opennetworking.org')          ;;
         -*gustavo)   emails+=('gsilva@furukawalatam.com')        ;;
-        #   -*holger)  emails+=('holger.hildebrandt@adtran.com')    ;;
-        -*jan)       emails+=('jan@opennetworking.org')          ;;
+        #   -*holger)  emails+=('holger.hildebrandt@adtran.com') ;;
+
+        ## Linux Foundation
+        --jess*)     emails+=('jwagantall@linuxfoundation.org')  ;;
+        --thanh)     emails+=('thanh.ha@linuxfoundation.org')    ;;  
+      
+        # Mirko Deckert -- voltha-onos
+        -*mirko*)    emails+=('mirko.deckert@adtran.com')        ;;
+        
 
         -*joey)      emails+=('joey@opennetworking.org')         ;;
+        -*larry)     emails+=('llp@opennetworking.org')          ;;
         -*mahir)     emails+=('mahir.gunyel@netsia.com')         ;;
         -*nikesh)    emails+=('tesseract12345678@gmail.com')     ;;
-        --roger)     emails+=('roger@opennetworking.org')        ;;
         -*serkant)   emails+=('serkant.uluderya@netsia.com')     ;;
         -*sridhar)   emails+=('sridhar.ravindra@radisys.com')    ;;
 
+ 
         #   -*torsten) emails+=('torsten.thieme@adtran.com')     ;;
         -*vinod)   emails+=('vinod.kumar@radisys.com')           ;;
         #   -*zack)    emails+=('zack.williams@intel.com')       ;;
@@ -315,7 +323,11 @@ do
             todo+=('--mahir')
             todo+=('--serkant')
             ;;
-
+ 
+        --christina) emails+=('cristina@opennetworking.org')     ;;
+        --jan)       emails+=('jan@opennetworking.org')          ;;
+        --roger)     emails+=('roger@opennetworking.org')        ;;
+       
         *@*) emails+=("$val") ;;
 
         *)

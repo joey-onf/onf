@@ -3,6 +3,9 @@
 ## Intent: Construct a jira ticket query with attributes
 ## --------------------------------------------------------------------
 
+# set -euo pipefail
+#source ~/.sandbox/trainlab-common/common.sh '--common-args-begin--'
+
 ##-------------------##
 ##---]  GLOBALS  [---##
 ##-------------------##
@@ -16,6 +19,13 @@ declare -g -a urls_filt=()
 declare -g -a labels_incl=()
 declare -g -a labels_excl=()
 
+declare -g -a projects=()
+
+path="$(realpath $0 --canonicalize-existing)"
+source "${path%\.sh}/utils.sh"
+source "$pgmlib/fixversion.sh"
+source "$pgmlib/resolved.sh"
+
 ## --------------------------------------------------------------------
 ## --------------------------------------------------------------------
 function error()
@@ -25,10 +35,27 @@ function error()
 }
 
 ## -----------------------------------------------------------------------
+## -----------------------------------------------------------------------
+function html_encode()
+{
+    local -n ref=$1; shift
+    local tmp="$ref"
+
+    tmp="${tmp//[[:space:]]/%20}"
+    tmp="${tmp//\"/%22}"
+    tmp="${tmp//\'/%27}"
+
+    ref="$tmp"
+    return
+}
+
+## -----------------------------------------------------------------------
 ## Intent: Insert a conjunction into the stream when prior statements exist
 ## -----------------------------------------------------------------------
 function conjunction()
 {
+    return
+    
     local -n ref=$1; shift
     [[ $# -gt 0 ]] && { local literal="$1"; shift; }
 
@@ -36,13 +63,13 @@ function conjunction()
     ## Conjunction if prior statements
     ## -------------------------------
     if [ ${#ref[@]} -gt 0 ]; then
-	if [[ -v literal ]]; then
-	    ref+=("$literal")
-	elif [[ -v bool_and ]]; then
-	    ref+=('AND')
-	else
-	    ref+=('OR')
-	fi
+        if [[ -v literal ]]; then
+            ref+=("$literal")
+        elif [[ -v bool_and ]]; then
+            ref+=('AND')
+        else
+            ref+=('OR')
+        fi
     fi
 
     return
@@ -68,16 +95,18 @@ function do_components()
     declare -n args=$1; shift
     declare -n ans=$1; shift
 
+    # [ -z ${args+word} ] && { args=(); }
+    
     if [[ ${#args[@]} -gt 0 ]]; then
 
-	local modifier
-	if [[ -v bool_not ]]; then
-	    modifier='NOT IN'
-	else
-	    modifier='IN'
-	fi
-	ans+=("component ${modifier} (${args[@]})")
-       # alt: comp='foo' OR comp='bar'
+        local modifier
+        if [[ -v bool_not ]]; then
+            modifier='NOT IN'
+        else
+            modifier='IN'
+        fi
+        ans+=("component ${modifier} (${args[@]})")
+        # alt: comp='foo' OR comp='bar'
     fi
 
     return
@@ -105,23 +134,23 @@ function do_labels()
     ## -----------------------------
     ## -----------------------------
     if [[ ${#incl[@]} -gt 0 ]]; then
-    
- 	local modifier
- 	if [[ -v bool_not ]]; then
- 	    modifier='NOT IN'
- 	else
- 	    modifier='IN'
- 	fi
 
-	local labels=$(join_by ',' "${incl[@]}")
-	local -a tmp=(\
-	    '('\
-	    'label IS EMPTY' \
-	    'OR' \
-	    "labels ${modifier} ($labels)" \
-	    ')'\
-	    )
-	tokens+=("${tmp[@]}")
+        local modifier
+        if [[ -v bool_not ]]; then
+            modifier='NOT IN'
+        else
+            modifier='IN'
+        fi
+
+        local labels=$(join_by ',' "${incl[@]}")
+        local -a tmp=(\
+                      '('\
+                          'label IS EMPTY' \
+                          'OR' \
+                          "labels ${modifier} ($labels)" \
+                          ')'\
+            )
+        tokens+=("${tmp[@]}")
     fi
 
     conjunction tokens 'AND'
@@ -129,33 +158,27 @@ function do_labels()
     ## -----------------------------
     ## -----------------------------
     if [[ ${#excl[@]} -gt 0 ]]; then
-	local labels=$(join_by ',' "${excl[@]}")
-	tokens+=('(' "labels NOT IN ($labels)" ')')
+        local labels=$(join_by ',' "${excl[@]}")
+        tokens+=('(' "labels NOT IN ($labels)" ')')
     fi
 
-    declare -p tokens
-    
     ans+=("${tokens[@]}")
-    echo "ANS=${ans[@]}"
     return
 }
 
-
 ## --------------------------------------------------------------------
-## Intent: Modify search query by ticket resolution
+## Intent: Modify search query by project type (SEBA, VOL)
 ## --------------------------------------------------------------------
-function do_resolved()
+function do_projects()
 {
-    declare -n ans=$1; shift
-    declare -g resolved
+    declare -n ref=$1; shift
 
-## Ticket resolution
-    case "$resolved" in
-	0) ans+=('(resolution IS EMPTY)') ;;
-	1) ans+=('(resolution IS NOT EMPTY)') ;;
-	99) ;;
-    esac
-    
+    [[ ${#projects[@]} -eq 0 ]] && { return; }
+
+    local terms="$(join_by ',' "${projects[@]}")"
+#    local -a buffer=('(' 'project' 'IN' "($terms)" ')')
+#    ref+=("$(join_by '%20' "${buffer[@]}")")
+    ref+=("(project IN ($terms))")
     return
 }
 
@@ -171,33 +194,33 @@ function do_text()
     ## Accumulate
     if [[ ${#ref[@]} -gt 0 ]]; then
 
-	if [[ -v bool_and ]]; then
-	    text_and+=("${ref[@]}")
-	else
-	    text_or+=("${ref[@]}")
-	fi
+        if [[ -v bool_and ]]; then
+            text_and+=("${ref[@]}")
+        else
+            text_or+=("${ref[@]}")
+        fi
     fi
 
     ## Append terms: AND
     if [[ ${#text_and[@]} -gt 0 ]]; then
-	declare -a term=()
-	for val in "${text_and[@]}";
-	do
-	    term+=("text ~ \"$val\"")
-	done
-	val=$(join_by ' AND ' "${term[@]}")
-	ans+=("($val)")
+        declare -a term=()
+        for val in "${text_and[@]}";
+        do
+            term+=("text ~ \"$val\"")
+        done
+        val=$(join_by ' AND ' "${term[@]}")
+        ans+=("($val)")
     fi
 
     ## Append terms: OR
     if [[ ${#text_or[@]} -gt 0 ]]; then
-	declare -a term=()
-	for val in "${text_or[@]}";
-	do
-	    term+=("text ~ \"$val\"")
-	done
-	val=$(join_by ' OR ' "${term[@]}")
-	ans+=("($val)")
+        declare -a term=()
+        for val in "${text_or[@]}";
+        do
+            term+=("text ~ \"$val\"")
+        done
+        val=$(join_by ' OR ' "${term[@]}")
+        ans+=("($val)")
     fi
 
     return
@@ -216,15 +239,15 @@ function do_user()
 
     local user='currentUser()'
     if [[ -v argv_user ]]; then
-	user="$argv_user"
+        user="$argv_user"
     fi
 
     if [[ -v argv_assigned ]]; then
-	ans+=("assignee=${user}")
+        ans+=("assignee=${user}")
     fi
 
     if [[ -v argv_reported ]]; then
-	ans+=("reporter=${user}")
+        ans+=("reporter=${user}")
     fi
 
     return
@@ -245,7 +268,7 @@ function gen_filter()
     local val
     for val in "${args[@]}";
     do
-	_tmp+=("$val" 'AND')
+        _tmp+=("$val" 'AND')
     done
     unset _tmp[-1]
 
@@ -278,9 +301,11 @@ function gen_url()
 function usage()
 {
     cat <<EOH
-Usage: $0
+Usage: $0 VOL-xxxx
   --debug       Enable script debug mode
   --dry-run     Simulate
+
+  VOL-{xxxx}    View a jira ticket by ID
 
 [SERVER]
   --onf         jira.opennetworking.org (default)
@@ -290,7 +315,20 @@ Usage: $0
   --component   Search by component name assigned to ticket
   --label       Search by label name assigned to ticket.
   --text        Search string(s)
-  --unresolved  Search for open tickets
+
+[FIXVERSION] - Voltha-v2.12
+  --fixversion-incl
+  --fixversion-excl
+  --fixversion-is-empty
+  --fixversion-not-empty
+
+[RESOLVED] - tokens={Declined, Won't Fix}
+  --resolved-start ccyy-mm-dd
+  --resolved-end   ccyy-mm-dd
+  --resolved-incl {token(s)}
+  --resolved-excl {token(s)}
+  --resolved-is-empty   Query for open tickets
+  --resolved-not-empty
 
 [USER(s)]
   --me          Tickets assigned to or reported by me.
@@ -318,6 +356,9 @@ Usage: $0
   --newer [d]   Search for tickets created < [n] days ago.
   --older [d]   Search for tickets created > [n] days ago.
 
+[ALIASES]
+  --all         Query for all unresolved tickets
+
 [USAGE]
   $0 --assigned
      o Display all tickets assigned to my login
@@ -332,6 +373,9 @@ Usage: $0
 
   $0 --cord --label failing --label pod
      o Search jira.opencord for tests failing due to pod/hardware issuses.
+
+  $0 --proj VOL --fixversion "VOLTHA v2.12" --resolved-is-empty
+     o Query for unresolved release tickets
 EOH
 
     return
@@ -350,11 +394,12 @@ function join_by()
 ##----------------##
 declare -a suffix0=()
 
-declare -g -i resolved=0
+# declare -g -i debug=1
+
 while [ $# -gt 0 ]; do
 
     if [ ${#suffix0[@]} -gt 0 ]; then
-	   suffix0+=('AND')
+        suffix0+=('AND')
     fi
 
     arg="$1"; shift
@@ -362,157 +407,210 @@ while [ $# -gt 0 ]; do
 
     case "$arg" in
 
-	-*help) usage; exit 0 ;;
+        -*help) usage; exit 0 ;;
 
-	##-----------------##
-	##---]  MODES  [---##
-	##-----------------##
-	-*debug)   declare -g -i debug=1 ;;
-	--dry-run) declare -g -i dry_run=1 ;;
+        ##-----------------##
+        ##---]  MODES  [---##
+        ##-----------------##
+        -*debug)   declare -g -i debug=1 ;;
+        --dry-run) declare -g -i dry_run=1 ;;
 
-	##-------------------##
-	##---]  BY USER  [---##
-	##-------------------##
-	--assigned) declare -g -i argv_assigned=1 ;;
-	--reported) declare -g -i argv_reported=1 ;;
-	--me)       declare -g -i argv_me=1       ;;
-	--nobody)   declare -g -i argv_nobody=1   ;;
-	--user)
-	    arg="$1"; shift
-	    declare -g argv_user="$arg"
-	    ;;	
+        ##-------------------##
+        ##---]  BY USER  [---##
+        ##-------------------##
+        --assigned) declare -g -i argv_assigned=1 ;;
+        --reported) declare -g -i argv_reported=1 ;;
+        --me)       declare -g -i argv_me=1       ;;
+        --nobody)   declare -g -i argv_nobody=1   ;;
+        --user)
+            arg="$1"; shift
+            declare -g argv_user="$arg"
+            ;;
 
-	##------------------##
-	##---]  SERVER  [---##
-	##------------------##
-	-*onf) declare server='jira.opennetworking.org'; error "FOUND --onf" ;;
-	-*cord) declare server='jira.opencord.org' ;;
+        ##------------------##
+        ##---]  SERVER  [---##
+        ##------------------##
+        -*onf) declare server='jira.opennetworking.org'; error "FOUND --onf" ;;
+        -*cord) declare server='jira.opencord.org' ;;
 
-	##---------------------##
-	##---]  SEARCH-BY  [---##
-	##---------------------##
-	--component|--comp*)
-	    arg="$1"; shift
-	    [[ ! -v components ]] && declare -g -a components=()
-	    components+=("$arg")
-	    ;;
+        ##---------------------##
+        ##---]  SEARCH-BY  [---##
+        ##---------------------##
+        --component|--comp*)
+            arg="$1"; shift
+            [[ ! -v components ]] && declare -g -a components=()
+            components+=("$arg")
+            ;;
 
-	--label-excl)	
-	    arg="$1"; shift
-	    labels_excl+=("$arg")
-	    ;;
+        --label-excl)
+            arg="$1"; shift
+            labels_excl+=("$arg")
+            ;;
 
-	--label|--label-incl)
-	    arg="$1"; shift
-	    labels_incl+=("$arg")
-	    ;;
+        --label|--label-incl)
+            arg="$1"; shift
+            labels_incl+=("$arg")
+            ;;
 
-	##-----------------------##
-	##---]  Text Search  [---##
-	##-----------------------##
-	# jsearch.sh --text-and bbsim --text-and release
-	-*text-and) text_and+=("$1"); shift ;;
-	-*text-or) text_or+=("$1");   shift ;;
+        ##-----------------------##
+        ##---]  Text Search  [---##
+        ##-----------------------##
+        # jsearch.sh --text-and bbsim --text-and release
+        -*text-and) text_and+=("$1"); shift ;;
+        -*text-or) text_or+=("$1");   shift ;;
 
-	# % js --and --text jenkins --text cord
-	# text ~ "Jira Software"      # [WORDs]
-	# text ~ "\"Jira Software\""  # [STRING]
-	-*text)
-	    arg="$1"; shift
-	    if [[ -v bool_and ]]; then
-		text_and+=("$arg")
-	    elif [[ -v bool_or ]]; then
-		text_or+=("$arg")
-	    else
-		text+=("$arg")
-	    fi
-	    ;;
+        # % js --and --text jenkins --text cord
+        # text ~ "Jira Software"      # [WORDs]
+        # text ~ "\"Jira Software\""  # [STRING]
+        -*text)
+            arg="$1"; shift
+            if [[ -v bool_and ]]; then
+                text_and+=("$arg")
+            elif [[ -v bool_or ]]; then
+                text_or+=("$arg")
+            else
+                text+=("$arg")
+            fi
+            ;;
 
-	# --[un-]resolved toggle
-	--all) resolved=99 ;;
+        --all) set -- '--resolved-is-none' "$@" ;; # alias: --[un-]resolved
 
-	-*resolved)
-	    if [ $resolved -eq 0 ]; then
-		resolved=1
-	    else
-		resolved=0
-	    fi
-	    ;;
+        --proj*) projects+=("$1"); shift ;;
 
-	-*newer)
-	    arg="$1"; shift
-	    suffix0+=("created <= '-${arg}d'") ;;
-	-*older)
-	    arg="$1"; shift
-	    suffix0+=("created >= '-${arg}d'") ;;
+        --fixversion-*)
+            # function get_jql_fixversion()
+            case "$arg" in
+                  *excl)
+                      [[ ! -v fixversion_excl ]] && { declare -g -a fixversion_excl=(); }
+                      val="\"$1\""; shift
+                      html_encode val
+                      fixversion_excl+=("$val");
+                      ;;
 
-	##----------------##
-	##---]  BOOL  [---##
-	##----------------##
-	--[aA][nN][dD]) declare -g -i bool_and=1 ;;
-	--[oO][rR])     declare -g -i bool_or=1  ;;
+                  *incl)
+                      [[ ! -v fixversion_incl ]] && { declare -g -a fixversion_incl=(); }
+                      val="\"$1\""; shift
+                      html_encode val
+                      fixversion_incl+=("$val");
+                      ;;
 
-	##------------------##
-	##---]  MEMBER  [---##
-	##------------------##
-	--[iI][nN])     declare -g -i bool_in=1  ;;
-	--[nN][oO][tT]) declare -g -i bool_not=1 ;;
+                  *not-empty) declare -g -i fixversion_not_empty=1 ;;
+                   *is-empty) declare -g -i fixversion_is_empty=1  ;;
 
-	[A-Z][A-Z][A-Z]-[0-9]*)
-	    case "$arg" in
-		CORD-[0-9]*)
-		    url="https://jira.opencord.org/browse/${arg}"
-		    urls_raw+=('--new-window' "$url")
-		    ;;
-		
-		INF-[0-9]*)
-		    url="https://jira.opennetworking.org/browse/${arg}"
-		    urls_raw+=('--new-window' "$url")
-		    ;;
-		
-		VOL-[0-9]*)
-		    url="https://jira.opencord.org/browse/${arg}"
-		    urls_raw+=('--new-window' "$url")
-		    ;;
+                  *) error "Detected invalid --fixversion-* modifier" ;;
+            esac
+            ;;
 
-		*) error "Detected invalid ticket [$arg]" ;;
-		     
-	    esac
-	    ;;
-		    
-	# -----------------------------------------------------------------------
-	# https://support.atlassian.com/jira-software-cloud/docs/search-syntax-for-text-fields/
-	# -----------------------------------------------------------------------
-	# +jira atlassian -- must contain jira, atlassian is optional
-	# -japan          -- exclude term
-	# [STEM] summary ~ "customize"    -- finds stem 'custom' in the Summary field
-	*)
-	    declare -p text_and
-	    error "Detected unknown argument $arg"
-	    ;;
+        --resolved-*)
+            # function get_jql_reasons()
+            case "$arg" in
+
+                *start) declare -g resolved_start="$1"; shift ;;
+                  *end) declare -g resolved_end="$1";   shift ;;
+
+                *not-empty) declare -g resolved_not_empty="$1" ;;
+                    *empty) declare -g resolved_is_empty="$1"  ;;
+
+                  *excl)
+                      [[ ! -v resolved_excl ]] && { declare -g -a resolved_excl=(); }
+                      val="\"$1\""; shift
+                      html_encode val
+                      resolved_excl+=("$val");
+                      ;;
+                  *incl)
+                      [[ ! -v resolved_incl ]] && { declare -g -a resolved_incl=(); }
+                      val="\"$1\""; shift
+                      html_encode val
+                      resolved_incl+=("$val");
+                      ;;
+                 *) ;;
+                     *) error "Detected invalid --resolved-* modifier" ;;
+            esac
+            ;;
+
+        -*newer)
+            arg="$1"; shift
+            suffix0+=("created <= '-${arg}d'") ;;
+
+        -*older)
+            arg="$1"; shift
+            suffix0+=("created >= '-${arg}d'") ;;
+
+        ##----------------##
+        ##---]  BOOL  [---##
+        ##----------------##
+        --[aA][nN][dD]) declare -g -i bool_and=1 ;;
+        --[oO][rR])     declare -g -i bool_or=1  ;;
+
+        ##------------------##
+        ##---]  MEMBER  [---##
+        ##------------------##
+        --[iI][nN])     declare -g -i bool_in=1  ;;
+        --[nN][oO][tT]) declare -g -i bool_not=1 ;;
+
+        [A-Z][A-Z][A-Z]-[0-9]*)
+            case "$arg" in
+                CORD-[0-9]*)
+                    url="https://jira.opencord.org/browse/${arg}"
+                    urls_raw+=('--new-window' "$url")
+                    ;;
+
+                INF-[0-9]*)
+                    url="https://jira.opennetworking.org/browse/${arg}"
+                    urls_raw+=('--new-window' "$url")
+                    ;;
+
+                VOL-[0-9]*)
+                    url="https://jira.opencord.org/browse/${arg}"
+                    urls_raw+=('--new-window' "$url")
+                    ;;
+
+                *) error "Detected invalid ticket [$arg]" ;;
+
+            esac
+            ;;
+
+        # -----------------------------------------------------------------------
+        # https://support.atlassian.com/jira-software-cloud/docs/search-syntax-for-text-fields/
+        # -----------------------------------------------------------------------
+        # +jira atlassian -- must contain jira, atlassian is optional
+        # -japan          -- exclude term
+        # [STEM] summary ~ "customize"    -- finds stem 'custom' in the Summary field
+        *)
+            declare -p text_and
+            error "Detected unknown argument $arg"
+            ;;
     esac
 done
 
 ## ----------------------
 ## Construct query filter
 ## ----------------------
-do_user suffix0
-do_components components suffix0
+do_user                           suffix0
+do_projects                       suffix0
+[[ -v components ]] && { do_components components suffix0; }
 do_labels labels_incl labels_excl suffix0
-do_text  text            suffix0
-do_resolved              suffix0
+do_text  text                     suffix0
+do_resolved                       suffix0
+do_fixversion                     suffix0
 
 filter=''
 gen_filter filter suffix0
 
-if [ ${#urls_raw} -eq 0 ]; then
+if [[ ! -v urls_raw ]]; then
+    url=''
+    gen_url url filter
+    urls_filt+=("$url")
+elif [ ${#urls_raw} -eq 0 ]; then
     url=''
     gen_url url filter
     urls_filt+=("$url")
 fi
 
-[[ -v debug ]] && echo "URL: $url"
-browser="${BROWSER:-/snap/bin/firefox}"
+[[ -v debug ]] && [[ -v url ]] && echo "URL: $url"
+# browser="${BROWSER:-/snap/bin/firefox}"
+# browser="${BROWSER:-/opt/firefox/current/firefox}"
+browser="${BROWSER:-opera}"
 echo "$browser ${urls_filt[@]} ${urls_raw[@]}"
 
 if [[ ! -v dry_run ]]; then
