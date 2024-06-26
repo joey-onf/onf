@@ -2,12 +2,22 @@
 ## -----------------------------------------------------------------------
 ## -----------------------------------------------------------------------
 
-source ~/.sandbox/trainlab-common/common_args.sh
+source ./onf-common/common_args.sh
 
-source "${BASH_SOURCE[0]%/*}/get_sbx/sbx-all.sh"
+declare raw_path=''
+raw_path="$(realpath --canonicalize-existing "$0")"
 
-pgm=$(realpath "$0")
-pgmdir="${pgm%/*}"
+# urce "${BASH_SOURCE[0]%/*}/get_sbx/sbx-all.sh"
+source "${raw_path%/*}/get_sbx/sbx-all.sh"
+
+## -----------------------------------------------------------------------
+## Infer makefile path from symlink location
+## Different path than pgm_root
+## -----------------------------------------------------------------------
+pgm="$0"
+pgmdir="$(realpath --canonicalize-existing "${pgm%/*}")"
+sbx_root="${pgmdir%/*}"
+# declare -p sbx_root
 
 declare -a repos=()
 repos+=('bbsim')
@@ -20,7 +30,7 @@ repos+=('voltha-protos')
 repos+=('voltctl')
 repos+=('voltha-helm-charts')
 
-storage="${pgmdir}/.get"
+storage="${sbx_root}/.get"
 review_log="${storage}/review.log"
 review_tmp="${review_log}.tmp"
 
@@ -104,8 +114,8 @@ function checkout_by_make()
 
     func_banner "REPO: $repo"
 
-    func_echo "make -f \"$pgmdir/makefile\" \"${__repo}\" TOP=\"$pgmdir\""
-    make -f "$pgmdir/makefile" "${__repo}" TOP="$pgmdir" \
+    func_echo "make -f \"$sbx_root/makefile\" \"${__repo}\" TOP=\"$sbx_root\""
+    make -f "$sbx_root/makefile" "${__repo}" TOP="$sbx_root" \
 	 >/dev/null
     return
 }
@@ -297,7 +307,7 @@ function do_changeset()
 
     [ -d "$repo" ] && rm -f "$repo"
     checkout_by_make "$repo"
-    # make -f "$pgmdir/makefile" "$repo" TOP="$pgmdir"
+    # make -f "$sbx_root/makefile" "$repo" TOP="$sbx_root"
 
     echo
     pushd "$repo" >/dev/null
@@ -333,7 +343,7 @@ function create_temp_sandbox()
     declare -p temp_sandbox
     pushd "$temp_sandbox"
     checkout_by_make "$repo"
-    # make -f "$pgmdir/makefile" "$repo" TOP="$pgmdir"
+    # make -f "$sbx_root/makefile" "$repo" TOP="$sbx_root"
     popd
 
     ref="${temp_sandbox}/${repo}"
@@ -461,7 +471,7 @@ declare -A co_args=()
 while [ $# -gt 0 ]; do
     arg="$1"; shift
     declare -p arg
-    # readarray -t ans < <(find "${pgmdir}/.get" -name "$arg" -print)
+    # readarray -t ans < <(find "${sbx_root}/.get" -name "$arg" -print)
 
     case "$arg" in
 	-*help)

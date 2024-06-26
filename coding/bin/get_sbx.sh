@@ -1,18 +1,32 @@
 #!/bin/bash
 ## -----------------------------------------------------------------------
+## Intent: Checkout a gerrit sandbox by different means
 ## -----------------------------------------------------------------------
 
-make_path="$HOME/projects/sandbox"
+{
+    ## ----------------------------------------------
+    ## Intent: define mktemp() & stacktrace()
+    ## ----------------------------------------------
+    source "./onf-common/common.sh" \
+           '--tempdir' '--traputils' '--stacktrace' \
+           '--detect' \
+           '--common-args-begin--'
+}
+
+# make_path="$HOME/projects/sandbox"
+# make_path="$HOME/projects/sandbox"
+make_path="$(realpath . --canonicalize-existing)"
+declare -p make_path
 
 sbx_root="$(realpath '.')"
-source ~/.sandbox/trainlab-common/common_args.sh
+# source ~/.sandbox/trainlab-common/common_args.sh
 
 pgm_path="$(realpath --canonicalize-existing "${BASH_SOURCE[0]}")"
 pgm_root="${pgm_path%/*}"
 # source "${BASH_SOURCE[0]%/*}/get_sbx/sbx-all.sh"
 source "$pgm_root/get_sbx/sbx-all.sh"
 
-pgm=$(realpath "$0")
+# pgm=$(realpath "$0")
 # pgmdir="${pgm%/*}"
 
 declare -a repos=()
@@ -22,6 +36,7 @@ repos+=('helm-charts')
 repos+=('pod-configs')
 repos+=('voltha-docs')
 repos+=('voltha-go')
+repos+=('voltha-go-controller')
 repos+=('voltha-protos')
 repos+=('voltctl')
 repos+=('voltha-helm-charts')
@@ -32,6 +47,16 @@ declare -p storage
 review_log="${storage}/review.log"
 review_tmp="${review_log}.tmp"
 
+{
+    # FIX THIS
+    # Referenced in function memory_recall() but should be set before
+    mkdir -p "$storage/change_id"
+
+    # /sandbox/code/reviewers.sh: line 152: pushd: /sandbox/.get/gerrit_id: No such file or directory
+    mkdir -p "$storage/gerrit_id"
+}
+
+
 declare -A cs=()
 
 ## -----------------------------------------------------------------------
@@ -39,7 +64,9 @@ declare -A cs=()
 ## -----------------------------------------------------------------------
 function func_echo()
 {
-    echo "** ${FUNCNAME[1]}: $@"
+    local func="${FUNCNAME[1]}"
+    local line="${BASH_LINENO[1]}"
+    printf '** %s (LINENO:%s): %s\n' "$func" "$line" "$@"
     return
 }
 
@@ -51,7 +78,11 @@ function func_banner()
     cat <<EOB
 
 ** -----------------------------------------------------------------------
-** ${FUNCNAME[1]}: $@"
+EOB
+
+    printf "** ${FUNCNAME[1]}: $@\n"
+
+    cat <<EOB
 ** -----------------------------------------------------------------------
 EOB
 
@@ -109,11 +140,10 @@ function checkout_by_make()
 {
     local __repo="$1"; shift
 
-    func_banner "REPO: $repo"
+    func_banner "REPO: $repo\n** PWD: $(/bin/pwd)"
 
     func_echo "make -f \"$make_path/makefile\" \"${__repo}\" TOP=\"$sbx_root\""
-    make -f "$make_path/makefile" "${__repo}" TOP="$sbx_root" \
-         >/dev/null
+    make -f "$make_path/makefile" "${__repo}" TOP="$sbx_root"
     return
 }
 
@@ -158,7 +188,7 @@ function contains()
     local value="$1"; shift
 
     [[ " $list " =~ " $value " ]]
-    #    [[ $1 =~ (^|[[:space:]])$2($|[[:space:]]) ]] && true || false
+    # [[ $1 =~ (^|[[:space:]])$2($|[[:space:]]) ]] && true || false
     return
 }
 
@@ -248,16 +278,17 @@ function create_branch()
 ** -----------------------------------------------------------------------
 EOM
         checkout_by_make "$_repo_"
-        func_echo "PWD: $(/bin/pwd)"
-        func_echo " LS: $(/bin/ls)"
     fi
 
-    echo
-    echo "---------------------------------------------------------------------------"
-    declare -p _repo_
-    declare -p _branch_
-    declare -p _id_
-    echo "---------------------------------------------------------------------------"
+    if false; then
+        echo
+        echo "---------------------------------------------------------------------------"
+        declare -p _repo_
+        declare -p _branch_
+        declare -p _id_
+        echo "---------------------------------------------------------------------------"
+    fi
+
 
     case "$_branch_" in
 
@@ -272,7 +303,7 @@ EOM
 
         --review)
             echo "** --review $review"
-            
+
             pushd "$_repo_" >/dev/null
             # clean "$_id_"
             func_echo "PWD: $(/bin/pwd)"
@@ -409,10 +440,10 @@ function memory_recall()
     local -n ref=$1; shift
 
     func_echo "Checking $review_id"
+
     ## memory load
     local conf="$storage/change_id/${review_id}"
     declare -p conf
-    /bin/ls -ld "$conf"
     if [ -e "$conf" ]; then
         source "$conf"
         # --review => change_id
@@ -422,6 +453,12 @@ function memory_recall()
         # repo="ci-management"
         # change_id="I09385c0544221cc87839b5182200977e0571039a"
         # gerrit_id="33686"
+    else
+        # gerrit_id -- not known
+        cat <<EOF >> "$conf"
+change_id=${review_id}
+repo=${__repo__}
+EOF
     fi
     return
 }
@@ -437,6 +474,7 @@ Options:
   --repo   [r]      Repository to checkout
   --clean           Remove an existing sandbox ford a pristine checkout.
 
+  --legacy          [get.sh] make LEGACY=1
   --todo            Display pending tasks
 
 Examples
@@ -504,6 +542,8 @@ while [ $# -gt 0 ]; do
             exit 0
             ;;
 
+        --legacy) export LEGACY=1 ;; # get.sh hack
+
         -*edit) declare -g -i argv_edit_mode=1 ;;
         -*name) __name__="$1"; shift           ;;
 
@@ -547,8 +587,9 @@ while [ $# -gt 0 ]; do
             ;;
 
         *)
+            echo "Detected invalid argument:\n\t$(declare -p arg)"
             # --edit Ia167a9d46ee48fbf27c6cd09d78fcf31f3d4aedf
-            error "SHOULD NOT BE HERE:\n     $(declare -p arg)"
+            error "Exit on argument fail"
             ;;
     esac
 done
@@ -556,10 +597,8 @@ done
 ## -----------------------------------------------------------------------
 ## Secondary switch detection
 ## -----------------------------------------------------------------------
-# if [[ -v __repo__ ]]; then
-# fi
-
 if [[ -v __repo__ ]]; then
+
     if false; then
         :
 
@@ -600,28 +639,29 @@ if [[ -v __repo__ ]]; then
 
         pushd "$path"
         func_echo "Create sandbox: ${__name__}"
-        
+
         create_branch "${__repo__}" '--branch' 'dev-joey' "${_name_}"
         popd
 
         mkdir -p "$dst"
-        rsync -rv --checksum "${path}/." "${sbx_all}/." # renamed so copy
-cat <<EOM
+        rsync -r --checksum "${path}/." "${sbx_all}/." # renamed so copy
+        cat <<EOM
 
 ** -----------------------------------------------------------------------
 ** Remove path: $path
 ** -----------------------------------------------------------------------
 EOM
-bash
+        bash
 
         # rm -fr "$path"
         create_myenv "$dst"
         edit_mode "$dst"
-    elif [[ -v __review__ ]]; then
 
+    elif [[ -v __review__ ]]; then
+        
         sbx_all=''
         sbx_all_mkdir "${__repo__}" sbx_all # 20230818
-#        sbx_all_mkdir "$__repo__" sbx_all
+        #        sbx_all_mkdir "$__repo__" sbx_all
 
         # voltha-docs-all/I8a847fcaa01ae9bf261b2db6bd34262f08d71009
         dst="$sbx_all/${__review__}"
@@ -639,7 +679,7 @@ bash
         popd
 
         mkdir -p "$dst"
-        rsync -rv --checksum "${path}/." "${sbx_all}/." # renamed so copy
+        rsync -r --checksum "${path}/." "${sbx_all}/." # renamed so copy
 
         create_myenv "$dst"
         #   echo#

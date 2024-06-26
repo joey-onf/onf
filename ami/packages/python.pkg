@@ -1,0 +1,6 @@
+# -*- makefile -*-
+
+python3-minimal
+virtualenv
+
+# [EOF]

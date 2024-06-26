@@ -5,8 +5,8 @@
 
 while [ $# -gt 0 ]; do
     case "$1" in
-	-*debug) declare -g -i debug=1 ;;
-	*) break ;;
+        -*debug) declare -g -i debug=1 ;;
+        *) break ;;
     esac
     shift
 done

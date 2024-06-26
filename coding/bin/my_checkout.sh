@@ -1,5 +1,12 @@
 #!/bin/bash
 ## -----------------------------------------------------------------------
+## Intent: This script is a swiss army knife for repository checkouts.
+##   - Checkout and create a new branch for working on features.
+##   - checkout --review [Change-id] to review someone(s) patch.
+## -----------------------------------------------------------------------
+##   1) Clone github or gerrit repositories by name
+##      - joey needs to checkin his repository makefile hierarchy...
+##   2) Create a branch for dev-user.
 ## -----------------------------------------------------------------------
 
 make_path="$HOME/projects/sandbox"
@@ -433,16 +440,26 @@ function usage()
     cat <<EOH
 Usage: $0 [options] [targets] ....
 Options:
+  --branch [b]      Checkout or create a sandbox attached to branch b.
   --review [r]      Checkout gerrit Chageset-Id patch
   --repo   [r]      Repository to checkout
   --clean           Remove an existing sandbox ford a pristine checkout.
 
-  --todo            Display pending tasks
+  --todo            Display pending tasks and future enhancements.
+
+[{sandbox}-all
+  --name [n]       Checkout sandbox into {repo}-all/{name}
+  --jira [j]        Checkout a repo into {repo}-all/{jira-ticket}
+
+[MODIFERS]
+  --edit            Launch an editor in the target sandbox
 
 Examples
   % $0 --review Ie2e879dbaba4442c2ec0203049a4e48f950d9322 --repo infra-docs
   % $0 --clean --repo voltha-docs
   % $0 --repo bbsim --jira 'VOL-5152' --branch foobar
+  % $0 --repo bbsim --name 'prototype' --edit
+       Checkout repo:bbsim into bbsim-all/prototype/
 
 [TODO]
   % $0 --repo bbsim --jira 'VOL-5152' --review 'I71c2d49243329c7544046fd5fdcdaf66ad47b5cc'

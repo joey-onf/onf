@@ -1,0 +1,9 @@
+# -*- makefile -*-
+
+make
+make-docs
+
+cpp
+gcc
+
+ [EOF]
