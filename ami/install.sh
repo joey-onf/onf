@@ -1,5 +1,7 @@
 #!/bin/bash
 ## -----------------------------------------------------------------------
+## Intent: This script can be run after an EC2 AMI has been created
+##         to configure the instance for use as a jenkins node.
 ## -----------------------------------------------------------------------
 
 umask 022
@@ -8,6 +10,9 @@ declare -g user_home='/home/jenkins'
 readarray user_home
 declare -g user_home_ssh="${user_home}/.ssh"
 readarray user_home_ssh
+
+source ami/docker.sh
+source ami/python.sh
 
 ## -----------------------------------------------------------------------
 ## Intent: Display an error message then exit
@@ -63,16 +68,23 @@ function create_jenkins()
 ## -----------------------------------------------------------------------
 function install_packages()
 {
-    readarray -t configs < <(find . -name '*.pkg')
+    readarray -t configs < <(find . -name '*.pkg' -print)
     declare -p configs
     
     for config in "${configs[@]}";
     do
+        echo "** PACKAGES: $(declare -p config)"
         readarray -t packages < <(\
                                   grep '[a-z]' "$config" \
                                       | cut -d'#' -f1 \
                                       | grep '[[:alnum:]]'
         )
+
+        local package
+        for packge in "${packages[@]}";
+        do
+            apt-get install -y "$package"
+        done
         
     done
     return
@@ -110,6 +122,9 @@ function apt_upgrade_180406lts()
 apt_upgrade_180406lts
 install_packages
 create_jenkins
+
+install_docker
+install_python
 
 # [EOF]
 

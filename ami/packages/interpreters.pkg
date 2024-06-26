@@ -1,8 +1,0 @@
-# -*- makefile -*-
-
-# golang-1.16
-golang-1.18
-
-python3-minimal
-
-# [EOF]
