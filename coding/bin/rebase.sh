@@ -40,7 +40,6 @@ case "$my_branch" in
     voltha-2.11) ;;
     voltha-2.10) ;;
     test-wip) ;;
-    
     voltha-2.12) declare -g -i release_branch=1 ;;
 
     *)

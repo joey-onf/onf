@@ -296,6 +296,13 @@ do
         -*gustavo)   emails+=('gsilva@furukawalatam.com')        ;;
         #   -*holger)  emails+=('holger.hildebrandt@adtran.com') ;;
 
+        ## Linux Foundation
+        --jess*)     emails+=('jwagantall@linuxfoundation.org')  ;;
+        --thanh)     emails+=('thanh.ha@linuxfoundation.org')    ;;  
+      
+        # Mirko Deckert -- voltha-onos
+        -*mirko*)    emails+=('mirko.deckert@adtran.com')        ;;
+        
         ## repo:voltha-onos
         # --mirko)     emails+=('jwagantall@linuxfoundation.org')  ;;
 
@@ -314,7 +321,6 @@ do
 
         
         -*joey)      emails+=('joey@opennetworking.org')         ;;
-#        -*larry)     emails+=('llp@opennetworking.org')          ;;
         -*mahir)     emails+=('mahir.gunyel@netsia.com')         ;;
         -*nikesh)    emails+=('tesseract12345678@gmail.com')     ;;
         -*serkant)   emails+=('serkant.uluderya@netsia.com')     ;;
