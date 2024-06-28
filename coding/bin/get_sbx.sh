@@ -516,12 +516,15 @@ if [ $# -eq 1 ]; then
     case "$1" in
         I*) ;;
         [0-9]*) ;;
-        --todo)
+
+        '--help') ;; # fall through
+        '--todo')
             source "$pgm_root/get_sbx/todo/loader.sh"
             echo
             error "EARLY EXIT"
             ;;
 
+        # '-'*) what_to_do_with_random_switches ;;
 
         *) set -- '--clean' '--repo' "$1" ;;
     esac
@@ -533,6 +536,7 @@ declare -a args=('--nop')
 declare -A co_args=()
 while [ $# -gt 0 ]; do
     arg="$1"; shift
+
     declare -p arg
     # readarray -t ans < <(find "${sbx_root}/.get" -name "$arg" -print)
 

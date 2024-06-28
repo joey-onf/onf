@@ -1,9 +1,5 @@
 # -*- makefile -*-
 
-make
-make-docs
-
-cpp
-gcc
+ruby-dev
 
 # [EOF]

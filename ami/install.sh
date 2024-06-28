@@ -13,6 +13,7 @@ readarray user_home_ssh
 
 source ami/docker.sh
 source ami/python.sh
+source ami/jenkins.sh
 
 ## -----------------------------------------------------------------------
 ## Intent: Display an error message then exit
@@ -125,6 +126,8 @@ create_jenkins
 
 install_docker
 install_python
+
+add_jenkins_to_groups
 
 # [EOF]
 

@@ -15,3 +15,7 @@ function install_python()
 #    update-alternatives auto python3 # selects python3.8
     return
 }
+
+: # assign ($?=0) for source $script
+
+# [EOF]
