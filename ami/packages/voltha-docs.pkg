@@ -1,5 +1,6 @@
 # -*- makefile -*-
 
-ruby-dev
+# Sphinx dependency
+enchant
 
 # [EOF]
