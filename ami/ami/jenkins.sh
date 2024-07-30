@@ -5,9 +5,12 @@
 ## -----------------------------------------------------------------------
 ## Intent: Install the docker command
 ## -----------------------------------------------------------------------
-function add_jenkins_to_groups()
+function add_to_groups()
 {
     usermod -a -G docker jenkins
+
+    ## Add user ubuntu as well for local builds
+    usermod -a -G docker ubuntu
     return
 }
 

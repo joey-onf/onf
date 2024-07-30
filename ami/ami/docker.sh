@@ -22,6 +22,9 @@ function install_docker()
     sudo apt-get update
     apt-get install docker
 
+    printf '\n** Fixing docker guid to match jenkins for building'
+    groupmod -g 998 docker
+    
     return
 }
 

@@ -291,7 +291,8 @@ do
         --amit)      emails+=('amit.ghosh@radisys.com')          ;;
 
         --burak)     emails+=('burak.gurdag@netsia.com')         ;;
-        
+        '--pran')    emails+=('praneeth.nalmas@radisys.com')     ;;
+
         -*daf)       emails+=('daf@opennetworking.org')          ;;
         -*gustavo)   emails+=('gsilva@furukawalatam.com')        ;;
         #   -*holger)  emails+=('holger.hildebrandt@adtran.com') ;;
@@ -332,7 +333,7 @@ do
 
         -*tst*)
             todo+=('--abhilash')
-            todo+=('--amit')
+            # todo+=('--amit')
             todo+=('--burak')
             todo+=('--mahir')
             todo+=('--serkant')

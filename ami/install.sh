@@ -125,9 +125,11 @@ install_packages
 create_jenkins
 
 install_docker
+## TODO: Download helm packages and copy into /opt/helm/{version}
+install_helm
 install_python
 
-add_jenkins_to_groups
+add_to_groups
 
 # [EOF]
 

@@ -6,4 +6,6 @@ make-docs
 cpp
 gcc
 
+jq
+
 # [EOF]
