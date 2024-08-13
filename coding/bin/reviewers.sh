@@ -308,6 +308,7 @@ do
         # --mirko)     emails+=('jwagantall@linuxfoundation.org')  ;;
 
         ## Linux Foundation
+        '--eric'|'--eball')      emails+=('eball@linuxfoundation.org')  ;;
         --jess*)     emails+=('jwagantall@linuxfoundation.org')  ;;
         --thanh)     emails+=('thanh.ha@linuxfoundation.org')    ;;  
       
