@@ -19,7 +19,10 @@ function add_to_groups()
 ## -----------------------------------------------------------------------
 function create_authorized_keys()
 {
-    local dir="$user_home_ssh"
+    readarray -t home_dir < <(grep jenkins /etc/passwd|cut -d: -f6)
+    local dir="${home_dir[0]}/.ssh"
+    declare -p dir
+
     local auth_keys='authorized_keys'
     local auth_temp="${auth_keys}.temp"
 
@@ -45,6 +48,11 @@ function create_jenkins()
     args+=('--disabled-password')
     args+=('--shell' '/bin/bash')
 
+
+    # [REVERT] sudo rmuser jenkins --remove-home
+    
+#    printf '\n\n\n\n\nY\n' | \
+    adduser "${args[@]}" 'jenkins'
     create_authorized_keys
     leave
     return

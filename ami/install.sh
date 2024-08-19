@@ -203,7 +203,8 @@ function apt_upgrade()
 # apt_upgrade_180406lts
 apt_upgrade
 install_packages
-create_jenkins
+sudo ami/jenkins.sh # create_jenkins()
+
 install_docker
 
 ## TODO: Download helm packages and copy into /opt/helm/{version}
