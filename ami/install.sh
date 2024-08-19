@@ -76,41 +76,6 @@ function leave()
 }
 
 ## -----------------------------------------------------------------------
-## Intent: Install jenkins pub key as authorized
-## -----------------------------------------------------------------------
-function create_authorized_keys_orig()
-{
-    local dir="$user_home_ssh"
-    local auth_keys='authorized_keys'
-    local auth_temp="${auth_keys}.temp"
-
-    install -d -m 700 "$dir"
-    cat <<EOKEY >"$auth_temp"
-ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCjsJjHzCzpcbyt1ik3DYfyO2DUUlhd+OpFprlIO+ntRfSect+qQQXcXSjrjHkckpg+t7v3fdIx2tjAlof1thGGxluwrddATjs8JYHzNa/x+4RZm35r14JQCgFFCU9J4a965TCcy2+PvMVzCTXv39ozAgKPZkkMzhMZPF2YpS1WOTJfSLXxwZinorcVbUzZSA6mldaTuwHFMpbD8hqzdD2CWO0TXQDKxxsjCpkifgspHC1viANsXBTf61WKyh46YH87dZJ/fmHvYau4OSiD/SqpWrACc1HvMEoitDqYBiRQnReR+VTlplgD1IUfizMMhoL/cmHxa6HFss29iGEXjr/n jenkins@jenkins.opencord.org
-EOKEY
-
-    install -m 400 --target-directory="$dir" "$auth_temp" "$auth_keys"
-    /bin/rm -f "$auth_temp"
-
-    return
-}
-
-## -----------------------------------------------------------------------
-## Intent: Create user jenkins
-## -----------------------------------------------------------------------
-function create_jenkins_orig()
-{
-    declare -a args=()
-    # args+=('--disable-login')
-    args+=('--disabled-password')
-    args+=('--shell' '/bin/bash')
-
-    create_authorized_keys
-    add_to_groups
-    return
-}
-
-## -----------------------------------------------------------------------
 ## Intent: Install packages for 18.04 use as jenkins nodes.
 ## -----------------------------------------------------------------------
 function install_packages()
@@ -204,7 +169,6 @@ function apt_upgrade()
 apt_upgrade
 install_packages
 sudo ami/jenkins.sh # create_jenkins()
-
 install_docker
 
 ## TODO: Download helm packages and copy into /opt/helm/{version}
@@ -220,6 +184,22 @@ if true; then
 else
     install_python
 fi
+
+
+cat <<EOM
+
+** -----------------------------------------------------------------------
+** Post install checklist
+** -----------------------------------------------------------------------
+
+  o Logout & relogin so docker group membership becomeds visibile.
+  o docker run -it ubuntu bash
+  o sudo docker run hello-world
+EOM
+
+#    # groups | grep docker
+ #   echo '[NOTE]
+    
 
 # [EOF]
 

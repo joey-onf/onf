@@ -7,10 +7,15 @@
 ## -----------------------------------------------------------------------
 function add_to_groups()
 {
+    enter
     usermod -a -G docker jenkins
 
     ## Add user ubuntu as well for local builds
     usermod -a -G docker ubuntu
+
+    echo "Group docker contains: $(grep 'docker' /etc/group)"
+
+    leave
     return
 }
 

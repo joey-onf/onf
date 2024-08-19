@@ -46,11 +46,45 @@ function install_python_interpreter()
 }
 
 ## -----------------------------------------------------------------------
+## Intent: Configure apt to install older interpreter versions
+## -----------------------------------------------------------------------
+function python_configure_apt()
+{
+    sudo add-apt-repository ppa:deadsnakes/ppa -y
+    sudo apt-get update
+    return
+}
+
+## -----------------------------------------------------------------------
 ## -----------------------------------------------------------------------
 function install_python()
 {
-    install_python_interpreter
-    networkd_dispatcher_deps
+    readarray -t version < <(lsb_release -sr 2>/dev/null)
+
+    python_configure_apt
+    
+    case "${version[*]}" in
+        *'24.04'*)
+            declare -a pkgs=()
+            pkgs+=('python3.7')
+            pkgs+=('python3.7-dev')
+            pkgs+=('python3.7-venv')
+            pkgs+=('libpython3.7')
+            pkgs+=('libpython3.7-dev')
+
+            pkgs+=('python3.8')
+            pkgs+=('python3.8-dev')
+            pkgs+=('python3.8-venv')
+            pkgs+=('libpython3.8')
+            pkgs+=('libpython3.8-dev')
+
+            sudo apt-get install "${pkgs[@]}"
+            ;;
+        
+        *'18.04'*)
+            install_python_interpreter
+            networkd_dispatcher_deps
+            ;;
     return
 }
 : # assign ($?=0) for source $script
