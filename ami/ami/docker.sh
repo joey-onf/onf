@@ -7,6 +7,8 @@
 ## -----------------------------------------------------------------------
 function install_docker()
 {
+    banner "${FUNCNAME[0}}"
+
     sudo apt-get update
     sudo apt-get install ca-certificates curl
     sudo install -m 0755 -d /etc/apt/keyrings

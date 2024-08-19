@@ -31,9 +31,44 @@ EOF
 }
 
 ## -----------------------------------------------------------------------
+## Intent: Display an error message then exit
+## -----------------------------------------------------------------------
+function banner()
+{
+    cat <<EOF
+
+** -----------------------------------------------------------------------
+** IAM: ${BASH_SOURCE[0]} (LINENO:${BASH_LINENO[@]})
+** $@
+** -----------------------------------------------------------------------
+EOF
+    return
+}
+
+## -----------------------------------------------------------------------
+## Intent: Display an error message then exit
+## -----------------------------------------------------------------------
+function enter()
+{
+    [[ $# -eq 0 ]] && { set -- ''; }
+    printf '** [ENTER] %s: %s\n' "${FUNCNAME[0]}" "$@"
+    return
+}
+
+## -----------------------------------------------------------------------
+## Intent: Display an error message then exit
+## -----------------------------------------------------------------------
+function leave()
+{
+    [[ $# -eq 0 ]] && { set -- ''; }
+    printf '** [LEAVE] %s: %s\n' "${FUNCNAME[0]}" "$@"
+    return
+}
+
+## -----------------------------------------------------------------------
 ## Intent: Install jenkins pub key as authorized
 ## -----------------------------------------------------------------------
-function create_authorized_keys()
+function create_authorized_keys_orig()
 {
     local dir="$user_home_ssh"
     local auth_keys='authorized_keys'
@@ -53,7 +88,7 @@ EOKEY
 ## -----------------------------------------------------------------------
 ## Intent: Create user jenkins
 ## -----------------------------------------------------------------------
-function create_jenkins()
+function create_jenkins_orig()
 {
     declare -a args=()
     # args+=('--disable-login')
@@ -70,6 +105,8 @@ function create_jenkins()
 ## -----------------------------------------------------------------------
 function install_packages()
 {
+    banner "${FUNCNAME[0}}"
+    enter
     readarray -t configs < <(find . -name '*.pkg' -print)
     declare -p configs
     
@@ -83,12 +120,13 @@ function install_packages()
         )
 
         local package
-        for packge in "${packages[@]}";
+        for package in "${packages[@]}";
         do
             apt-get install -y "$package"
         done
         
     done
+    leave
     return
 }
 
@@ -127,6 +165,8 @@ function apt_upgrade_180406lts()
 ## -----------------------------------------------------------------------
 function apt_upgrade()
 {
+    banner "${FUNCNAME[0}}"
+    enter
     readarray -t version < <(lsb_release -sr 2>/dev/null) # 24.04
 
     case "${version[*]}" in
@@ -141,6 +181,8 @@ function apt_upgrade()
     apt-get update
     apt-get -y upgrade
     apt-get -y dist-upgrade
+
+    leave
     return
 }
 

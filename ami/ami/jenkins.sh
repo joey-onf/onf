@@ -39,13 +39,14 @@ EOKEY
 ## -----------------------------------------------------------------------
 function create_jenkins()
 {
+    enter
     declare -a args=()
     # args+=('--disable-login')
     args+=('--disabled-password')
     args+=('--shell' '/bin/bash')
 
     create_authorized_keys
-    
+    leave
     return
 }
 
