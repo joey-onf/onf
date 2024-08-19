@@ -12,8 +12,9 @@ declare -g user_home_ssh="${user_home}/.ssh"
 # readarray user_home_ssh
 
 source ami/docker.sh
-source ami/python.sh
+source ami/helm.sh
 source ami/jenkins.sh
+source ami/python.sh
 
 ## -----------------------------------------------------------------------
 ## Intent: Display an error message then exit
@@ -170,13 +171,7 @@ apt_upgrade
 install_packages
 sudo ami/jenkins.sh # create_jenkins()
 install_docker
-
-## TODO: Download helm packages and copy into /opt/helm/{version}
-if true; then
-    echo '[SKIP] install_helm: Manual installation needed'
-else
-    install_helm
-fi
+install_helm
 
 ## TODO: Download helm packages and copy into /opt/helm/{version}
 if true; then
