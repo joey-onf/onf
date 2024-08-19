@@ -1,6 +1,6 @@
 # -*- makefile -*-
 
 # pre-commit hook dependency, plugin mdlint
-ruby-dev
+# ruby-dev
 
 # [EOF]

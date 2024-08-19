@@ -1,7 +1,8 @@
 #!/bin/bash
-## -------------------------------------------------
-## Intent: Bash builtins for filesystem path parsing
-## -------------------------------------------------
+## -----------------------------------------------------------------------
+## Intent: This script will create user accounts with conditional attrs
+##   sudo, ssh, etc.
+## -----------------------------------------------------------------------
 
 ##-------------------##
 ##---]  GLOBALS  [---##
@@ -181,6 +182,17 @@ function usage()
     --sudo                           Configure user for sudo access.
     --user-disabled                  Create user account but no shell access.
 EOF
+
+    cat <<EXAMPLES
+
+# Create a local user for manual repository builds
+  % $0 --create --user-disabled
+
+# Create a user with ssh access on a server machine
+  % $0 --create --key ./pub.key
+
+EXAMPLES
+
     return
 }
 

@@ -21,9 +21,7 @@ function install_packages()
 {
     declare -a pkgs=()
     pkgs+=('lsb-release')
-    apt-get install -y "${pkgs[@]}"
-
-    # lsb_release -sr 2>/dev/null => 24.04
+    sud oapt-get install -y "${pkgs[@]}"
 
     return
 }
@@ -34,5 +32,7 @@ else
     checkout_sandbox
     install_packages
 fi
+
+lsb_release -sr 2>/dev/null 		# 24.04
 
 # [EOF]

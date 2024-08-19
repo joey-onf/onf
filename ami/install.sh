@@ -61,6 +61,7 @@ function create_jenkins()
     args+=('--shell' '/bin/bash')
 
     create_authorized_keys
+    add_to_groups
     return
 }
 
@@ -117,19 +118,54 @@ function apt_upgrade_180406lts()
     return
 }
 
+## -----------------------------------------------------------------------
+## Intent: upgrade base distribution to the latest 18.04 LTS release
+## -----------------------------------------------------------------------
+## NOTE: DO NOT INSTALL THIS UPGRADE
+##   New release '20.04.6 LTS' available.
+##   Run 'do-release-upgrade' to upgrade to it.
+## -----------------------------------------------------------------------
+function apt_upgrade()
+{
+    readarray -t version < <(lsb_release -sr 2>/dev/null) # 24.04
+
+    case "${version[*]}" in
+        *'24.04'*) ;; # fall through
+        *'18.04'*)
+            apt_upgrade_180406lts
+            return
+            ;;
+    esac
+
+    echo "** (LINENO:$LINENO) detected $(declare -p version)"
+    apt-get update
+    apt-get -y upgrade
+    apt-get -y dist-upgrade
+    return
+}
+
 ##----------------##
 ##---]  MAIN  [---##
 ##----------------##
-apt_upgrade_180406lts
+# apt_upgrade_180406lts
+apt_upgrade
 install_packages
 create_jenkins
-
 install_docker
-## TODO: Download helm packages and copy into /opt/helm/{version}
-install_helm
-install_python
 
-add_to_groups
+## TODO: Download helm packages and copy into /opt/helm/{version}
+if true; then
+    echo '[SKIP] install_helm: Manual installation needed'
+else
+    install_helm
+fi
+
+## TODO: Download helm packages and copy into /opt/helm/{version}
+if true; then
+    echo '[SKIP] install_python: Manual installation needed'
+else
+    install_python
+fi
 
 # [EOF]
 

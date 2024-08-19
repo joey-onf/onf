@@ -1,4 +1,7 @@
 # -*- makefile -*-
+## -----------------------------------------------------------------------
+## Intent: Anonymous checkout repositor(y|ies) for local build
+## -----------------------------------------------------------------------
 
 GIT ?= /usr/bin/env git
 
@@ -8,10 +11,14 @@ repos += voltha-protos
 all : $(repos)
 
 $(repos) :
-        $(GIT) clone "https://gerrit.opencord.org/$@"
-        cd $@ && git remote set-url --push origin no_push
-        git config user.email 'foo@bar.com'
-        git config user.name 'Jenkins Server'
+
+	@printf '\nClone: %s\n' "$@"
+	@$(GIT) clone "https://gerrit.opencord.org/$@"
+
+	@printf '\nReConfigure git to prevent commits from prototype sandbox\n'
+	@cd $@ && git remote set-url --push origin no_push
+	@git config user.email 'foo@bar.com'
+	@git config user.name 'Jenkins Server'
 
 clean ::
 
