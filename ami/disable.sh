@@ -10,7 +10,17 @@ function disable_apt_news()
     return
 }
 
+##----------------##
+##---]  MAIN  [---##
+##----------------##
+readarray -t version < <(lsb_release -sr 2>/dev/null)
 
-disable_apt_news
+case "${version[*]}" in
+    *'18.04'*) disable_apt_news ;;
+    *)
+        echo "[SKIP] $0"
+        echo '[SKIP] Update services are only disabled for legacy 18.04 install'
+        ;;
+esac
 
 # [EOF]
