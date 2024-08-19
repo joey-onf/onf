@@ -17,12 +17,12 @@ $(repos) :
 
 	@printf '\nReConfigure git to prevent commits from prototype sandbox\n'
 	@cd $@ && git remote set-url --push origin no_push
-	@git config user.email 'foo@bar.com'
-	@git config user.name 'Jenkins Server'
+	@cd $@ && git config user.email 'foo@bar.com'
+	@cd $@ && git config user.name 'Jenkins Server'
 
 clean ::
 
 sterile :: clean
-        $(RM) -r $(repos)
+	$(RM) -r $(repos)
 
 # [EOF]

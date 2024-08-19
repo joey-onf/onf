@@ -64,23 +64,7 @@ function install_python()
     python_configure_apt
     
     case "${version[*]}" in
-        *'24.04'*)
-            declare -a pkgs=()
-            pkgs+=('python3.7')
-            pkgs+=('python3.7-dev')
-            pkgs+=('python3.7-venv')
-            pkgs+=('libpython3.7')
-            pkgs+=('libpython3.7-dev')
-
-            pkgs+=('python3.8')
-            pkgs+=('python3.8-dev')
-            pkgs+=('python3.8-venv')
-            pkgs+=('libpython3.8')
-            pkgs+=('libpython3.8-dev')
-
-            sudo apt-get install "${pkgs[@]}"
-            ;;
-        
+        *'24.04'*) ;;
         *'18.04'*)
             install_python_interpreter
             networkd_dispatcher_deps

@@ -14,6 +14,7 @@ function checkout_sandbox()
     
     cd /sandbox
     git clone https://github.com/joey-onf/onf.git
+    cp onf/ami/etc/checkout_repo.mk makefile
     return
 }
 
