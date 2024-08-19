@@ -7,9 +7,9 @@
 umask 022
 
 declare -g user_home='/home/jenkins'
-readarray user_home
+# readarray user_home
 declare -g user_home_ssh="${user_home}/.ssh"
-readarray user_home_ssh
+# readarray user_home_ssh
 
 source ami/docker.sh
 source ami/python.sh
@@ -42,6 +42,16 @@ function banner()
 ** $@
 ** -----------------------------------------------------------------------
 EOF
+    return
+}
+
+## -----------------------------------------------------------------------
+## Intent: Display an error message then exit
+## -----------------------------------------------------------------------
+function status()
+{
+    [[ $# -eq 0 ]] && { set -- ''; }
+    printf '** %s: %s\n' "${FUNCNAME[0]}" "$@"
     return
 }
 
@@ -105,7 +115,7 @@ function create_jenkins_orig()
 ## -----------------------------------------------------------------------
 function install_packages()
 {
-    banner "${FUNCNAME[0}}"
+    banner "${FUNCNAME[0]}"
     enter
     readarray -t configs < <(find . -name '*.pkg' -print)
     declare -p configs
@@ -122,7 +132,8 @@ function install_packages()
         local package
         for package in "${packages[@]}";
         do
-            apt-get install -y "$package"
+            status "PACKAGE: $package"
+            sudo apt-get install -y "$package"
         done
         
     done
@@ -165,7 +176,7 @@ function apt_upgrade_180406lts()
 ## -----------------------------------------------------------------------
 function apt_upgrade()
 {
-    banner "${FUNCNAME[0}}"
+    banner "${FUNCNAME[0]}"
     enter
     readarray -t version < <(lsb_release -sr 2>/dev/null) # 24.04
 
@@ -178,9 +189,9 @@ function apt_upgrade()
     esac
 
     echo "** (LINENO:$LINENO) detected $(declare -p version)"
-    apt-get update
-    apt-get -y upgrade
-    apt-get -y dist-upgrade
+    sudo apt-get update
+    sudo apt-get -y upgrade
+    sudo apt-get -y dist-upgrade
 
     leave
     return
