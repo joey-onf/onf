@@ -22,7 +22,7 @@ function install_packages()
 {
     declare -a pkgs=()
     pkgs+=('lsb-release')
-    sud oapt-get install -y "${pkgs[@]}"
+    sudo apt-get install -y "${pkgs[@]}"
 
     return
 }

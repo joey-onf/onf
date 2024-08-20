@@ -294,6 +294,7 @@ do
         '--pran')    emails+=('praneeth.nalmas@radisys.com')     ;;
 
         -*daf)       emails+=('daf@opennetworking.org')          ;;
+        # -*daf)       emails+=('daf@linuxfuondation.org')         ;;
         -*gustavo)   emails+=('gsilva@furukawalatam.com')        ;;
         #   -*holger)  emails+=('holger.hildebrandt@adtran.com') ;;
 
